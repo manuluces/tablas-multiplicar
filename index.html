@@ -5046,6 +5046,123 @@
       color: #ffffff;
     }
 
+
+    /* IMPORTADOR TEMPORAL DE PROGRESO ANTIGUO */
+    .legacy-import-wrap {
+      margin-top: 16px;
+      padding: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .legacy-import-title {
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .legacy-import-help {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .legacy-import-button {
+      width: 100%;
+      margin-top: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--card);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .legacy-import-button:hover {
+      border-color: var(--primary);
+    }
+
+    .legacy-import-status {
+      min-height: 14px;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .legacy-import-status.success {
+      color: var(--green);
+    }
+
+    .legacy-import-status.error {
+      color: var(--red);
+    }
+
+    html[data-theme="dark"] .legacy-import-wrap {
+      border-color: #646464;
+    }
+
+    html[data-theme="dark"] .legacy-import-button {
+      border-color: #646464;
+      background: #505050;
+      color: #ffffff;
+    }
+
+
+    /* PÁGINA TEMPORAL DE IMPORTAR / EXPORTAR */
+    .data-transfer-intro {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .data-transfer-card {
+      padding: 14px;
+    }
+
+    .data-transfer-title {
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .data-transfer-help {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .data-transfer-card .legacy-import-button {
+      margin-top: 11px;
+    }
+
+    .data-transfer-note {
+      margin-top: 10px;
+      padding: 9px 10px;
+      border-radius: 9px;
+      background: rgba(127,127,127,.08);
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
 </style>
 </head>
 <body>
@@ -5256,6 +5373,24 @@
         </div>
       </div>
 
+      <div class="settings-section-nav" role="tablist" aria-label="Secciones de progreso">
+        <button id="progressSectionButton" class="settings-section-button active" type="button" role="tab" aria-selected="true">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 3v18h18"/>
+            <path d="m7 16 4-5 4 3 5-7"/>
+          </svg>
+          Progreso
+        </button>
+        <button id="dataSectionButton" class="settings-section-button" type="button" role="tab" aria-selected="false">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12"/>
+            <path d="m7 10 5 5 5-5"/>
+            <path d="M5 21h14"/>
+          </svg>
+          Importar / exportar
+        </button>
+      </div>
+
       <div id="progressPane" class="settings-pane">
         <div class="progress-section-card progress-table-section">
           <div class="progress-selector-heading"><span class="progress-step">1.</span> Selecciona la tabla</div>
@@ -5345,6 +5480,49 @@
             <button id="cancelReset" class="cancel-reset">Cancelar</button>
             <button id="confirmReset" class="confirm-reset">Sí, borrar todo</button>
           </div>
+        </div>
+      </div>
+
+      <div id="dataPane" class="settings-pane" hidden>
+        <p class="data-transfer-intro">
+          Herramientas temporales para mover una copia del progreso entre versiones o navegadores.
+        </p>
+
+        <div class="progress-section-card data-transfer-card">
+          <div class="data-transfer-title">Exportar progreso</div>
+          <div id="progressExportSummary" class="data-transfer-help">
+            Preparando resumen del progreso guardado…
+          </div>
+          <button id="progressExportButton" class="legacy-import-button" type="button">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21V9"/>
+              <path d="m17 14-5-5-5 5"/>
+              <path d="M5 3h14"/>
+            </svg>
+            Exportar copia de progreso
+          </button>
+          <div id="progressExportStatus" class="legacy-import-status" aria-live="polite"></div>
+        </div>
+
+        <div class="progress-section-card data-transfer-card">
+          <div class="data-transfer-title">Importar progreso</div>
+          <div class="data-transfer-help">
+            Admite la copia HTML de la versión antigua y las copias JSON creadas por esta versión.
+          </div>
+          <button id="legacyImportButton" class="legacy-import-button" type="button">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v12"></path>
+              <path d="m7 10 5 5 5-5"></path>
+              <path d="M5 21h14"></path>
+            </svg>
+            Importar copia de progreso
+          </button>
+          <input id="legacyImportFile" type="file" accept=".html,.json,text/html,application/json" hidden>
+          <div id="legacyImportStatus" class="legacy-import-status" aria-live="polite"></div>
+        </div>
+
+        <div class="data-transfer-note">
+          Importar reemplaza el progreso guardado actualmente en este navegador. Exporta una copia antes si quieres conservarlo.
         </div>
       </div>
     </div>
@@ -5525,10 +5703,13 @@
         openSettings: document.getElementById("openSettings"),
         closeSettings: document.getElementById("closeSettings"),
         settingsBackdrop: document.getElementById("settingsBackdrop"),
+        progressSectionButton: document.getElementById("progressSectionButton"),
+        dataSectionButton: document.getElementById("dataSectionButton"),
+        progressPane: document.getElementById("progressPane"),
+        dataPane: document.getElementById("dataPane"),
         openProgressInfo: document.getElementById("openProgressInfo"),
         closeProgressInfo: document.getElementById("closeProgressInfo"),
         progressInfoBackdrop: document.getElementById("progressInfoBackdrop"),
-        progressPane: document.getElementById("progressPane"),
         progressTabs: document.getElementById("progressTabs"),
         progressExercisesTitle: document.getElementById("progressExercisesTitle"),
         progressFactsGrid: document.getElementById("progressFactsGrid"),
@@ -5549,6 +5730,12 @@
         progressRecentLabel: document.getElementById("progressRecentLabel"),
         progressStatusLine: document.getElementById("progressStatusLine"),
         progressHistoryNote: document.getElementById("progressHistoryNote"),
+        progressExportButton: document.getElementById("progressExportButton"),
+        progressExportSummary: document.getElementById("progressExportSummary"),
+        progressExportStatus: document.getElementById("progressExportStatus"),
+        legacyImportButton: document.getElementById("legacyImportButton"),
+        legacyImportFile: document.getElementById("legacyImportFile"),
+        legacyImportStatus: document.getElementById("legacyImportStatus"),
         showReset: document.getElementById("showReset"),
         resetConfirm: document.getElementById("resetConfirm"),
         cancelReset: document.getElementById("cancelReset"),
@@ -5947,6 +6134,271 @@
 
       function setSmoothingPrior() {
         state.smoothingPrior = DEFAULT_SMOOTHING;
+      }
+
+      function decodeLegacyBase64Utf8(value) {
+        const clean = String(value || "").replace(/\s+/g, "");
+        const binary = atob(clean);
+        const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+        return new TextDecoder("utf-8").decode(bytes);
+      }
+
+      function normalizePortableProgress(statsSource, historySource) {
+        const normalizedStats = {};
+        const normalizedHistory = {};
+        let totalCorrect = 0;
+        let totalIncorrect = 0;
+        let detailedAttempts = 0;
+        let factCount = 0;
+
+        const stats =
+          statsSource && typeof statsSource === "object"
+            ? statsSource
+            : {};
+        const history =
+          historySource && typeof historySource === "object"
+            ? historySource
+            : {};
+
+        Object.entries(stats).forEach(([key, rawRecord]) => {
+          if (!/^\d+x\d+$/.test(key)) return;
+
+          const record =
+            rawRecord && typeof rawRecord === "object"
+              ? rawRecord
+              : {};
+          const correct = Math.max(0, Number.parseInt(record.correct, 10) || 0);
+          const incorrect = Math.max(0, Number.parseInt(record.incorrect, 10) || 0);
+          const attempts = correct + incorrect;
+
+          if (!attempts) return;
+
+          normalizedStats[key] = { correct, incorrect };
+          totalCorrect += correct;
+          totalIncorrect += incorrect;
+          factCount += 1;
+
+          const entries = Array.isArray(history[key]) ? history[key] : [];
+          const normalizedEntries = entries
+            .filter(entry => Array.isArray(entry) && entry.length >= 2)
+            .map((entry, index) => {
+              const rawOrder = Number(entry[0]);
+              const order = Number.isFinite(rawOrder) ? rawOrder : index + 1;
+              return [order, entry[1] ? 1 : 0];
+            })
+            .slice(-5000);
+
+          if (normalizedEntries.length) {
+            normalizedHistory[key] = normalizedEntries;
+            detailedAttempts += normalizedEntries.length;
+          }
+        });
+
+        return {
+          stats: normalizedStats,
+          history: normalizedHistory,
+          totalCorrect,
+          totalIncorrect,
+          totalAttempts: totalCorrect + totalIncorrect,
+          detailedAttempts,
+          factCount
+        };
+      }
+
+      function buildCurrentProgressBackup() {
+        const normalized = normalizePortableProgress(state.stats, state.history);
+
+        return {
+          format: "tablas-multiplicar-progress",
+          version: 1,
+          exportedAt: Date.now(),
+          progress: {
+            stats: normalized.stats,
+            history: normalized.history
+          }
+        };
+      }
+
+      function exportCurrentProgress() {
+        saveStats();
+        saveHistory();
+
+        const payload = buildCurrentProgressBackup();
+        const json = JSON.stringify(payload, null, 2);
+        const blob = new Blob([json], { type: "application/json;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        const date = new Date(payload.exportedAt).toISOString().slice(0, 10);
+
+        link.href = url;
+        link.download = `progreso_tablas_${date}.json`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+        const summary = normalizePortableProgress(state.stats, state.history);
+        els.progressExportStatus.className = "legacy-import-status success";
+        els.progressExportStatus.textContent =
+          `Copia creada: ${summary.totalAttempts} intentos · ${summary.totalCorrect} aciertos · ${summary.totalIncorrect} fallos.`;
+      }
+
+      function convertCurrentProgressJson(jsonText) {
+        const payload = JSON.parse(jsonText);
+
+        if (
+          payload?.format !== "tablas-multiplicar-progress" ||
+          Number(payload?.version) !== 1 ||
+          !payload?.progress
+        ) {
+          throw new Error("El archivo JSON no es una copia de progreso compatible.");
+        }
+
+        const normalized = normalizePortableProgress(
+          payload.progress.stats,
+          payload.progress.history
+        );
+
+        if (!normalized.totalAttempts) {
+          throw new Error("La copia no contiene intentos de multiplicación para importar.");
+        }
+
+        return {
+          ...normalized,
+          source: "current"
+        };
+      }
+
+      function convertProgressImport(fileName, fileText) {
+        const trimmed = String(fileText || "").trim();
+        const looksLikeJson =
+          String(fileName || "").toLowerCase().endsWith(".json") ||
+          trimmed.startsWith("{");
+
+        return looksLikeJson
+          ? convertCurrentProgressJson(trimmed)
+          : convertLegacyProgressHtml(fileText);
+      }
+
+      function renderDataTransferView() {
+        const summary = normalizePortableProgress(state.stats, state.history);
+
+        els.progressExportSummary.textContent =
+          summary.totalAttempts
+            ? `La copia incluirá ${summary.totalAttempts} intentos: ${summary.totalCorrect} aciertos y ${summary.totalIncorrect} fallos.`
+            : "Todavía no hay progreso de multiplicaciones para exportar.";
+
+        els.progressExportButton.disabled = summary.totalAttempts === 0;
+      }
+
+      function convertLegacyProgressHtml(htmlText) {
+        const doc = new DOMParser().parseFromString(htmlText, "text/html");
+        const embedded = doc.getElementById("embeddedAppData");
+        const encoded = embedded?.textContent?.trim();
+
+        if (!encoded) {
+          throw new Error("El archivo no contiene el historial exportado de la versión antigua.");
+        }
+
+        const payload = JSON.parse(decodeLegacyBase64Utf8(encoded));
+        const storage = payload?.storage;
+
+        if (!storage || typeof storage !== "object") {
+          throw new Error("No se encontró el progreso guardado dentro del archivo.");
+        }
+
+        const rawStatsV2 = storage["mult_fact_stats_v2"];
+        if (!rawStatsV2) {
+          throw new Error("Este archivo no usa el formato de progreso antiguo compatible.");
+        }
+
+        const parsedStats = JSON.parse(rawStatsV2);
+        const facts =
+          parsedStats?.facts && typeof parsedStats.facts === "object"
+            ? parsedStats.facts
+            : {};
+
+        const convertedStats = {};
+        const convertedHistory = {};
+        let totalCorrect = 0;
+        let totalIncorrect = 0;
+        let detailedAttempts = 0;
+        let factCount = 0;
+
+        Object.entries(facts).forEach(([key, rawRecord]) => {
+          const record = rawRecord && typeof rawRecord === "object"
+            ? rawRecord
+            : {};
+
+          const correct = Math.max(0, Number.parseInt(record.correct, 10) || 0);
+          const incorrect = Math.max(0, Number.parseInt(record.incorrect, 10) || 0);
+          const attempts = correct + incorrect;
+
+          if (!attempts) return;
+
+          convertedStats[key] = { correct, incorrect };
+          totalCorrect += correct;
+          totalIncorrect += incorrect;
+          factCount += 1;
+
+          const oldHistory = Array.isArray(record.attemptHistory)
+            ? record.attemptHistory
+            : [];
+
+          const convertedEntries = oldHistory
+            .filter(entry => Array.isArray(entry) && entry.length >= 2)
+            .map((entry, index) => {
+              const rawOrder = Number(entry[0]);
+              const order = Number.isFinite(rawOrder) ? rawOrder : index + 1;
+              return [order, entry[1] ? 1 : 0];
+            })
+            .slice(-5000);
+
+          if (convertedEntries.length) {
+            convertedHistory[key] = convertedEntries;
+            detailedAttempts += convertedEntries.length;
+          }
+        });
+
+        const totalAttempts = totalCorrect + totalIncorrect;
+
+        if (!totalAttempts) {
+          throw new Error("El archivo no contiene intentos de multiplicación para importar.");
+        }
+
+        return {
+          stats: convertedStats,
+          history: convertedHistory,
+          totalCorrect,
+          totalIncorrect,
+          totalAttempts,
+          detailedAttempts,
+          factCount,
+          exportId: payload?.exportId || null,
+          source: "legacy"
+        };
+      }
+
+      function setLegacyImportStatus(message, type = "") {
+        els.legacyImportStatus.className =
+          `legacy-import-status${type ? ` ${type}` : ""}`;
+        els.legacyImportStatus.textContent = message;
+      }
+
+      function applyLegacyProgressImport(converted) {
+        state.stats = converted.stats;
+        state.history = converted.history;
+        saveStats();
+        saveHistory();
+
+        renderTables();
+        renderSettingsTable();
+        renderProgressView();
+
+        setLegacyImportStatus(
+          `Importado: ${converted.totalAttempts} intentos · ${converted.totalCorrect} aciertos · ${converted.totalIncorrect} fallos.`,
+          "success"
+        );
       }
 
       function loadHistory() {
@@ -6618,23 +7070,42 @@
         return null;
       }
 
-      function setSettingsView() {
-        state.settingsView = "progress";
+      function setSettingsView(view = "progress") {
+        state.settingsView = view === "data" ? "data" : "progress";
+        const showingProgress = state.settingsView === "progress";
 
-        const currentInfo = factInfo(
-          state.progressTable,
-          state.progressMultiplier
+        els.progressPane.hidden = !showingProgress;
+        els.dataPane.hidden = showingProgress;
+
+        els.progressSectionButton.classList.toggle("active", showingProgress);
+        els.dataSectionButton.classList.toggle("active", !showingProgress);
+        els.progressSectionButton.setAttribute(
+          "aria-selected",
+          showingProgress ? "true" : "false"
+        );
+        els.dataSectionButton.setAttribute(
+          "aria-selected",
+          showingProgress ? "false" : "true"
         );
 
-        if (currentInfo.attempts === 0) {
-          const firstWithData = findFirstFactWithData();
-          if (firstWithData) {
-            state.progressTable = firstWithData.table;
-            state.progressMultiplier = firstWithData.multiplier;
-          }
-        }
+        if (showingProgress) {
+          const currentInfo = factInfo(
+            state.progressTable,
+            state.progressMultiplier
+          );
 
-        renderProgressView();
+          if (currentInfo.attempts === 0) {
+            const firstWithData = findFirstFactWithData();
+            if (firstWithData) {
+              state.progressTable = firstWithData.table;
+              state.progressMultiplier = firstWithData.multiplier;
+            }
+          }
+
+          renderProgressView();
+        } else {
+          renderDataTransferView();
+        }
       }
 
       function renderProgressTabs() {
@@ -6802,7 +7273,10 @@
       function openSettings() {
         els.resetConfirm.classList.remove("open");
         els.showReset.style.display = "";
-        setSettingsView();
+        setLegacyImportStatus("");
+        els.progressExportStatus.className = "legacy-import-status";
+        els.progressExportStatus.textContent = "";
+        setSettingsView("progress");
         els.settingsBackdrop.classList.add("open");
         trackAnalyticsEvent("progress_open");
       }
@@ -7232,6 +7706,9 @@
       els.closeSettings.addEventListener("click", closeSettings);
       els.openProgressInfo.addEventListener("click", openProgressInfo);
       els.closeProgressInfo.addEventListener("click", closeProgressInfo);
+      els.progressSectionButton.addEventListener("click", () => setSettingsView("progress"));
+      els.dataSectionButton.addEventListener("click", () => setSettingsView("data"));
+      els.progressExportButton.addEventListener("click", exportCurrentProgress);
 
       els.analyticsAccept.addEventListener("click", acceptAnalytics);
       els.analyticsReject.addEventListener("click", rejectAnalytics);
@@ -7257,6 +7734,56 @@
         if (sanitized.length === answerLength) checkAnswer(sanitized);
       });
 
+      els.legacyImportButton.addEventListener("click", () => {
+        setLegacyImportStatus("");
+        els.legacyImportFile.value = "";
+        els.legacyImportFile.click();
+      });
+
+      els.legacyImportFile.addEventListener("change", async event => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        setLegacyImportStatus("Leyendo el archivo…");
+
+        try {
+          const fileText = await file.text();
+          const converted = convertProgressImport(file.name, fileText);
+
+          const message =
+            `Se encontraron ${converted.totalAttempts} intentos: ` +
+            `${converted.totalCorrect} aciertos y ${converted.totalIncorrect} fallos ` +
+            `en ${converted.factCount} multiplicaciones.\n\n` +
+            `La importación reemplazará el progreso actual guardado en este navegador. ` +
+            `¿Quieres continuar?`;
+
+          if (!window.confirm(message)) {
+            setLegacyImportStatus("Importación cancelada.");
+            return;
+          }
+
+          applyLegacyProgressImport(converted);
+          renderDataTransferView();
+
+          if (converted.detailedAttempts < converted.totalAttempts) {
+            const missing =
+              converted.totalAttempts - converted.detailedAttempts;
+            setLegacyImportStatus(
+              `Importado: ${converted.totalAttempts} intentos. ` +
+              `${converted.detailedAttempts} conservan historial individual y ` +
+              `${missing} permanecen incluidos en los totales globales.`,
+              "success"
+            );
+          }
+        } catch (error) {
+          console.error(error);
+          setLegacyImportStatus(
+            error?.message || "No se pudo importar ese archivo.",
+            "error"
+          );
+        }
+      });
+
       els.showReset.addEventListener("click", () => {
         els.showReset.style.display = "none";
         els.resetConfirm.classList.add("open");
@@ -7275,6 +7802,7 @@
         renderTables();
         renderSettingsTable();
         renderProgressView();
+        renderDataTransferView();
         els.resetConfirm.classList.remove("open");
         els.showReset.style.display = "";
       });
