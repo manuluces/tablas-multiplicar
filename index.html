@@ -5163,6 +5163,32 @@
       font-weight: 700;
     }
 
+
+    /* AVISO DE DERECHOS DE AUTOR */
+    .copyright-notice {
+      position: absolute;
+      right: 18px;
+      bottom: 11px;
+      z-index: 2;
+      max-width: calc(100% - 36px);
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.25;
+      font-weight: 700;
+      text-align: right;
+      opacity: .82;
+      pointer-events: none;
+    }
+
+    @media (max-width: 620px) {
+      .copyright-notice {
+        right: 14px;
+        bottom: 9px;
+        max-width: calc(100% - 28px);
+        font-size: 8.5px;
+      }
+    }
+
 </style>
 </head>
 <body>
@@ -5352,7 +5378,11 @@
         </button>
       </div>
     </section>
-  </main>
+  
+  <div class="copyright-notice" aria-label="Derechos de autor">
+    © 2026 Manuel Alejandro Luces · Todos los derechos reservados.
+  </div>
+</main>
 
   <div id="settingsBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
     <div class="modal">
