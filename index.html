@@ -1361,13 +1361,120 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-
     .progress-chart-card {
       border: 1px solid #e2e7ee;
       border-radius: 14px;
       padding: 13px;
       background: #fff;
       box-shadow: 0 4px 10px rgba(17,42,87,.05);
+    }
+
+    .progress-trend-card {
+      margin-top: 12px;
+      border: 1px solid #e2e7ee;
+      border-radius: 14px;
+      padding: 13px;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(17,42,87,.05);
+    }
+
+    .progress-trend-card-header {
+      margin-bottom: 10px;
+    }
+
+    .progress-trend-card-title {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .progress-trend-card-subtitle {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .progress-trend-card-body {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 58px;
+      padding: 10px 11px;
+      border-radius: 11px;
+      background: #f7f9fc;
+    }
+
+    .progress-trend-card-icon {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: #ffffff;
+      font-size: 21px;
+      line-height: 1;
+      box-shadow: 0 2px 7px rgba(17,42,87,.07);
+    }
+
+    .progress-trend-card-copy {
+      min-width: 0;
+    }
+
+    .progress-trend-card-state {
+      color: var(--ink);
+      font-family: "Baloo 2", cursive;
+      font-size: 18px;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .progress-trend-card-note {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .progress-trend-card.improving .progress-trend-card-body {
+      background: var(--green-soft);
+    }
+
+    .progress-trend-card.stable .progress-trend-card-body {
+      background: var(--primary-soft);
+    }
+
+    .progress-trend-card.reinforcement .progress-trend-card-body {
+      background: var(--red-soft);
+    }
+
+    html[data-theme="dark"] .progress-trend-card {
+      border-color: #303c50;
+      background: #182438;
+    }
+
+    html[data-theme="dark"] .progress-trend-card-body {
+      background: #121d2f;
+    }
+
+    html[data-theme="dark"] .progress-trend-card-icon {
+      background: #25334a;
+      box-shadow: none;
+    }
+
+    html[data-theme="dark"] .progress-trend-card.improving .progress-trend-card-body {
+      background: #31483a;
+    }
+
+    html[data-theme="dark"] .progress-trend-card.stable .progress-trend-card-body {
+      background: #403b2d;
+    }
+
+    html[data-theme="dark"] .progress-trend-card.reinforcement .progress-trend-card-body {
+      background: #503535;
     }
 
     .progress-chart-header {
@@ -4768,6 +4875,177 @@
     }
   }
 
+
+    /* TENDENCIA DE APRENDIZAJE */
+    .progress-trend-line {
+      min-height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 11px;
+      padding: 7px 10px;
+      border: 1px solid #dedede;
+      border-radius: 10px;
+      background: #f7f7f7;
+      color: var(--muted);
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .progress-trend-line.improving {
+      border-color: rgba(53,168,93,.26);
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .progress-trend-line.stable {
+      border-color: rgba(215,161,31,.28);
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+    }
+
+    .progress-trend-line.reinforcement {
+      border-color: rgba(219,90,96,.25);
+      background: var(--red-soft);
+      color: var(--red);
+    }
+
+    .progress-trend-icon {
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .progress-trend-delta {
+      opacity: .9;
+      white-space: nowrap;
+    }
+
+    html[data-theme="dark"] .progress-trend-line {
+      border-color: #646464;
+      background: #505050;
+      color: var(--muted);
+    }
+
+    html[data-theme="dark"] .progress-trend-line.improving {
+      border-color: rgba(110,212,142,.28);
+      background: #31483a;
+      color: #7dde9b;
+    }
+
+    html[data-theme="dark"] .progress-trend-line.stable {
+      border-color: rgba(225,171,48,.30);
+      background: #574a2d;
+      color: #efc65f;
+    }
+
+    html[data-theme="dark"] .progress-trend-line.reinforcement {
+      border-color: rgba(255,139,139,.26);
+      background: #503535;
+      color: #ff9b9b;
+    }
+
+
+    /* TENDENCIA — mismo lenguaje visual que Porcentaje de aciertos */
+    .progress-trend-card {
+      margin-top: 12px;
+    }
+
+    .progress-trend-card .progress-chart-header {
+      margin-bottom: 8px;
+    }
+
+    .progress-trend-card-body {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 52px;
+      padding: 9px 0 2px;
+      border-top: 1px solid #e2e7ee;
+      border-radius: 0;
+      background: transparent !important;
+    }
+
+    .progress-trend-card-icon {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #e2e7ee;
+      border-radius: 9px;
+      background: #f7f9fc;
+      box-shadow: none;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .progress-trend-card-state {
+      color: var(--ink);
+      font-family: "Baloo 2", cursive;
+      font-size: 17px;
+      line-height: 1.05;
+      font-weight: 800;
+    }
+
+    .progress-trend-card-note {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    /* Ningún estado modifica colores ni fondos. */
+    .progress-trend-card.improving .progress-trend-card-body,
+    .progress-trend-card.stable .progress-trend-card-body,
+    .progress-trend-card.reinforcement .progress-trend-card-body {
+      background: transparent !important;
+    }
+
+    html[data-theme="dark"] .progress-trend-card {
+      background: #505050;
+      border-color: #646464;
+      color: #ffffff;
+    }
+
+    html[data-theme="dark"] .progress-trend-card-body {
+      border-top-color: #646464;
+      background: transparent !important;
+    }
+
+    html[data-theme="dark"] .progress-trend-card-icon {
+      border-color: #646464;
+      background: #464646;
+      box-shadow: none;
+    }
+
+    html[data-theme="dark"] .progress-trend-card.improving .progress-trend-card-body,
+    html[data-theme="dark"] .progress-trend-card.stable .progress-trend-card-body,
+    html[data-theme="dark"] .progress-trend-card.reinforcement .progress-trend-card-body {
+      background: transparent !important;
+    }
+
+    html[data-theme="dark"] .progress-trend-card-state {
+      color: #ffffff;
+    }
+
+    html[data-theme="dark"] .progress-trend-card-note {
+      color: var(--muted);
+    }
+
+
+    .progress-trend-card-note strong {
+      color: var(--ink);
+      font-weight: 900;
+    }
+
+    html[data-theme="dark"] .progress-trend-card-note strong {
+      color: #ffffff;
+    }
+
 </style>
 </head>
 <body>
@@ -5012,7 +5290,7 @@
         <div class="progress-chart-card">
           <div class="progress-chart-header">
             <div>
-              <div id="progressChartTitle" class="progress-chart-title">Rendimiento</div>
+              <div id="progressChartTitle" class="progress-chart-title">Porcentaje de aciertos</div>
               <div class="progress-chart-subtitle">
                 Compara el historial completo con el rendimiento reciente.
               </div>
@@ -5041,6 +5319,25 @@
           <div id="progressStatusLine" class="progress-status-line"></div>
           <div id="progressHistoryNote" class="progress-history-note" hidden></div>
         </div>
+
+        <div id="progressTrendCard" class="progress-chart-card progress-trend-card">
+          <div class="progress-chart-header">
+            <div>
+              <div class="progress-chart-title">Tendencia</div>
+              <div class="progress-chart-subtitle">
+                Comparamos los aciertos recientes con el historial para ver cómo está evolucionando.
+              </div>
+            </div>
+          </div>
+          <div class="progress-trend-card-body">
+            <div id="progressTrendIcon" class="progress-trend-card-icon" aria-hidden="true">⏳</div>
+            <div class="progress-trend-card-copy">
+              <div id="progressTrendState" class="progress-trend-card-state">Aún sin tendencia</div>
+              <div id="progressTrendNote" class="progress-trend-card-note">Faltan datos para calcularla.</div>
+            </div>
+          </div>
+        </div>
+
         <button id="showReset" class="reset-button"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar progreso guardado</button>
         <div id="resetConfirm" class="reset-confirm">
           <p>¿Seguro? Los pesos, porcentajes y el historial de progreso volverán a cero. Esta acción no se puede deshacer.</p>
@@ -5098,6 +5395,16 @@
           </div>
           <p>
             <strong>Global</strong> muestra el porcentaje de aciertos de todo el historial. <strong>Últimos 10</strong> refleja mejor cómo está resolviendo ese ejercicio actualmente.
+          </p>
+        </section>
+
+        <section class="info-guide-card">
+          <div class="info-guide-title">
+            <span class="info-guide-symbol">📊</span>
+            <span>Tendencia · 📈 Mejorando · ➖ Estable · 💪 Refuerzo</span>
+          </div>
+          <p>
+            <strong>Tendencia</strong> compara los últimos intentos con el historial anterior para mostrar la evolución. A partir de 14 intentos indica si mejora, se mantiene estable o necesita refuerzo. La app ya refuerza automáticamente las multiplicaciones que más lo necesitan.
           </p>
         </section>
 
@@ -5172,6 +5479,12 @@
       const ANALYTICS_MEASUREMENT_ID = "G-2STJ64NQCN";
       const ANALYTICS_CONSENT_KEY = "mult_analytics_consent_v1";
 
+      // La tendencia compara los últimos 7 intentos con todo el historial
+      // anterior de esa multiplicación, excluyendo esos 7 intentos recientes.
+      // Una diferencia de 20 puntos porcentuales o más marca una tendencia clara.
+      const TREND_WINDOW = 7;
+      const TREND_THRESHOLD_POINTS = 20;
+
       const state = {
         screen: "setup",
         selectedTables: new Set([1, 2, 3]),
@@ -5223,6 +5536,10 @@
         progressAccuracy: document.getElementById("progressAccuracy"),
         progressIncorrect: document.getElementById("progressIncorrect"),
         progressWeight: document.getElementById("progressWeight"),
+        progressTrendCard: document.getElementById("progressTrendCard"),
+        progressTrendIcon: document.getElementById("progressTrendIcon"),
+        progressTrendState: document.getElementById("progressTrendState"),
+        progressTrendNote: document.getElementById("progressTrendNote"),
         progressChartTitle: document.getElementById("progressChartTitle"),
         progressHistoryCount: document.getElementById("progressHistoryCount"),
         progressGlobalFill: document.getElementById("progressGlobalFill"),
@@ -5769,6 +6086,131 @@
         };
       }
 
+      function factTrendInfo(a, b, windowSize = TREND_WINDOW) {
+        const key = factKey(a, b);
+        const history = Array.isArray(state.history[key])
+          ? state.history[key]
+          : [];
+        const record = state.stats[key] || { correct: 0, incorrect: 0 };
+        const totalCorrect = record.correct || 0;
+        const totalIncorrect = record.incorrect || 0;
+        const totalAttempts = totalCorrect + totalIncorrect;
+        const requiredAttempts = windowSize * 2;
+        const recentWindow = history.slice(-windowSize);
+
+        // Necesitamos al menos 7 intentos recientes cuyo orden conozcamos
+        // y otros 7 intentos anteriores como referencia mínima.
+        if (
+          totalAttempts < requiredAttempts ||
+          recentWindow.length < windowSize
+        ) {
+          return {
+            evaluable: false,
+            count: totalAttempts,
+            needed: Math.max(
+              0,
+              requiredAttempts - totalAttempts,
+              windowSize - recentWindow.length
+            ),
+            windowSize
+          };
+        }
+
+        const recentCorrect = recentWindow.reduce(
+          (sum, entry) => sum + (entry[1] ? 1 : 0),
+          0
+        );
+        const recentIncorrect = windowSize - recentCorrect;
+
+        // "Histórico anterior" = global menos los últimos 7.
+        // Así los datos recientes no están incluidos en los dos lados
+        // de la comparación.
+        const previousCorrect = Math.max(0, totalCorrect - recentCorrect);
+        const previousIncorrect = Math.max(0, totalIncorrect - recentIncorrect);
+        const previousAttempts = previousCorrect + previousIncorrect;
+
+        if (previousAttempts < windowSize) {
+          return {
+            evaluable: false,
+            count: totalAttempts,
+            needed: windowSize - previousAttempts,
+            windowSize
+          };
+        }
+
+        const previousAccuracy = previousCorrect / previousAttempts;
+        const recentAccuracy = recentCorrect / windowSize;
+        const deltaPoints = Math.round(
+          (recentAccuracy - previousAccuracy) * 100
+        );
+
+        const status =
+          deltaPoints >= TREND_THRESHOLD_POINTS
+            ? "improving"
+            : deltaPoints <= -TREND_THRESHOLD_POINTS
+              ? "reinforcement"
+              : "stable";
+
+        return {
+          evaluable: true,
+          count: totalAttempts,
+          windowSize,
+          previousAttempts,
+          previousAccuracy,
+          recentAccuracy,
+          previousCorrect,
+          recentCorrect,
+          previousPercent: Math.round(previousAccuracy * 100),
+          recentPercent: Math.round(recentAccuracy * 100),
+          deltaPoints,
+          status
+        };
+      }
+
+      function trendPresentation(trend) {
+        if (!trend?.evaluable) return null;
+
+        return {
+          improving: { icon: "📈", label: "Mejorando" },
+          stable: { icon: "➖", label: "Estable" },
+          reinforcement: { icon: "💪", label: "Necesita refuerzo" }
+        }[trend.status];
+      }
+
+      function summarizeTrendForTables(tables) {
+        const summary = {
+          evaluable: 0,
+          improving: 0,
+          stable: 0,
+          reinforcement: 0,
+          deltaTotal: 0
+        };
+
+        tables.forEach(table => {
+          MULTIPLIERS.forEach(multiplier => {
+            const trend = factTrendInfo(table, multiplier);
+            if (!trend.evaluable) return;
+
+            summary.evaluable += 1;
+            summary[trend.status] += 1;
+            summary.deltaTotal += trend.deltaPoints;
+          });
+        });
+
+        return {
+          evaluable: summary.evaluable,
+          improving: summary.improving,
+          stable: summary.stable,
+          reinforcement: summary.reinforcement,
+          averageDeltaPoints: summary.evaluable
+            ? Math.round(summary.deltaTotal / summary.evaluable)
+            : null,
+          improvingPercent: summary.evaluable
+            ? Math.round((summary.improving / summary.evaluable) * 100)
+            : null
+        };
+      }
+
       function factMasteryStatus(a, b) {
         const key = factKey(a, b);
         const history = Array.isArray(state.history[key])
@@ -6220,7 +6662,6 @@
         els.progressFactsGrid.innerHTML = "";
 
         MULTIPLIERS.forEach(multiplier => {
-          const info = factInfo(state.progressTable, multiplier);
           const recent = recentFactInfo(state.progressTable, multiplier, 10);
 
           const accuracyClass =
@@ -6260,6 +6701,8 @@
         const info = factInfo(a, b);
         const recent = recentFactInfo(a, b, 10);
         const masteryStatus = factMasteryStatus(a, b);
+        const trend = factTrendInfo(a, b);
+        const trendCopy = trendPresentation(trend);
 
         const globalPercent = info.accuracy === null
           ? null
@@ -6275,7 +6718,32 @@
           ? info.weight.toFixed(1)
           : "—";
 
-        els.progressChartTitle.textContent = `${a} × ${b}`;
+        els.progressTrendCard.className = "progress-chart-card progress-trend-card";
+
+        if (!trend.evaluable || !trendCopy) {
+          els.progressTrendIcon.textContent = "⏳";
+          els.progressTrendState.textContent = "Aún sin tendencia";
+          els.progressTrendNote.textContent =
+            trend.count === 0
+              ? "Faltan datos para calcularla."
+              : `Faltan ${trend.needed} ${trend.needed === 1 ? "intento" : "intentos"} para calcularla.`;
+        } else {
+          els.progressTrendIcon.textContent = trendCopy.icon;
+          els.progressTrendState.textContent = trendCopy.label;
+
+          const trendExplanation =
+            trend.status === "improving"
+              ? "Está acertando más que antes."
+              : trend.status === "reinforcement"
+                ? "Está acertando menos que antes."
+                : "Su rendimiento se mantiene parecido.";
+
+          els.progressTrendNote.innerHTML =
+            `<strong>Reciente: ${trend.recentPercent}% · Antes: ${trend.previousPercent}%</strong>` +
+            `<br>${trendExplanation}`;
+        }
+
+        els.progressChartTitle.textContent = "Porcentaje de aciertos";
         els.progressHistoryCount.textContent =
           `${info.attempts} ${info.attempts === 1 ? "intento" : "intentos"}`;
 
@@ -6649,6 +7117,19 @@
           ? Math.round((state.session.correct / total) * 100)
           : 0;
         const completedPlan = total >= state.session.questionLimit;
+        const trendSummary = summarizeTrendForTables(state.session.tables);
+
+        const trendAnalytics = {
+          trend_evaluable_facts: trendSummary.evaluable,
+          trend_improving_facts: trendSummary.improving,
+          trend_stable_facts: trendSummary.stable,
+          trend_reinforcement_facts: trendSummary.reinforcement
+        };
+
+        if (trendSummary.evaluable > 0) {
+          trendAnalytics.trend_average_pp = trendSummary.averageDeltaPoints;
+          trendAnalytics.trend_improving_percent = trendSummary.improvingPercent;
+        }
 
         trackAnalyticsEvent("practice_end", {
           end_reason: completedPlan ? "completed" : reason,
@@ -6659,7 +7140,8 @@
           accuracy_percent: accuracyPercent,
           duration_seconds: state.elapsed,
           table_count: state.session.tables.length,
-          completed_plan: completedPlan ? 1 : 0
+          completed_plan: completedPlan ? 1 : 0,
+          ...trendAnalytics
         });
 
         renderSummary();
