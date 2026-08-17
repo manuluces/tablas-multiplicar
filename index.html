@@ -4626,6 +4626,148 @@
     }
   }
 
+
+  /* ------------------------------------------------------------
+     ANALÍTICA OPCIONAL Y CONSENTIMIENTO
+     Google Analytics solo se carga después de aceptar.
+     ------------------------------------------------------------ */
+  .analytics-consent-banner {
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    z-index: 1000;
+    width: min(calc(100% - 24px), 680px);
+    transform: translateX(-50%);
+    padding: 16px;
+    border: 1px solid #d7d7d7;
+    border-radius: 16px;
+    background: rgba(255,255,255,.98);
+    color: #303030;
+    box-shadow: 0 16px 40px rgba(0,0,0,.18);
+    font-family: "Nunito", system-ui, sans-serif;
+  }
+
+  .analytics-consent-banner[hidden],
+  .privacy-manage-button[hidden] {
+    display: none !important;
+  }
+
+  .analytics-consent-title {
+    margin: 0 0 5px;
+    font-size: 15px;
+    line-height: 1.25;
+    font-weight: 900;
+  }
+
+  .analytics-consent-text {
+    margin: 0;
+    color: #5f5f5f;
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+
+  .analytics-consent-text a {
+    color: #8a6410;
+    font-weight: 900;
+  }
+
+  .analytics-consent-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 13px;
+  }
+
+  .analytics-consent-actions button,
+  .privacy-manage-button {
+    border-radius: 10px;
+    font-family: "Nunito", system-ui, sans-serif;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .analytics-consent-actions button {
+    min-width: 112px;
+    min-height: 40px;
+    padding: 9px 14px;
+  }
+
+  .analytics-reject-button {
+    border: 1px solid #cfcfcf;
+    background: #f5f5f5;
+    color: #383838;
+  }
+
+  .analytics-accept-button {
+    border: 1px solid #a8780f;
+    background: #d7a11f;
+    color: #252525;
+  }
+
+  .privacy-manage-button {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    z-index: 900;
+    min-height: 32px;
+    padding: 6px 10px;
+    border: 1px solid rgba(90,90,90,.28);
+    background: rgba(255,255,255,.90);
+    color: #666;
+    font-size: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    opacity: .78;
+  }
+
+  .privacy-manage-button:hover { opacity: 1; }
+
+  html[data-theme="dark"] .analytics-consent-banner {
+    border-color: #5b5b5b;
+    background: rgba(65,65,65,.99);
+    color: #f2f2f2;
+    box-shadow: 0 18px 45px rgba(0,0,0,.42);
+  }
+
+  html[data-theme="dark"] .analytics-consent-text { color: #c9c9c9; }
+  html[data-theme="dark"] .analytics-consent-text a { color: #f1c85a; }
+
+  html[data-theme="dark"] .analytics-reject-button {
+    border-color: #666;
+    background: #505050;
+    color: #f0f0f0;
+  }
+
+  html[data-theme="dark"] .analytics-accept-button {
+    border-color: #c99319;
+    background: #e1ab30;
+    color: #202020;
+  }
+
+  html[data-theme="dark"] .privacy-manage-button {
+    border-color: rgba(255,255,255,.16);
+    background: rgba(62,62,62,.94);
+    color: #d7d7d7;
+  }
+
+  @media (max-width: 560px) {
+    .analytics-consent-banner {
+      bottom: 10px;
+      padding: 14px;
+      border-radius: 14px;
+    }
+
+    .analytics-consent-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .analytics-consent-actions button {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -4982,6 +5124,36 @@
     </div>
   </div>
 
+
+  <div
+    id="analyticsConsentBanner"
+    class="analytics-consent-banner"
+    role="dialog"
+    aria-label="Preferencias de analítica"
+    aria-live="polite"
+    hidden
+  >
+    <p class="analytics-consent-title">Ayúdanos a mejorar</p>
+    <p class="analytics-consent-text">
+      Si aceptas, usamos Google Analytics para medir el uso de la app. Esto nos ayuda a mantenerla y mejorarla.
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Más información</a>.
+    </p>
+    <div class="analytics-consent-actions">
+      <button id="analyticsReject" class="analytics-reject-button" type="button">No, gracias</button>
+      <button id="analyticsAccept" class="analytics-accept-button" type="button">Aceptar analítica</button>
+    </div>
+  </div>
+
+  <button
+    id="privacyManage"
+    class="privacy-manage-button"
+    type="button"
+    aria-label="Cambiar preferencias de privacidad"
+    hidden
+  >
+    Privacidad
+  </button>
+
   <script>
     (() => {
       const MULTIPLIERS = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -4997,6 +5169,8 @@
       const VOLUME_KEY = "mult_volume_v1";
       const SMOOTHING_KEY = "mult_smoothing_v1";
       const HISTORY_KEY = "mult_fact_history_v1";
+      const ANALYTICS_MEASUREMENT_ID = "G-2STJ64NQCN";
+      const ANALYTICS_CONSENT_KEY = "mult_analytics_consent_v1";
 
       const state = {
         screen: "setup",
@@ -5081,8 +5255,160 @@
         summaryWrong: document.getElementById("summaryWrong"),
         summaryTables: document.getElementById("summaryTables"),
         wrongList: document.getElementById("wrongList"),
-        restartButton: document.getElementById("restartButton")
+        restartButton: document.getElementById("restartButton"),
+        analyticsConsentBanner: document.getElementById("analyticsConsentBanner"),
+        analyticsReject: document.getElementById("analyticsReject"),
+        analyticsAccept: document.getElementById("analyticsAccept"),
+        privacyManage: document.getElementById("privacyManage")
       };
+
+
+      // ------------------------------------------------------------
+      // ANALÍTICA OPCIONAL
+      // Consentimiento básico: no se carga ninguna etiqueta de Google
+      // hasta que el visitante acepta expresamente.
+      // ------------------------------------------------------------
+      let analyticsLoaded = false;
+      let analyticsSessionConsent = null;
+
+      function readAnalyticsConsent() {
+        try {
+          const choice = localStorage.getItem(ANALYTICS_CONSENT_KEY);
+          if (choice === "granted" || choice === "denied") {
+            analyticsSessionConsent = choice;
+            return choice;
+          }
+        } catch {
+          // Se usa el estado de esta visita si localStorage está bloqueado.
+        }
+
+        return analyticsSessionConsent;
+      }
+
+      function saveAnalyticsConsent(choice) {
+        analyticsSessionConsent = choice;
+
+        try {
+          localStorage.setItem(ANALYTICS_CONSENT_KEY, choice);
+        } catch {
+          // Si localStorage está bloqueado, la elección dura solo esta visita.
+        }
+      }
+
+      function analyticsGtag() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(arguments);
+      }
+
+      function loadAnalytics() {
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || analyticsGtag;
+
+        window.gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "denied"
+        });
+
+        window.gtag("consent", "update", {
+          analytics_storage: "granted"
+        });
+
+        window.gtag("js", new Date());
+        window.gtag("config", ANALYTICS_MEASUREMENT_ID, {
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false
+        });
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src =
+          `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ANALYTICS_MEASUREMENT_ID)}`;
+        document.head.appendChild(script);
+      }
+
+      function trackAnalyticsEvent(eventName, parameters = {}) {
+        if (readAnalyticsConsent() !== "granted") return;
+        loadAnalytics();
+        window.gtag("event", eventName, parameters);
+      }
+
+      function deleteAnalyticsCookies() {
+        const cookieNames = document.cookie
+          .split(";")
+          .map(cookie => cookie.trim().split("=")[0])
+          .filter(name => name === "_ga" || name.startsWith("_ga_"));
+
+        cookieNames.forEach(name => {
+          document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
+          document.cookie =
+            `${name}=; Max-Age=0; path=/; domain=${location.hostname}; SameSite=Lax`;
+        });
+      }
+
+      function showAnalyticsConsent() {
+        els.analyticsConsentBanner.hidden = false;
+        els.privacyManage.hidden = true;
+      }
+
+      function hideAnalyticsConsent() {
+        els.analyticsConsentBanner.hidden = true;
+        els.privacyManage.hidden = false;
+      }
+
+      function acceptAnalytics() {
+        saveAnalyticsConsent("granted");
+        hideAnalyticsConsent();
+
+        if (analyticsLoaded && typeof window.gtag === "function") {
+          window.gtag("consent", "update", {
+            analytics_storage: "granted",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+          return;
+        }
+
+        loadAnalytics();
+      }
+
+      function rejectAnalytics() {
+        saveAnalyticsConsent("denied");
+
+        if (typeof window.gtag === "function") {
+          window.gtag("consent", "update", {
+            analytics_storage: "denied",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+          });
+        }
+
+        deleteAnalyticsCookies();
+        hideAnalyticsConsent();
+      }
+
+      function initAnalyticsConsent() {
+        const choice = readAnalyticsConsent();
+
+        if (choice === "granted") {
+          hideAnalyticsConsent();
+          loadAnalytics();
+          return;
+        }
+
+        if (choice === "denied") {
+          hideAnalyticsConsent();
+          return;
+        }
+
+        showAnalyticsConsent();
+      }
 
       function loadTheme() {
         try {
@@ -6010,6 +6336,7 @@
         els.showReset.style.display = "";
         setSettingsView();
         els.settingsBackdrop.classList.add("open");
+        trackAnalyticsEvent("progress_open");
       }
 
       function closeSettings() {
@@ -6020,6 +6347,7 @@
 
       function openProgressInfo() {
         els.progressInfoBackdrop.classList.add("open");
+        trackAnalyticsEvent("info_open");
       }
 
       function closeProgressInfo() {
@@ -6058,6 +6386,13 @@
           ),
           normalPlannedCount: priorityPlan.normalTarget
         };
+
+        trackAnalyticsEvent("practice_start", {
+          question_limit: state.questionLimit,
+          table_count: tables.length,
+          tables_selected: tables.join("-")
+        });
+
         state.elapsed = 0;
         state.awaitingCorrection = false;
         state.feedback = "none";
@@ -6134,7 +6469,7 @@
         if (state.screen !== "study" || !state.session) return;
 
         if (state.session.total >= state.session.questionLimit) {
-          endSession();
+          endSession("completed");
           return;
         }
 
@@ -6301,11 +6636,32 @@
         }
       }
 
-      function endSession() {
+      function endSession(reason = "manual") {
+        if (!state.session) return;
+
         clearInterval(state.timer);
         clearTimeout(state.transitionTimer);
         state.session.endTime = Date.now();
         state.elapsed = Math.floor((state.session.endTime - state.session.startTime) / 1000);
+
+        const total = state.session.total;
+        const accuracyPercent = total
+          ? Math.round((state.session.correct / total) * 100)
+          : 0;
+        const completedPlan = total >= state.session.questionLimit;
+
+        trackAnalyticsEvent("practice_end", {
+          end_reason: completedPlan ? "completed" : reason,
+          questions_answered: total,
+          planned_questions: state.session.questionLimit,
+          correct_answers: state.session.correct,
+          incorrect_answers: state.session.incorrect,
+          accuracy_percent: accuracyPercent,
+          duration_seconds: state.elapsed,
+          table_count: state.session.tables.length,
+          completed_plan: completedPlan ? 1 : 0
+        });
+
         renderSummary();
         showScreen("summary");
       }
@@ -6377,7 +6733,7 @@
       });
 
       els.startButton.addEventListener("click", startSession);
-      els.endButton.addEventListener("click", endSession);
+      els.endButton.addEventListener("click", () => endSession("manual"));
       els.restartButton.addEventListener("click", () => {
         renderTables();
         showScreen("setup");
@@ -6394,6 +6750,10 @@
       els.closeSettings.addEventListener("click", closeSettings);
       els.openProgressInfo.addEventListener("click", openProgressInfo);
       els.closeProgressInfo.addEventListener("click", closeProgressInfo);
+
+      els.analyticsAccept.addEventListener("click", acceptAnalytics);
+      els.analyticsReject.addEventListener("click", rejectAnalytics);
+      els.privacyManage.addEventListener("click", showAnalyticsConsent);
 
       els.settingsBackdrop.addEventListener("click", event => {
         if (event.target === els.settingsBackdrop) closeSettings();
@@ -6473,6 +6833,7 @@
       });
 
       applyTheme(loadTheme(), false);
+      initAnalyticsConsent();
       renderVolumeControl();
       renderSmoothingControl();
       renderTables();
