@@ -5189,12 +5189,573 @@
       }
     }
 
+
+    /* PERFILES LOCALES */
+    .profile-control {
+      position: absolute;
+      top: 6px;
+      left: 0;
+      z-index: 8;
+    }
+
+    .profile-button {
+      max-width: 164px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      border: 1px solid #dfe6f1;
+      border-radius: 13px;
+      background: rgba(255,255,255,.96);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+
+    .profile-button:hover {
+      transform: translateY(-2px);
+      border-color: #a8c4f7;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-button .ic {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 auto;
+      color: var(--primary);
+    }
+
+    .profile-button-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .profile-button-caret {
+      flex: 0 0 auto;
+      margin-left: 1px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .profile-modal {
+      width: min(100%, 500px);
+    }
+
+    .profile-description {
+      margin: 0 0 18px 57px;
+      max-width: 365px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .profile-section-label {
+      margin: 0 0 8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .45px;
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .profile-list {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .profile-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 11px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 3px 8px rgba(17,42,87,.05);
+    }
+
+    .profile-row.active {
+      min-height: 82px;
+      padding: 14px;
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      background: var(--primary-soft);
+      box-shadow: 0 7px 16px rgba(40,116,240,.12);
+    }
+
+    .profile-row-main {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-row.active .profile-row-main {
+      gap: 12px;
+    }
+
+    .profile-avatar {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eef4ff;
+      color: var(--primary);
+      border: 1px solid #dce8fb;
+    }
+
+    .profile-row.active .profile-avatar {
+      width: 46px;
+      height: 46px;
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 5px 12px rgba(40,116,240,.18);
+    }
+
+    .profile-avatar .ic {
+      width: 17px;
+      height: 17px;
+    }
+
+    .profile-row.active .profile-avatar .ic {
+      width: 21px;
+      height: 21px;
+    }
+
+    .profile-row-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .profile-row-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.15;
+      font-weight: 900;
+    }
+
+    .profile-row.active .profile-row-name {
+      font-family: "Baloo 2", cursive;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .profile-row-state {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .profile-active-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 6px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(22,170,104,.14);
+      color: var(--green);
+      font-size: 9px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .profile-active-badge::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .profile-row-actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .profile-small-button {
+      min-width: 34px;
+      height: 32px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: border-color .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .profile-small-button:hover:not(:disabled) {
+      border-color: #a8c4f7;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .profile-small-button.use {
+      min-width: 58px;
+      color: var(--primary);
+      border-color: #cbdcf8;
+      background: #f4f8ff;
+    }
+
+    .profile-small-button:disabled {
+      opacity: .45;
+      cursor: default;
+    }
+
+    .profile-small-button .ic {
+      width: 14px;
+      height: 14px;
+    }
+
+    .profile-create {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(127,127,127,.045);
+    }
+
+    .profile-create-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .profile-create-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+    }
+
+    .profile-name-input {
+      width: 100%;
+      min-width: 0;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0 11px;
+      background: var(--card);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 800;
+      outline: none;
+    }
+
+    .profile-name-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(40,116,240,.09);
+    }
+
+    .profile-add-button {
+      height: 40px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(40,116,240,.16);
+    }
+
+    .profile-add-button:disabled {
+      opacity: .45;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .profile-manager-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .progress-profile-context {
+      margin: -4px 0 12px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .progress-profile-context strong {
+      color: var(--ink);
+    }
+
+    html[data-theme="dark"] .profile-button {
+      border-color: #5d5d5d;
+      background: #474747;
+      color: #f1f1f1;
+      box-shadow: 0 6px 14px rgba(0,0,0,.18);
+    }
+
+    html[data-theme="dark"] .profile-button-caret {
+      color: #bdbdbd;
+    }
+
+    html[data-theme="dark"] .profile-row {
+      border-color: #5d5d5d;
+      background: #474747;
+      box-shadow: 0 4px 10px rgba(0,0,0,.14);
+    }
+
+    html[data-theme="dark"] .profile-row.active {
+      border-color: var(--primary);
+      background: #505050;
+      box-shadow: 0 7px 16px rgba(0,0,0,.20);
+    }
+
+    html[data-theme="dark"] .profile-avatar {
+      border-color: #646464;
+      background: #505050;
+      color: #e6e6e6;
+    }
+
+    html[data-theme="dark"] .profile-row.active .profile-avatar {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+    }
+
+    html[data-theme="dark"] .profile-row.active .profile-row-name {
+      color: #fff;
+    }
+
+    html[data-theme="dark"] .profile-active-badge {
+      background: rgba(22,170,104,.16);
+      color: #86efac;
+    }
+
+    html[data-theme="dark"] .profile-small-button {
+      border-color: #646464;
+      color: #d3d3d3;
+    }
+
+    html[data-theme="dark"] .profile-small-button:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: #505050;
+      color: #fff;
+    }
+
+    html[data-theme="dark"] .profile-small-button.use {
+      border-color: #646464;
+      background: #505050;
+      color: #f1f1f1;
+    }
+
+    html[data-theme="dark"] .profile-create {
+      border-color: #5d5d5d;
+      background: #474747;
+    }
+
+    html[data-theme="dark"] .profile-name-input {
+      border-color: #646464;
+      background: #505050;
+      color: #fff;
+    }
+
+    @media (max-width: 620px) {
+      .profile-button {
+        max-width: 132px;
+        height: 40px;
+        padding: 0 9px;
+        font-size: 11px;
+      }
+
+      .profile-description {
+        margin-left: 0;
+      }
+
+      .profile-create-row {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-add-button {
+        width: 100%;
+      }
+
+      .profile-row {
+        gap: 7px;
+        padding: 9px;
+      }
+
+      .profile-row.active {
+        padding: 12px;
+      }
+
+      .profile-row-actions {
+        gap: 4px;
+      }
+
+      .profile-small-button.use {
+        min-width: 50px;
+        padding: 0 6px;
+      }
+    }
+
+
+    /* SELECTOR DE EXPORTACIÓN DE PERFILES */
+    .export-choice-modal {
+      width: min(100%, 470px);
+    }
+
+    .export-choice-description {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .export-choice-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .export-choice-button {
+      width: 100%;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(17,42,87,.05);
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .export-choice-button:hover {
+      transform: translateY(-1px);
+      border-color: var(--primary);
+      box-shadow: 0 6px 14px rgba(17,42,87,.08);
+    }
+
+    .export-choice-button.all {
+      min-height: 58px;
+      border-color: #cbdcf8;
+      background: var(--primary-soft);
+    }
+
+    .export-choice-icon {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eef4ff;
+      color: var(--primary);
+    }
+
+    .export-choice-button.all .export-choice-icon {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .export-choice-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .export-choice-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .export-choice-help {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.3;
+      font-weight: 700;
+    }
+
+    html[data-theme="dark"] .export-choice-button {
+      border-color: #646464;
+      background: #474747;
+    }
+
+    html[data-theme="dark"] .export-choice-button.all {
+      border-color: var(--primary);
+      background: #505050;
+    }
+
+    html[data-theme="dark"] .export-choice-icon {
+      background: #505050;
+      color: #f1f1f1;
+    }
+
+    html[data-theme="dark"] .export-choice-button.all .export-choice-icon {
+      background: var(--primary);
+      color: #fff;
+    }
+
 </style>
+
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#0F94F7">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+
 </head>
 <body>
   <main class="app" aria-live="polite">
     <section id="setupScreen" class="screen active">
       <div class="header">
+        <div class="profile-control">
+          <button id="profileButton" class="profile-button" type="button" aria-label="Cambiar perfil">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+            <span id="profileButtonName" class="profile-button-name">Perfil 1</span>
+            <span class="profile-button-caret" aria-hidden="true">▾</span>
+          </button>
+        </div>
+
         <div id="volumeControl" class="volume-control">
           <button
             id="volumeToggle"
@@ -5384,6 +5945,54 @@
   </div>
 </main>
 
+  <div id="profileBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="profileManagerTitle">
+    <div class="modal profile-modal">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+          </span>
+          <span id="profileManagerTitle">Perfiles</span>
+        </div>
+        <button id="closeProfiles" class="close-button" aria-label="Cerrar perfiles">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18"/>
+            <path d="m6 6 12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="profile-description">
+        Cada niño tiene su propio progreso guardado en este navegador.
+      </p>
+
+      <div id="profileList" class="profile-list"></div>
+
+      <div class="profile-create">
+        <label class="profile-create-label" for="profileNewName">Añadir otro perfil</label>
+        <div class="profile-create-row">
+          <input
+            id="profileNewName"
+            class="profile-name-input"
+            type="text"
+            maxlength="24"
+            autocomplete="off"
+            placeholder="Nombre o apodo"
+            aria-label="Nombre del nuevo perfil"
+          />
+          <button id="addProfileButton" class="profile-add-button" type="button">Añadir perfil</button>
+        </div>
+        <div class="profile-manager-footer">
+          <span>Los nombres y el progreso permanecen en este navegador.</span>
+          <span id="profileLimitText">1 / 5 perfiles</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="settingsBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
     <div class="modal">
       <div class="modal-header">
@@ -5422,6 +6031,7 @@
       </div>
 
       <div id="progressPane" class="settings-pane">
+        <div class="progress-profile-context">Perfil: <strong id="progressProfileName">Perfil 1</strong></div>
         <div class="progress-section-card progress-table-section">
           <div class="progress-selector-heading"><span class="progress-step">1.</span> Selecciona la tabla</div>
           <div id="progressTabs" class="progress-tabs"></div>
@@ -5505,7 +6115,7 @@
 
         <button id="showReset" class="reset-button"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar progreso guardado</button>
         <div id="resetConfirm" class="reset-confirm">
-          <p>¿Seguro? Los pesos, porcentajes y el historial de progreso volverán a cero. Esta acción no se puede deshacer.</p>
+          <p>¿Seguro? Los pesos, porcentajes y el historial del perfil actual volverán a cero. Esta acción no se puede deshacer.</p>
           <div class="reset-actions">
             <button id="cancelReset" class="cancel-reset">Cancelar</button>
             <button id="confirmReset" class="confirm-reset">Sí, borrar todo</button>
@@ -5521,7 +6131,7 @@
         <div class="progress-section-card data-transfer-card">
           <div class="data-transfer-title">Exportar progreso</div>
           <div id="progressExportSummary" class="data-transfer-help">
-            Preparando resumen del progreso guardado…
+            Elige un perfil concreto o crea una copia con todos los perfiles juntos.
           </div>
           <button id="progressExportButton" class="legacy-import-button" type="button">
             <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -5552,9 +6162,38 @@
         </div>
 
         <div class="data-transfer-note">
-          Importar reemplaza el progreso guardado actualmente en este navegador. Exporta una copia antes si quieres conservarlo.
+          Las copias pueden incluir nombres de perfiles y su progreso. Todo se procesa localmente en el navegador.
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="exportChoiceBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="exportChoiceTitle">
+    <div class="modal export-choice-modal">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21V9"/>
+              <path d="m17 14-5-5-5 5"/>
+              <path d="M5 3h14"/>
+            </svg>
+          </span>
+          <span id="exportChoiceTitle">Exportar progreso</span>
+        </div>
+        <button id="closeExportChoice" class="close-button" aria-label="Cerrar exportación">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 6 6 18"/>
+            <path d="m6 6 12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="export-choice-description">
+        ¿Qué perfiles quieres guardar en la copia?
+      </p>
+
+      <div id="exportChoiceList" class="export-choice-list"></div>
     </div>
   </div>
 
@@ -5684,6 +6323,9 @@
       const VOLUME_KEY = "mult_volume_v1";
       const SMOOTHING_KEY = "mult_smoothing_v1";
       const HISTORY_KEY = "mult_fact_history_v1";
+      const PROFILES_KEY = "mult_profiles_v1";
+      const ACTIVE_PROFILE_KEY = "mult_active_profile_v1";
+      const MAX_PROFILES = 10;
       const ANALYTICS_MEASUREMENT_ID = "G-2STJ64NQCN";
       const ANALYTICS_CONSENT_KEY = "mult_analytics_consent_v1";
 
@@ -5731,6 +6373,15 @@
         volumeValue: document.getElementById("volumeValue"),
         themeToggle: document.getElementById("themeToggle"),
         openSettings: document.getElementById("openSettings"),
+        profileButton: document.getElementById("profileButton"),
+        profileButtonName: document.getElementById("profileButtonName"),
+        profileBackdrop: document.getElementById("profileBackdrop"),
+        closeProfiles: document.getElementById("closeProfiles"),
+        profileList: document.getElementById("profileList"),
+        profileNewName: document.getElementById("profileNewName"),
+        addProfileButton: document.getElementById("addProfileButton"),
+        profileLimitText: document.getElementById("profileLimitText"),
+        progressProfileName: document.getElementById("progressProfileName"),
         closeSettings: document.getElementById("closeSettings"),
         settingsBackdrop: document.getElementById("settingsBackdrop"),
         progressSectionButton: document.getElementById("progressSectionButton"),
@@ -5763,6 +6414,9 @@
         progressExportButton: document.getElementById("progressExportButton"),
         progressExportSummary: document.getElementById("progressExportSummary"),
         progressExportStatus: document.getElementById("progressExportStatus"),
+        exportChoiceBackdrop: document.getElementById("exportChoiceBackdrop"),
+        closeExportChoice: document.getElementById("closeExportChoice"),
+        exportChoiceList: document.getElementById("exportChoiceList"),
         legacyImportButton: document.getElementById("legacyImportButton"),
         legacyImportFile: document.getElementById("legacyImportFile"),
         legacyImportStatus: document.getElementById("legacyImportStatus"),
@@ -6235,13 +6889,27 @@
         };
       }
 
-      function buildCurrentProgressBackup() {
-        const normalized = normalizePortableProgress(state.stats, state.history);
+      function readStoredProfileProgress(profileId) {
+        let stats = {};
+        let history = {};
+
+        try {
+          stats = JSON.parse(localStorage.getItem(profileStatsKey(profileId))) || {};
+        } catch {}
+
+        try {
+          history = JSON.parse(localStorage.getItem(profileHistoryKey(profileId))) || {};
+        } catch {}
+
+        return normalizePortableProgress(stats, history);
+      }
+
+      function portableProfileRecord(profile) {
+        const normalized = readStoredProfileProgress(profile.id);
 
         return {
-          format: "tablas-multiplicar-progress",
-          version: 1,
-          exportedAt: Date.now(),
+          name: profile.name,
+          createdAt: profile.createdAt || Date.now(),
           progress: {
             stats: normalized.stats,
             history: normalized.history
@@ -6249,28 +6917,153 @@
         };
       }
 
-      function exportCurrentProgress() {
+      function buildProfilesBackup(profileIds) {
         saveStats();
         saveHistory();
 
-        const payload = buildCurrentProgressBackup();
+        const profiles = getProfiles()
+          .filter(profile => profileIds.includes(profile.id))
+          .map(portableProfileRecord);
+
+        return {
+          format: "tablas-multiplicar-progress",
+          version: 2,
+          exportedAt: Date.now(),
+          profiles
+        };
+      }
+
+      function safeFileName(value) {
+        return String(value || "perfil")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-zA-Z0-9_-]+/g, "_")
+          .replace(/^_+|_+$/g, "")
+          .slice(0, 40) || "perfil";
+      }
+
+      function downloadProfilesBackup(profileIds) {
+        const payload = buildProfilesBackup(profileIds);
+
+        if (!payload.profiles.length) {
+          throw new Error("No se encontraron perfiles para exportar.");
+        }
+
         const json = JSON.stringify(payload, null, 2);
         const blob = new Blob([json], { type: "application/json;charset=utf-8" });
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         const date = new Date(payload.exportedAt).toISOString().slice(0, 10);
 
+        if (payload.profiles.length === 1) {
+          link.download =
+            `progreso_tablas_${safeFileName(payload.profiles[0].name)}_${date}.json`;
+        } else {
+          link.download = `progreso_tablas_todos_${date}.json`;
+        }
+
         link.href = url;
-        link.download = `progreso_tablas_${date}.json`;
         document.body.appendChild(link);
         link.click();
         link.remove();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
 
-        const summary = normalizePortableProgress(state.stats, state.history);
+        const totalAttempts = payload.profiles.reduce((sum, profile) => {
+          const normalized = normalizePortableProgress(
+            profile.progress.stats,
+            profile.progress.history
+          );
+          return sum + normalized.totalAttempts;
+        }, 0);
+
         els.progressExportStatus.className = "legacy-import-status success";
         els.progressExportStatus.textContent =
-          `Copia creada: ${summary.totalAttempts} intentos · ${summary.totalCorrect} aciertos · ${summary.totalIncorrect} fallos.`;
+          payload.profiles.length === 1
+            ? `Copia creada de ${payload.profiles[0].name}: ${totalAttempts} intentos.`
+            : `Copia creada de ${payload.profiles.length} perfiles: ${totalAttempts} intentos en total.`;
+
+        closeExportChoice();
+      }
+
+      function renderExportChoices() {
+        saveStats();
+        saveHistory();
+
+        const profiles = getProfiles();
+        els.exportChoiceList.innerHTML = "";
+
+        const makeChoice = (title, help, profileIds, all = false) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = `export-choice-button${all ? " all" : ""}`;
+
+          const icon = document.createElement("span");
+          icon.className = "export-choice-icon";
+          icon.setAttribute("aria-hidden", "true");
+          icon.innerHTML = all
+            ? `
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>`
+            : `
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 21a8 8 0 0 1 16 0"/>
+              </svg>`;
+
+          const copy = document.createElement("span");
+          copy.className = "export-choice-copy";
+
+          const titleEl = document.createElement("span");
+          titleEl.className = "export-choice-title";
+          titleEl.textContent = title;
+
+          const helpEl = document.createElement("span");
+          helpEl.className = "export-choice-help";
+          helpEl.textContent = help;
+
+          copy.append(titleEl, helpEl);
+          button.append(icon, copy);
+          button.addEventListener("click", () => downloadProfilesBackup(profileIds));
+          return button;
+        };
+
+        if (profiles.length > 1) {
+          els.exportChoiceList.appendChild(
+            makeChoice(
+              "Todos los perfiles",
+              `Guarda juntos los ${profiles.length} perfiles de este navegador.`,
+              profiles.map(profile => profile.id),
+              true
+            )
+          );
+        }
+
+        profiles.forEach(profile => {
+          const progress = readStoredProfileProgress(profile.id);
+          els.exportChoiceList.appendChild(
+            makeChoice(
+              profile.name,
+              progress.totalAttempts
+                ? `${progress.totalAttempts} intentos guardados.`
+                : "Sin intentos todavía.",
+              [profile.id],
+              false
+            )
+          );
+        });
+      }
+
+      function openExportChoice() {
+        renderExportChoices();
+        els.exportChoiceBackdrop.classList.add("open");
+      }
+
+      function closeExportChoice() {
+        els.exportChoiceBackdrop.classList.remove("open");
       }
 
       function convertCurrentProgressJson(jsonText) {
@@ -6278,25 +7071,63 @@
 
         if (
           payload?.format !== "tablas-multiplicar-progress" ||
-          Number(payload?.version) !== 1 ||
-          !payload?.progress
+          !Number.isFinite(Number(payload?.version))
         ) {
           throw new Error("El archivo JSON no es una copia de progreso compatible.");
         }
 
-        const normalized = normalizePortableProgress(
-          payload.progress.stats,
-          payload.progress.history
-        );
+        // Formato anterior: una sola copia sin nombre de perfil.
+        if (Number(payload.version) === 1 && payload?.progress) {
+          const normalized = normalizePortableProgress(
+            payload.progress.stats,
+            payload.progress.history
+          );
 
-        if (!normalized.totalAttempts) {
-          throw new Error("La copia no contiene intentos de multiplicación para importar.");
+          if (!normalized.totalAttempts) {
+            throw new Error("La copia no contiene intentos de multiplicación para importar.");
+          }
+
+          return {
+            ...normalized,
+            source: "current-v1"
+          };
         }
 
-        return {
-          ...normalized,
-          source: "current"
-        };
+        // Formato actual: uno o varios perfiles completos.
+        if (Number(payload.version) === 2 && Array.isArray(payload.profiles)) {
+          const profiles = payload.profiles
+            .filter(item => item && typeof item === "object")
+            .map((item, index) => {
+              const name =
+                sanitizeProfileName(item.name) || `Perfil importado ${index + 1}`;
+              const normalized = normalizePortableProgress(
+                item?.progress?.stats,
+                item?.progress?.history
+              );
+
+              return {
+                name,
+                createdAt: Number(item.createdAt) || Date.now(),
+                ...normalized
+              };
+            });
+
+          if (!profiles.length) {
+            throw new Error("La copia no contiene perfiles para importar.");
+          }
+
+          return {
+            source: "profiles-v2",
+            profiles,
+            totalAttempts: profiles.reduce((sum, item) => sum + item.totalAttempts, 0),
+            totalCorrect: profiles.reduce((sum, item) => sum + item.totalCorrect, 0),
+            totalIncorrect: profiles.reduce((sum, item) => sum + item.totalIncorrect, 0),
+            factCount: profiles.reduce((sum, item) => sum + item.factCount, 0),
+            detailedAttempts: profiles.reduce((sum, item) => sum + item.detailedAttempts, 0)
+          };
+        }
+
+        throw new Error("La copia usa un formato de progreso no compatible.");
       }
 
       function convertProgressImport(fileName, fileText) {
@@ -6310,15 +7141,149 @@
           : convertLegacyProgressHtml(fileText);
       }
 
+      function uniqueImportedProfileName(baseName, occupiedNames) {
+        const original = sanitizeProfileName(baseName) || "Perfil importado";
+        let candidate = `${original} (importado)`;
+        let suffix = 2;
+
+        while (occupiedNames.has(candidate.toLocaleLowerCase())) {
+          candidate = `${original} (importado ${suffix})`;
+          suffix += 1;
+        }
+
+        return candidate.slice(0, 24);
+      }
+
+      function importProfilesBackup(converted) {
+        const imported = converted.profiles;
+        const existing = getProfiles();
+        const existingByName = new Map(
+          existing.map(profile => [profile.name.toLocaleLowerCase(), profile])
+        );
+
+        const collisions = imported.filter(profile =>
+          existingByName.has(profile.name.toLocaleLowerCase())
+        );
+
+        const firstConfirm =
+          `La copia contiene ${imported.length} perfil${imported.length === 1 ? "" : "es"} ` +
+          `y ${converted.totalAttempts} intentos en total.\n\n¿Quieres continuar?`;
+
+        if (!window.confirm(firstConfirm)) {
+          setLegacyImportStatus("Importación cancelada.");
+          return;
+        }
+
+        let replaceExisting = true;
+
+        if (collisions.length) {
+          const names = collisions.map(profile => `• ${profile.name}`).join("\n");
+          replaceExisting = window.confirm(
+            `Ya existen ${collisions.length === 1 ? "este perfil" : "estos perfiles"} en el navegador:\n\n` +
+            `${names}\n\n` +
+            `Aceptar: reemplazar su progreso con la copia importada.\n` +
+            `Cancelar: conservarlos y crear perfiles nuevos con otro nombre.`
+          );
+        }
+
+        const requiredNewProfiles = imported.reduce((count, profile) => {
+          const collision = existingByName.has(profile.name.toLocaleLowerCase());
+          return count + (collision && replaceExisting ? 0 : 1);
+        }, 0);
+
+        if (existing.length + requiredNewProfiles > MAX_PROFILES) {
+          throw new Error(
+            `No se puede importar: superarías el límite de ${MAX_PROFILES} perfiles. ` +
+            `Elimina primero uno o más perfiles y vuelve a intentarlo.`
+          );
+        }
+
+        const updatedProfiles = [...existing];
+        const occupiedNames = new Set(
+          updatedProfiles.map(profile => profile.name.toLocaleLowerCase())
+        );
+        let replaced = 0;
+        let created = 0;
+
+        imported.forEach(importedProfile => {
+          const sameName = existingByName.get(importedProfile.name.toLocaleLowerCase());
+
+          if (sameName && replaceExisting) {
+            localStorage.setItem(
+              profileStatsKey(sameName.id),
+              JSON.stringify(importedProfile.stats)
+            );
+            localStorage.setItem(
+              profileHistoryKey(sameName.id),
+              JSON.stringify(importedProfile.history)
+            );
+            replaced += 1;
+            return;
+          }
+
+          const name = sameName
+            ? uniqueImportedProfileName(importedProfile.name, occupiedNames)
+            : importedProfile.name;
+
+          const profile = {
+            id: createProfileId(),
+            name,
+            createdAt: importedProfile.createdAt || Date.now()
+          };
+
+          occupiedNames.add(name.toLocaleLowerCase());
+          updatedProfiles.push(profile);
+
+          localStorage.setItem(
+            profileStatsKey(profile.id),
+            JSON.stringify(importedProfile.stats)
+          );
+          localStorage.setItem(
+            profileHistoryKey(profile.id),
+            JSON.stringify(importedProfile.history)
+          );
+          created += 1;
+        });
+
+        writeProfiles(updatedProfiles);
+
+        // Si el perfil activo fue reemplazado, recargar sus datos en memoria.
+        state.stats = loadStats();
+        state.history = loadHistory();
+        renderProfileUI();
+        renderProfileManager();
+        renderTables();
+        renderSettingsTable();
+        renderProgressView();
+        renderDataTransferView();
+
+        const parts = [];
+        if (replaced) parts.push(`${replaced} reemplazado${replaced === 1 ? "" : "s"}`);
+        if (created) parts.push(`${created} añadido${created === 1 ? "" : "s"}`);
+
+        setLegacyImportStatus(
+          `Importación completada: ${parts.join(" · ")}.`,
+          "success"
+        );
+      }
+
       function renderDataTransferView() {
-        const summary = normalizePortableProgress(state.stats, state.history);
+        const profiles = getProfiles();
+        const totalAttempts = profiles.reduce(
+          (sum, profile) => sum + readStoredProfileProgress(profile.id).totalAttempts,
+          0
+        );
 
         els.progressExportSummary.textContent =
-          summary.totalAttempts
-            ? `La copia incluirá ${summary.totalAttempts} intentos: ${summary.totalCorrect} aciertos y ${summary.totalIncorrect} fallos.`
-            : "Todavía no hay progreso de multiplicaciones para exportar.";
+          profiles.length === 1
+            ? `Puedes exportar el perfil ${profiles[0].name}.`
+            : `Puedes exportar un perfil concreto o los ${profiles.length} perfiles juntos.`;
 
-        els.progressExportButton.disabled = summary.totalAttempts === 0;
+        els.progressExportButton.disabled = profiles.length === 0;
+
+        if (!els.progressExportStatus.textContent && totalAttempts === 0) {
+          els.progressExportStatus.textContent = "";
+        }
       }
 
       function convertLegacyProgressHtml(htmlText) {
@@ -6431,9 +7396,370 @@
         );
       }
 
+      function createProfileId() {
+        return `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+      }
+
+      function profileStatsKey(profileId) {
+        return `${STORAGE_KEY}__profile__${profileId}`;
+      }
+
+      function profileHistoryKey(profileId) {
+        return `${HISTORY_KEY}__profile__${profileId}`;
+      }
+
+      function readProfiles() {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(PROFILES_KEY));
+          if (!Array.isArray(parsed)) return [];
+
+          return parsed
+            .filter(profile => profile && typeof profile === "object")
+            .map(profile => ({
+              id: String(profile.id || "").trim(),
+              name: String(profile.name || "").trim().slice(0, 24),
+              createdAt: Number(profile.createdAt) || 0
+            }))
+            .filter(profile => profile.id && profile.name)
+            .slice(0, MAX_PROFILES);
+        } catch {
+          return [];
+        }
+      }
+
+      function writeProfiles(profiles) {
+        localStorage.setItem(PROFILES_KEY, JSON.stringify(profiles));
+      }
+
+      function ensureProfileSystem() {
+        let profiles = readProfiles();
+
+        if (!profiles.length) {
+          const profile = {
+            id: createProfileId(),
+            name: "Perfil 1",
+            createdAt: Date.now()
+          };
+
+          profiles = [profile];
+          writeProfiles(profiles);
+          localStorage.setItem(ACTIVE_PROFILE_KEY, profile.id);
+
+          // Migración automática: cualquier progreso que ya existiera antes
+          // de añadir perfiles pasa a ser el progreso del primer perfil.
+          const previousStats = localStorage.getItem(STORAGE_KEY);
+          const previousHistory = localStorage.getItem(HISTORY_KEY);
+
+          if (previousStats !== null) {
+            localStorage.setItem(profileStatsKey(profile.id), previousStats);
+          }
+
+          if (previousHistory !== null) {
+            localStorage.setItem(profileHistoryKey(profile.id), previousHistory);
+          }
+        }
+
+        let activeId = localStorage.getItem(ACTIVE_PROFILE_KEY);
+        if (!profiles.some(profile => profile.id === activeId)) {
+          activeId = profiles[0].id;
+          localStorage.setItem(ACTIVE_PROFILE_KEY, activeId);
+        }
+
+        return profiles;
+      }
+
+      function getProfiles() {
+        return ensureProfileSystem();
+      }
+
+      function getActiveProfileId() {
+        const profiles = ensureProfileSystem();
+        const activeId = localStorage.getItem(ACTIVE_PROFILE_KEY);
+        return profiles.some(profile => profile.id === activeId)
+          ? activeId
+          : profiles[0].id;
+      }
+
+      function getActiveProfile() {
+        const profiles = ensureProfileSystem();
+        const activeId = getActiveProfileId();
+        return profiles.find(profile => profile.id === activeId) || profiles[0];
+      }
+
+      function sanitizeProfileName(value) {
+        return String(value || "")
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 24);
+      }
+
+      function profileNameExists(name, exceptId = null) {
+        const normalized = sanitizeProfileName(name).toLocaleLowerCase();
+        return getProfiles().some(profile =>
+          profile.id !== exceptId &&
+          profile.name.toLocaleLowerCase() === normalized
+        );
+      }
+
+      function switchProfile(profileId, closeManager = false) {
+        const profiles = getProfiles();
+        if (!profiles.some(profile => profile.id === profileId)) return;
+
+        saveStats();
+        saveHistory();
+        localStorage.setItem(ACTIVE_PROFILE_KEY, profileId);
+
+        state.stats = loadStats();
+        state.history = loadHistory();
+        state.progressTable = 1;
+        state.progressMultiplier = 1;
+
+        renderProfileUI();
+        renderTables();
+        renderProgressView();
+        renderDataTransferView();
+
+        if (closeManager) closeProfileManager();
+        else renderProfileManager();
+      }
+
+      function addLocalProfile() {
+        const profiles = getProfiles();
+
+        if (profiles.length >= MAX_PROFILES) return;
+
+        const name = sanitizeProfileName(els.profileNewName.value);
+        if (!name) {
+          els.profileNewName.focus();
+          return;
+        }
+
+        if (profileNameExists(name)) {
+          window.alert("Ya existe un perfil con ese nombre.");
+          els.profileNewName.focus();
+          return;
+        }
+
+        const profile = {
+          id: createProfileId(),
+          name,
+          createdAt: Date.now()
+        };
+
+        profiles.push(profile);
+        writeProfiles(profiles);
+        localStorage.setItem(profileStatsKey(profile.id), "{}");
+        localStorage.setItem(profileHistoryKey(profile.id), "{}");
+        els.profileNewName.value = "";
+
+        switchProfile(profile.id, false);
+      }
+
+      function renameLocalProfile(profileId) {
+        const profiles = getProfiles();
+        const profile = profiles.find(item => item.id === profileId);
+        if (!profile) return;
+
+        const requested = window.prompt("Nuevo nombre del perfil:", profile.name);
+        if (requested === null) return;
+
+        const name = sanitizeProfileName(requested);
+        if (!name) return;
+
+        if (profileNameExists(name, profileId)) {
+          window.alert("Ya existe un perfil con ese nombre.");
+          return;
+        }
+
+        profile.name = name;
+        writeProfiles(profiles);
+        renderProfileUI();
+        renderProfileManager();
+        renderDataTransferView();
+      }
+
+      function deleteLocalProfile(profileId) {
+        const profiles = getProfiles();
+        if (profiles.length <= 1) {
+          window.alert("Debe quedar al menos un perfil.");
+          return;
+        }
+
+        const profile = profiles.find(item => item.id === profileId);
+        if (!profile) return;
+
+        const confirmed = window.confirm(
+          `¿Eliminar el perfil "${profile.name}"?\n\nSe borrará solo su progreso guardado en este navegador.`
+        );
+        if (!confirmed) return;
+
+        const wasActive = getActiveProfileId() === profileId;
+        const remaining = profiles.filter(item => item.id !== profileId);
+
+        writeProfiles(remaining);
+        localStorage.removeItem(profileStatsKey(profileId));
+        localStorage.removeItem(profileHistoryKey(profileId));
+
+        if (wasActive) {
+          localStorage.setItem(ACTIVE_PROFILE_KEY, remaining[0].id);
+          state.stats = loadStats();
+          state.history = loadHistory();
+          state.progressTable = 1;
+          state.progressMultiplier = 1;
+        }
+
+        renderProfileUI();
+        renderProfileManager();
+        renderTables();
+        renderProgressView();
+        renderDataTransferView();
+      }
+
+      function renderProfileUI() {
+        const profile = getActiveProfile();
+        if (!profile) return;
+
+        els.profileButtonName.textContent = profile.name;
+        els.profileButton.title = `Perfil actual: ${profile.name}`;
+        els.progressProfileName.textContent = profile.name;
+      }
+
+      function renderProfileManager() {
+        const profiles = getProfiles();
+        const activeId = getActiveProfileId();
+        const activeProfile = profiles.find(profile => profile.id === activeId);
+        const otherProfiles = profiles.filter(profile => profile.id !== activeId);
+
+        els.profileList.innerHTML = "";
+
+        const renderProfileRow = (profile, isActive) => {
+          const row = document.createElement("div");
+          row.className = `profile-row${isActive ? " active" : ""}`;
+
+          const main = document.createElement("div");
+          main.className = "profile-row-main";
+
+          const avatar = document.createElement("span");
+          avatar.className = "profile-avatar";
+          avatar.setAttribute("aria-hidden", "true");
+          avatar.innerHTML = `
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21a8 8 0 0 1 16 0"/>
+            </svg>
+          `;
+
+          const copy = document.createElement("span");
+          copy.className = "profile-row-copy";
+
+          const name = document.createElement("span");
+          name.className = "profile-row-name";
+          name.textContent = profile.name;
+          copy.appendChild(name);
+
+          if (isActive) {
+            const badge = document.createElement("span");
+            badge.className = "profile-active-badge";
+            badge.textContent = "Perfil activo";
+            copy.appendChild(badge);
+          } else {
+            const stateLabel = document.createElement("span");
+            stateLabel.className = "profile-row-state";
+            stateLabel.textContent = "Progreso independiente";
+            copy.appendChild(stateLabel);
+          }
+
+          main.append(avatar, copy);
+
+          const actions = document.createElement("div");
+          actions.className = "profile-row-actions";
+
+          if (!isActive) {
+            const useButton = document.createElement("button");
+            useButton.type = "button";
+            useButton.className = "profile-small-button use";
+            useButton.textContent = "Cambiar";
+            useButton.addEventListener("click", () => switchProfile(profile.id, true));
+            actions.appendChild(useButton);
+          }
+
+          const renameButton = document.createElement("button");
+          renameButton.type = "button";
+          renameButton.className = "profile-small-button";
+          renameButton.title = "Cambiar nombre";
+          renameButton.setAttribute("aria-label", `Cambiar nombre de ${profile.name}`);
+          renameButton.innerHTML = `
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 20h9"/>
+              <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+            </svg>
+          `;
+          renameButton.addEventListener("click", () => renameLocalProfile(profile.id));
+
+          const deleteButton = document.createElement("button");
+          deleteButton.type = "button";
+          deleteButton.className = "profile-small-button";
+          deleteButton.title = "Eliminar perfil";
+          deleteButton.setAttribute("aria-label", `Eliminar perfil ${profile.name}`);
+          deleteButton.disabled = profiles.length <= 1;
+          deleteButton.innerHTML = `
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 6h18"/>
+              <path d="M8 6V4h8v2"/>
+              <path d="M19 6l-1 14H6L5 6"/>
+            </svg>
+          `;
+          deleteButton.addEventListener("click", () => deleteLocalProfile(profile.id));
+
+          actions.append(renameButton, deleteButton);
+          row.append(main, actions);
+          return row;
+        };
+
+        if (activeProfile) {
+          const activeLabel = document.createElement("div");
+          activeLabel.className = "profile-section-label";
+          activeLabel.textContent = "Usando ahora";
+          els.profileList.appendChild(activeLabel);
+          els.profileList.appendChild(renderProfileRow(activeProfile, true));
+        }
+
+        if (otherProfiles.length) {
+          const otherLabel = document.createElement("div");
+          otherLabel.className = "profile-section-label";
+          otherLabel.textContent = "Otros perfiles";
+          otherLabel.style.marginTop = "6px";
+          els.profileList.appendChild(otherLabel);
+
+          otherProfiles.forEach(profile => {
+            els.profileList.appendChild(renderProfileRow(profile, false));
+          });
+        }
+
+        els.profileLimitText.textContent = `${profiles.length} / ${MAX_PROFILES} perfiles`;
+        els.addProfileButton.disabled = profiles.length >= MAX_PROFILES;
+        els.profileNewName.disabled = profiles.length >= MAX_PROFILES;
+        els.profileNewName.placeholder =
+          profiles.length >= MAX_PROFILES
+            ? "Límite de perfiles alcanzado"
+            : "Nombre o apodo";
+      }
+
+      function openProfileManager() {
+        renderProfileManager();
+        els.profileBackdrop.classList.add("open");
+        setTimeout(() => els.profileNewName.focus(), 50);
+      }
+
+      function closeProfileManager() {
+        els.profileBackdrop.classList.remove("open");
+        els.profileNewName.value = "";
+      }
+
       function loadHistory() {
         try {
-          const parsed = JSON.parse(localStorage.getItem(HISTORY_KEY)) || {};
+          const key = profileHistoryKey(getActiveProfileId());
+          const parsed = JSON.parse(localStorage.getItem(key)) || {};
           return parsed && typeof parsed === "object" ? parsed : {};
         } catch {
           return {};
@@ -6442,7 +7768,8 @@
 
       function saveHistory() {
         try {
-          localStorage.setItem(HISTORY_KEY, JSON.stringify(state.history));
+          const key = profileHistoryKey(getActiveProfileId());
+          localStorage.setItem(key, JSON.stringify(state.history));
         } catch {
           // Si el navegador bloquea el almacenamiento, la práctica continúa.
         }
@@ -6468,14 +7795,16 @@
 
       function loadStats() {
         try {
-          return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+          const key = profileStatsKey(getActiveProfileId());
+          return JSON.parse(localStorage.getItem(key)) || {};
         } catch {
           return {};
         }
       }
 
       function saveStats() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.stats));
+        const key = profileStatsKey(getActiveProfileId());
+        localStorage.setItem(key, JSON.stringify(state.stats));
       }
 
       function clampQuestionLimit(value) {
@@ -7734,11 +9063,25 @@
       els.themeToggle.addEventListener("click", toggleTheme);
       els.openSettings.addEventListener("click", openSettings);
       els.closeSettings.addEventListener("click", closeSettings);
+      els.profileButton.addEventListener("click", openProfileManager);
+      els.closeProfiles.addEventListener("click", closeProfileManager);
+      els.addProfileButton.addEventListener("click", addLocalProfile);
+      els.profileNewName.addEventListener("keydown", event => {
+        if (event.key === "Enter") addLocalProfile();
+      });
+      els.profileBackdrop.addEventListener("click", event => {
+        if (event.target === els.profileBackdrop) closeProfileManager();
+      });
+
       els.openProgressInfo.addEventListener("click", openProgressInfo);
       els.closeProgressInfo.addEventListener("click", closeProgressInfo);
       els.progressSectionButton.addEventListener("click", () => setSettingsView("progress"));
       els.dataSectionButton.addEventListener("click", () => setSettingsView("data"));
-      els.progressExportButton.addEventListener("click", exportCurrentProgress);
+      els.progressExportButton.addEventListener("click", openExportChoice);
+      els.closeExportChoice.addEventListener("click", closeExportChoice);
+      els.exportChoiceBackdrop.addEventListener("click", event => {
+        if (event.target === els.exportChoiceBackdrop) closeExportChoice();
+      });
 
       els.analyticsAccept.addEventListener("click", acceptAnalytics);
       els.analyticsReject.addEventListener("click", rejectAnalytics);
@@ -7780,30 +9123,34 @@
           const fileText = await file.text();
           const converted = convertProgressImport(file.name, fileText);
 
-          const message =
-            `Se encontraron ${converted.totalAttempts} intentos: ` +
-            `${converted.totalCorrect} aciertos y ${converted.totalIncorrect} fallos ` +
-            `en ${converted.factCount} multiplicaciones.\n\n` +
-            `La importación reemplazará el progreso actual guardado en este navegador. ` +
-            `¿Quieres continuar?`;
+          if (converted.source === "profiles-v2") {
+            importProfilesBackup(converted);
+          } else {
+            const message =
+              `Se encontraron ${converted.totalAttempts} intentos: ` +
+              `${converted.totalCorrect} aciertos y ${converted.totalIncorrect} fallos ` +
+              `en ${converted.factCount} multiplicaciones.\n\n` +
+              `Esta copia se restaurará en el perfil activo "${getActiveProfile().name}". ` +
+              `¿Quieres continuar?`;
 
-          if (!window.confirm(message)) {
-            setLegacyImportStatus("Importación cancelada.");
-            return;
-          }
+            if (!window.confirm(message)) {
+              setLegacyImportStatus("Importación cancelada.");
+              return;
+            }
 
-          applyLegacyProgressImport(converted);
-          renderDataTransferView();
+            applyLegacyProgressImport(converted);
+            renderDataTransferView();
 
-          if (converted.detailedAttempts < converted.totalAttempts) {
-            const missing =
-              converted.totalAttempts - converted.detailedAttempts;
-            setLegacyImportStatus(
-              `Importado: ${converted.totalAttempts} intentos. ` +
-              `${converted.detailedAttempts} conservan historial individual y ` +
-              `${missing} permanecen incluidos en los totales globales.`,
-              "success"
-            );
+            if (converted.detailedAttempts < converted.totalAttempts) {
+              const missing =
+                converted.totalAttempts - converted.detailedAttempts;
+              setLegacyImportStatus(
+                `Importado: ${converted.totalAttempts} intentos. ` +
+                `${converted.detailedAttempts} conservan historial individual y ` +
+                `${missing} permanecen incluidos en los totales globales.`,
+                "success"
+              );
+            }
           }
         } catch (error) {
           console.error(error);
@@ -7861,6 +9208,18 @@
           return;
         }
 
+        if (els.profileBackdrop.classList.contains("open")) {
+          closeProfileManager();
+          els.profileButton.focus();
+          return;
+        }
+
+        if (els.exportChoiceBackdrop.classList.contains("open")) {
+          closeExportChoice();
+          els.progressExportButton.focus();
+          return;
+        }
+
         if (els.progressInfoBackdrop.classList.contains("open")) {
           closeProgressInfo();
           els.openProgressInfo.focus();
@@ -7872,6 +9231,8 @@
         }
       });
 
+      ensureProfileSystem();
+      renderProfileUI();
       applyTheme(loadTheme(), false);
       initAnalyticsConsent();
       renderVolumeControl();
