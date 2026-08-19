@@ -5789,25 +5789,27 @@
     }
 
     body.mobile-keypad-enabled .mobile-keypad {
+      position: relative;
+      z-index: 2;
       width: min(100%, 292px);
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 9px;
-      margin: 20px auto 0;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(244,248,255,.82);
-      box-shadow: 0 8px 20px rgba(20,48,93,.09);
+      margin: 1px auto 0;
+      padding: 11px;
+      border: 1px solid #dfe6f1;
+      border-radius: 17px;
+      background: #f7f9fc;
+      box-shadow: 0 7px 18px rgba(20,48,93,.09);
     }
 
     .mobile-keypad-button {
       height: 50px;
       display: grid;
       place-items: center;
-      border: 1px solid #d6e2f6;
-      border-radius: 13px;
-      background: rgba(255,255,255,.96);
+      border: 1px solid #dfe6f1;
+      border-radius: 12px;
+      background: rgba(255,255,255,.98);
       color: var(--ink);
       font-family: "Baloo 2", cursive;
       font-size: 23px;
@@ -5817,7 +5819,7 @@
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
-      box-shadow: 0 4px 9px rgba(17,42,87,.07);
+      box-shadow: 0 4px 9px rgba(17,42,87,.06);
       transition: transform .08s ease, border-color .12s ease, background .12s ease;
     }
 
@@ -5844,41 +5846,71 @@
       cursor: default;
     }
 
+    /* El teclado queda por encima de la línea roja del cuaderno. */
+    body.mobile-keypad-enabled .practice-card::before,
+    body.mobile-keypad-enabled .practice-card::after {
+      z-index: 0;
+    }
+
+    body.mobile-keypad-enabled .equation,
+    body.mobile-keypad-enabled .answer-wrap,
+    body.mobile-keypad-enabled .feedback,
+    body.mobile-keypad-enabled .hint {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Modo oscuro: usa el mismo lenguaje visual que la tarjeta de práctica. */
     html[data-theme="dark"] body.mobile-keypad-enabled .mobile-keypad {
-      border-color: #2f3c50;
-      background: rgba(17,28,46,.82);
+      border-color: #2b374b;
+      background: rgba(21,31,49,.98);
       box-shadow: 0 8px 20px rgba(0,0,0,.22);
     }
 
     html[data-theme="dark"] .mobile-keypad-button {
-      border-color: #34445d;
-      background: #17243a;
+      border-color: #304462;
+      background: #111c2e;
       color: var(--ink);
       box-shadow: 0 4px 9px rgba(0,0,0,.18);
     }
 
     html[data-theme="dark"] .mobile-keypad-button.utility {
-      color: #9fc0ff;
+      color: #8eb5ff;
     }
 
     html[data-theme="dark"] .mobile-keypad-button:active {
       border-color: #79a9ff;
-      background: #1d3150;
+      background: #152238;
     }
 
     @media (max-width: 620px) {
       body.mobile-keypad-enabled .practice-card {
         min-height: 0;
-        padding-bottom: 28px;
+        padding: 48px 30px 26px;
+      }
+
+      body.mobile-keypad-enabled .equation {
+        margin-bottom: 28px;
+      }
+
+      body.mobile-keypad-enabled .answer-wrap {
+        gap: 13px;
       }
 
       body.mobile-keypad-enabled .feedback {
-        margin-top: 15px;
+        min-height: 20px;
+        margin-top: 13px;
       }
 
       body.mobile-keypad-enabled .hint {
-        min-height: 18px;
+        min-height: 16px;
       }
+    }
+
+
+    /* PRIVACIDAD: visible solo en la pantalla principal */
+    body:not([data-screen="setup"]) .privacy-manage-button {
+      display: none !important;
     }
 
 </style>
@@ -5890,7 +5922,7 @@
   <link rel="apple-touch-icon" href="./icon-192.png">
 
 </head>
-<body>
+<body data-screen="setup">
   <main class="app" aria-live="polite">
     <section id="setupScreen" class="screen active">
       <div class="header">
@@ -6055,30 +6087,31 @@
             aria-label="Respuesta"
           />
           <div id="digitDots" class="digit-dots"></div>
+
+          <div id="mobileKeypad" class="mobile-keypad" aria-label="Teclado numérico">
+            <button class="mobile-keypad-button" type="button" data-key="1">1</button>
+            <button class="mobile-keypad-button" type="button" data-key="2">2</button>
+            <button class="mobile-keypad-button" type="button" data-key="3">3</button>
+            <button class="mobile-keypad-button" type="button" data-key="4">4</button>
+            <button class="mobile-keypad-button" type="button" data-key="5">5</button>
+            <button class="mobile-keypad-button" type="button" data-key="6">6</button>
+            <button class="mobile-keypad-button" type="button" data-key="7">7</button>
+            <button class="mobile-keypad-button" type="button" data-key="8">8</button>
+            <button class="mobile-keypad-button" type="button" data-key="9">9</button>
+            <button class="mobile-keypad-button utility" type="button" data-action="clear" aria-label="Borrar respuesta">C</button>
+            <button class="mobile-keypad-button" type="button" data-key="0">0</button>
+            <button class="mobile-keypad-button utility" type="button" data-action="backspace" aria-label="Borrar último número">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 4H8l-6 8 6 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/>
+                <path d="m18 9-6 6"/>
+                <path d="m12 9 6 6"/>
+              </svg>
+            </button>
+          </div>
         </div>
+
         <div id="feedback" class="feedback"></div>
         <div id="hint" class="hint"></div>
-
-        <div id="mobileKeypad" class="mobile-keypad" aria-label="Teclado numérico">
-          <button class="mobile-keypad-button" type="button" data-key="1">1</button>
-          <button class="mobile-keypad-button" type="button" data-key="2">2</button>
-          <button class="mobile-keypad-button" type="button" data-key="3">3</button>
-          <button class="mobile-keypad-button" type="button" data-key="4">4</button>
-          <button class="mobile-keypad-button" type="button" data-key="5">5</button>
-          <button class="mobile-keypad-button" type="button" data-key="6">6</button>
-          <button class="mobile-keypad-button" type="button" data-key="7">7</button>
-          <button class="mobile-keypad-button" type="button" data-key="8">8</button>
-          <button class="mobile-keypad-button" type="button" data-key="9">9</button>
-          <button class="mobile-keypad-button utility" type="button" data-action="clear" aria-label="Borrar respuesta">C</button>
-          <button class="mobile-keypad-button" type="button" data-key="0">0</button>
-          <button class="mobile-keypad-button utility" type="button" data-action="backspace" aria-label="Borrar último número">
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 4H8l-6 8 6 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/>
-              <path d="m18 9-6 6"/>
-              <path d="m12 9 6 6"/>
-            </svg>
-          </button>
-        </div>
       </div>
     </section>
 
@@ -6122,7 +6155,7 @@
     </section>
   
   <div class="copyright-notice" aria-label="Derechos de autor">
-    © 2026 Manuel Alejandro Luces · Todos los derechos reservados.
+    © 2026 Manuel Alejandro Luces · Todos los derechos reservados · v0.9
   </div>
 </main>
 
@@ -8555,6 +8588,7 @@
 
       function showScreen(screen) {
         state.screen = screen;
+        document.body.dataset.screen = screen;
         els.setupScreen.classList.toggle("active", screen === "setup");
         els.studyScreen.classList.toggle("active", screen === "study");
         els.summaryScreen.classList.toggle("active", screen === "summary");
