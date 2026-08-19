@@ -5782,6 +5782,105 @@
       background: rgba(255,255,255,.09);
     }
 
+
+    /* TECLADO NUMÉRICO PROPIO - SOLO MÓVIL */
+    .mobile-keypad {
+      display: none;
+    }
+
+    body.mobile-keypad-enabled .mobile-keypad {
+      width: min(100%, 292px);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 20px auto 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(244,248,255,.82);
+      box-shadow: 0 8px 20px rgba(20,48,93,.09);
+    }
+
+    .mobile-keypad-button {
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #d6e2f6;
+      border-radius: 13px;
+      background: rgba(255,255,255,.96);
+      color: var(--ink);
+      font-family: "Baloo 2", cursive;
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 800;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      box-shadow: 0 4px 9px rgba(17,42,87,.07);
+      transition: transform .08s ease, border-color .12s ease, background .12s ease;
+    }
+
+    .mobile-keypad-button:active {
+      transform: scale(.94);
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .mobile-keypad-button.utility {
+      color: var(--primary);
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .mobile-keypad-button .ic {
+      width: 20px;
+      height: 20px;
+    }
+
+    body.mobile-keypad-enabled .answer-input {
+      caret-color: transparent;
+      cursor: default;
+    }
+
+    html[data-theme="dark"] body.mobile-keypad-enabled .mobile-keypad {
+      border-color: #2f3c50;
+      background: rgba(17,28,46,.82);
+      box-shadow: 0 8px 20px rgba(0,0,0,.22);
+    }
+
+    html[data-theme="dark"] .mobile-keypad-button {
+      border-color: #34445d;
+      background: #17243a;
+      color: var(--ink);
+      box-shadow: 0 4px 9px rgba(0,0,0,.18);
+    }
+
+    html[data-theme="dark"] .mobile-keypad-button.utility {
+      color: #9fc0ff;
+    }
+
+    html[data-theme="dark"] .mobile-keypad-button:active {
+      border-color: #79a9ff;
+      background: #1d3150;
+    }
+
+    @media (max-width: 620px) {
+      body.mobile-keypad-enabled .practice-card {
+        min-height: 0;
+        padding-bottom: 28px;
+      }
+
+      body.mobile-keypad-enabled .feedback {
+        margin-top: 15px;
+      }
+
+      body.mobile-keypad-enabled .hint {
+        min-height: 18px;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -5959,6 +6058,27 @@
         </div>
         <div id="feedback" class="feedback"></div>
         <div id="hint" class="hint"></div>
+
+        <div id="mobileKeypad" class="mobile-keypad" aria-label="Teclado numérico">
+          <button class="mobile-keypad-button" type="button" data-key="1">1</button>
+          <button class="mobile-keypad-button" type="button" data-key="2">2</button>
+          <button class="mobile-keypad-button" type="button" data-key="3">3</button>
+          <button class="mobile-keypad-button" type="button" data-key="4">4</button>
+          <button class="mobile-keypad-button" type="button" data-key="5">5</button>
+          <button class="mobile-keypad-button" type="button" data-key="6">6</button>
+          <button class="mobile-keypad-button" type="button" data-key="7">7</button>
+          <button class="mobile-keypad-button" type="button" data-key="8">8</button>
+          <button class="mobile-keypad-button" type="button" data-key="9">9</button>
+          <button class="mobile-keypad-button utility" type="button" data-action="clear" aria-label="Borrar respuesta">C</button>
+          <button class="mobile-keypad-button" type="button" data-key="0">0</button>
+          <button class="mobile-keypad-button utility" type="button" data-action="backspace" aria-label="Borrar último número">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 4H8l-6 8 6 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/>
+              <path d="m18 9-6 6"/>
+              <path d="m12 9 6 6"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -6498,6 +6618,7 @@
         digitDots: document.getElementById("digitDots"),
         feedback: document.getElementById("feedback"),
         hint: document.getElementById("hint"),
+        mobileKeypad: document.getElementById("mobileKeypad"),
         summaryTime: document.getElementById("summaryTime"),
         summaryTotal: document.getElementById("summaryTotal"),
         summaryCorrect: document.getElementById("summaryCorrect"),
@@ -9156,6 +9277,70 @@
         if (event.target === els.progressInfoBackdrop) closeProgressInfo();
       });
 
+      function isMobilePracticeDevice() {
+        return (
+          window.matchMedia("(max-width: 620px)").matches &&
+          (
+            window.matchMedia("(pointer: coarse)").matches ||
+            navigator.maxTouchPoints > 0
+          )
+        );
+      }
+
+      function applyMobileKeypadMode() {
+        const enabled = isMobilePracticeDevice();
+
+        document.body.classList.toggle("mobile-keypad-enabled", enabled);
+        els.answerInput.readOnly = enabled;
+
+        if (enabled) {
+          els.answerInput.setAttribute("inputmode", "none");
+          els.answerInput.setAttribute("aria-readonly", "true");
+        } else {
+          els.answerInput.setAttribute("inputmode", "numeric");
+          els.answerInput.removeAttribute("aria-readonly");
+        }
+      }
+
+      function dispatchAnswerInput() {
+        els.answerInput.dispatchEvent(new Event("input", { bubbles: true }));
+      }
+
+      els.mobileKeypad.addEventListener("click", event => {
+        const button = event.target.closest(".mobile-keypad-button");
+        if (!button || els.answerInput.disabled || !state.currentFact) return;
+
+        const key = button.dataset.key;
+        const action = button.dataset.action;
+
+        if (typeof key === "string") {
+          const answerLength = String(
+            state.currentFact.a * state.currentFact.b
+          ).length;
+
+          if (els.answerInput.value.length >= answerLength) return;
+
+          els.answerInput.value += key;
+          dispatchAnswerInput();
+          return;
+        }
+
+        if (action === "backspace") {
+          els.answerInput.value = els.answerInput.value.slice(0, -1);
+          dispatchAnswerInput();
+          return;
+        }
+
+        if (action === "clear") {
+          els.answerInput.value = "";
+          dispatchAnswerInput();
+        }
+      });
+
+      applyMobileKeypadMode();
+      window.addEventListener("resize", applyMobileKeypadMode);
+      window.addEventListener("orientationchange", applyMobileKeypadMode);
+
       els.answerInput.addEventListener("input", event => {
         const fact = state.currentFact;
         if (!fact) return;
@@ -9166,6 +9351,12 @@
         renderDigitDots(answerLength, sanitized.length, state.feedback);
 
         if (sanitized.length === answerLength) checkAnswer(sanitized);
+      });
+
+      els.answerInput.addEventListener("pointerdown", event => {
+        if (!isMobilePracticeDevice()) return;
+        event.preventDefault();
+        els.answerInput.focus({ preventScroll: true });
       });
 
       els.legacyImportButton.addEventListener("click", () => {
