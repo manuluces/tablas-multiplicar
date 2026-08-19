@@ -5732,6 +5732,56 @@
       color: #fff;
     }
 
+
+    /* BOTÓN DE INSTALACIÓN PWA */
+    .install-app-row {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .install-app-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 36px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: rgba(255,255,255,.55);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 3px 9px rgba(35,35,35,.06);
+      transition: transform .15s ease, border-color .15s ease, color .15s ease, background .15s ease;
+    }
+
+    .install-app-button:hover {
+      transform: translateY(-1px);
+      border-color: var(--primary);
+      color: var(--primary);
+      background: rgba(255,255,255,.82);
+    }
+
+    .install-app-button .ic {
+      width: 15px;
+      height: 15px;
+    }
+
+    html[data-theme="dark"] .install-app-button {
+      border-color: #666;
+      background: rgba(255,255,255,.055);
+      color: #d0d0d0;
+    }
+
+    html[data-theme="dark"] .install-app-button:hover {
+      border-color: #8ab4f8;
+      color: #fff;
+      background: rgba(255,255,255,.09);
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -5863,6 +5913,17 @@
         <button id="startButton" class="main-button">
           <span class="play-circle" aria-hidden="true">▶</span>
           Comenzar
+        </button>
+      </div>
+
+      <div id="installAppRow" class="install-app-row" hidden>
+        <button id="installAppButton" class="install-app-button" type="button">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3v12"/>
+            <path d="m7 10 5 5 5-5"/>
+            <path d="M5 21h14"/>
+          </svg>
+          Instalar app
         </button>
       </div>
 
@@ -9240,6 +9301,61 @@
       renderTables();
       renderQuestionLimit();
       renderProgressView();
+    })();
+  </script>
+
+
+  <script>
+    (() => {
+      let deferredInstallPrompt = null;
+
+      const installRow = document.getElementById("installAppRow");
+      const installButton = document.getElementById("installAppButton");
+
+      if (!installRow || !installButton) return;
+
+      const isInstalled = () =>
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
+
+      const hideInstallButton = () => {
+        installRow.hidden = true;
+      };
+
+      if (isInstalled()) {
+        hideInstallButton();
+        return;
+      }
+
+      window.addEventListener("beforeinstallprompt", event => {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+        installRow.hidden = false;
+      });
+
+      installButton.addEventListener("click", async () => {
+        if (!deferredInstallPrompt) return;
+
+        const promptEvent = deferredInstallPrompt;
+        deferredInstallPrompt = null;
+        hideInstallButton();
+
+        try {
+          await promptEvent.prompt();
+          await promptEvent.userChoice;
+        } catch (error) {
+          console.warn("No se pudo mostrar la instalación de la app:", error);
+        }
+      });
+
+      window.addEventListener("appinstalled", () => {
+        deferredInstallPrompt = null;
+        hideInstallButton();
+      });
+
+      window.matchMedia("(display-mode: standalone)").addEventListener?.("change", event => {
+        if (event.matches) hideInstallButton();
+      });
     })();
   </script>
 
