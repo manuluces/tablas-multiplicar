@@ -5503,12 +5503,23 @@
       font-weight: 700;
     }
 
+    .modal-title-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+      line-height: 1.05;
+    }
+
     .progress-profile-context {
-      margin: -4px 0 12px;
+      display: block;
+      margin: 0;
       color: var(--muted);
-      font-size: 10px;
+      font-size: 9px;
+      line-height: 1.2;
       font-weight: 800;
-      text-align: right;
+      text-align: left;
     }
 
     .progress-profile-context strong {
@@ -5922,6 +5933,789 @@
       display: none !important;
     }
 
+
+    /* EXPERIENCIA PWA: ayuda, instalación y actualizaciones */
+    .install-help-button {
+      display: block;
+      margin: 7px auto 0;
+      padding: 2px 4px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+
+    .install-help-text {
+      width: min(100%, 310px);
+      margin: 7px auto 0;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(255,255,255,.58);
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.4;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .pwa-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      z-index: 10050;
+      width: min(calc(100% - 28px), 390px);
+      transform: translate(-50%, 18px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 11px 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--card);
+      color: var(--ink);
+      box-shadow: 0 12px 32px rgba(20,35,60,.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .pwa-toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+      pointer-events: auto;
+    }
+
+    .pwa-toast-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .pwa-toast-title {
+      display: block;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .pwa-toast-text {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .pwa-toast-action {
+      flex: 0 0 auto;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .pwa-toast-close {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .pwa-toast-close .ic {
+      width: 14px;
+      height: 14px;
+    }
+
+    html[data-theme="dark"] .install-help-text {
+      border-color: #626262;
+      background: rgba(255,255,255,.045);
+    }
+
+    html[data-theme="dark"] .pwa-toast {
+      border-color: #626262;
+      background: #4a4a4a;
+      box-shadow: 0 12px 32px rgba(0,0,0,.28);
+    }
+
+
+    /* =========================================================
+       PROGRESO v0.9.6 · resumen de tabla + lista compacta
+       ========================================================= */
+
+    .progress-overview-card,
+    .progress-list-card,
+    .progress-detail-card {
+      margin-bottom: 10px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fafafa;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .progress-overview-header,
+    .progress-list-heading,
+    .progress-detail-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .progress-overview-title,
+    .progress-list-title,
+    .progress-detail-title {
+      color: var(--ink);
+      font-family: "Baloo 2", cursive;
+      font-size: 18px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .progress-overview-subtitle,
+    .progress-list-subtitle,
+    .progress-detail-subtitle {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .progress-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .progress-overview-metric {
+      min-width: 0;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--card);
+    }
+
+    .progress-overview-icon {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .progress-overview-icon.status-good {
+      background: rgba(73,164,92,.14);
+      color: #44955a;
+    }
+
+    .progress-overview-icon.status-regular {
+      background: rgba(225,171,48,.15);
+      color: #b98208;
+    }
+
+    .progress-overview-icon.status-reinforcement {
+      background: rgba(210,82,74,.12);
+      color: #c8524b;
+    }
+
+    .progress-overview-icon.status-neutral {
+      background: rgba(95,111,134,.11);
+      color: var(--muted);
+    }
+
+    .progress-overview-icon.status-improving {
+      background: rgba(73,164,92,.14);
+      color: #44955a;
+    }
+
+    .progress-overview-icon.status-stable {
+      background: rgba(225,171,48,.15);
+      color: #b98208;
+    }
+
+    .progress-overview-icon.status-practice {
+      background: rgba(210,82,74,.12);
+      color: #c8524b;
+    }
+
+    .progress-overview-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .progress-overview-label {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .progress-overview-value {
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .progress-overview-trend-value {
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1.18;
+      font-weight: 900;
+    }
+
+    .progress-overview-badge-value {
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1.18;
+      font-weight: 900;
+    }
+
+    .progress-overview-badge-icon {
+      font-size: 19px;
+      background: rgba(95,111,134,.08);
+    }
+
+    .progress-overview-badge-icon.badge-sprout {
+      background: rgba(83,178,103,.13);
+    }
+
+    .progress-overview-badge-icon.badge-fire {
+      background: rgba(241,155,56,.14);
+    }
+
+    .progress-overview-badge-icon.badge-star {
+      background: rgba(225,171,48,.15);
+    }
+
+    .progress-overview-badge-icon.badge-none {
+      color: var(--muted);
+    }
+
+    .progress-overview-note {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+      font-weight: 750;
+      text-align: right;
+    }
+
+    .progress-list-header,
+    .progress-list-row {
+      display: grid;
+      grid-template-columns:
+        52px
+        minmax(118px, 1.5fr)
+        76px
+        46px
+        104px;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .progress-list-header {
+      padding: 0 8px 5px;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.1;
+      font-weight: 900;
+    }
+
+    .progress-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .progress-list-row {
+      width: 100%;
+      min-height: 36px;
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--card);
+      color: var(--ink);
+      box-shadow: 0 1px 4px rgba(17,42,87,.025);
+      cursor: pointer;
+      transition: border-color .14s ease, box-shadow .14s ease;
+    }
+
+    .progress-list-row:hover {
+      border-color: rgba(225,171,48,.42);
+    }
+
+    .progress-list-row.active {
+      border-color: rgba(225,171,48,.78);
+      box-shadow: 0 0 0 2px rgba(225,171,48,.07);
+    }
+
+    .progress-list-exercise {
+      font-family: "Baloo 2", cursive;
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .progress-list-accuracy {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 34px minmax(62px, 1fr);
+      align-items: center;
+      gap: 7px;
+    }
+
+    .progress-list-percent {
+      color: var(--ink);
+      font-size: 9px;
+      font-weight: 900;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .progress-list-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(105,116,132,.15);
+    }
+
+    .progress-list-fill {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: #9aa3af;
+      transition: width .22s ease;
+    }
+
+    .progress-list-fill.good {
+      background: #69c96c;
+    }
+
+    .progress-list-fill.regular {
+      background: #5aa2ff;
+    }
+
+    .progress-list-fill.warning {
+      background: #f19b38;
+    }
+
+    .progress-list-fill.danger {
+      background: #eb6758;
+    }
+
+    .progress-list-performance {
+      min-width: 0;
+    }
+
+    .progress-performance-badge {
+      width: fit-content;
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 20px;
+      padding: 0 7px;
+      border-radius: 999px;
+      font-size: 8px;
+      line-height: 1;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .progress-performance-badge.good {
+      background: rgba(73,164,92,.14);
+      color: #44955a;
+    }
+
+    .progress-performance-badge.regular {
+      background: rgba(90,162,255,.14);
+      color: #3d7dd3;
+    }
+
+    .progress-performance-badge.reinforcement {
+      background: rgba(241,155,56,.14);
+      color: #d27f19;
+    }
+
+    .progress-performance-badge.no-data {
+      background: rgba(110,122,139,.10);
+      color: var(--muted);
+    }
+
+    .progress-list-attempts {
+      color: var(--ink);
+      font-size: 9px;
+      line-height: 1;
+      font-weight: 900;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .progress-list-trend {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.1;
+      font-weight: 850;
+    }
+
+    .progress-list-trend-icon {
+      flex: 0 0 auto;
+      font-size: 11px;
+    }
+
+    .progress-list-trend.improving {
+      color: #44955a;
+    }
+
+    .progress-list-trend.stable {
+      color: var(--muted);
+    }
+
+    .progress-list-trend.reinforcement {
+      color: #d27f19;
+    }
+
+    .progress-list-footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    .progress-list-footer-toggle {
+      min-height: 28px;
+      padding: 0 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1;
+      font-weight: 900;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .progress-list-footer-toggle.active {
+      border-color: rgba(225,171,48,.8);
+      color: var(--ink);
+      background: rgba(225,171,48,.09);
+    }
+
+    .progress-detail-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .progress-detail-metric {
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--card);
+    }
+
+    .progress-detail-metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 850;
+    }
+
+    .progress-detail-metric strong {
+      display: block;
+      margin-top: 2px;
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .progress-detail-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 8px;
+    }
+
+    .progress-detail-section {
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--card);
+    }
+
+    .progress-detail-section-title {
+      margin-bottom: 8px;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .progress-detail-bar-row {
+      display: grid;
+      grid-template-columns: 88px minmax(50px, 1fr) 34px;
+      gap: 7px;
+      align-items: center;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 8px;
+      font-weight: 800;
+    }
+
+    .progress-detail-track {
+      height: 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(105,116,132,.14);
+    }
+
+    .progress-detail-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: #e1ab30;
+    }
+
+    .progress-detail-fill.recent {
+      background: #62bf72;
+    }
+
+    .progress-detail-bar-row strong {
+      color: var(--ink);
+      font-size: 9px;
+      text-align: right;
+    }
+
+    .progress-detail-trend {
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .progress-detail-trend-icon {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(110,122,139,.10);
+      font-size: 15px;
+    }
+
+    .progress-detail-trend strong {
+      display: block;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .progress-detail-trend small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    html[data-theme="dark"] .progress-overview-card,
+    html[data-theme="dark"] .progress-list-card,
+    html[data-theme="dark"] .progress-detail-card {
+      background: #474747;
+      border-color: #5d5d5d;
+      box-shadow: 0 6px 14px rgba(0,0,0,.18);
+    }
+
+    html[data-theme="dark"] .progress-overview-metric,
+    html[data-theme="dark"] .progress-list-row,
+    html[data-theme="dark"] .progress-detail-metric,
+    html[data-theme="dark"] .progress-detail-section {
+      background: #505050;
+      border-color: #646464;
+    }
+
+    html[data-theme="dark"] .progress-list-row:hover,
+    html[data-theme="dark"] .progress-list-row.active {
+      border-color: rgba(225,171,48,.72);
+    }
+
+    html[data-theme="dark"] .progress-list-track,
+    html[data-theme="dark"] .progress-detail-track {
+      background: #414141;
+    }
+
+    html[data-theme="dark"] .progress-list-footer-toggle {
+      border-color: #696969;
+      color: #d4d4d4;
+      background: rgba(255,255,255,.02);
+    }
+
+    html[data-theme="dark"] .progress-list-footer-toggle.active {
+      border-color: rgba(225,171,48,.82);
+      color: #fff;
+      background: rgba(225,171,48,.10);
+    }
+
+    html[data-theme="dark"] .progress-performance-badge.good {
+      background: rgba(86,171,103,.19);
+      color: #8bd596;
+    }
+
+    html[data-theme="dark"] .progress-performance-badge.regular {
+      background: rgba(90,162,255,.18);
+      color: #8fbdff;
+    }
+
+    html[data-theme="dark"] .progress-performance-badge.reinforcement {
+      background: rgba(241,155,56,.17);
+      color: #ffc170;
+    }
+
+    html[data-theme="dark"] .progress-overview-icon.status-good,
+    html[data-theme="dark"] .progress-overview-icon.status-improving,
+    html[data-theme="dark"] .progress-list-trend.improving {
+      color: #8bd596;
+    }
+
+    html[data-theme="dark"] .progress-overview-icon.status-regular,
+    html[data-theme="dark"] .progress-overview-icon.status-stable {
+      color: #efc65d;
+    }
+
+    html[data-theme="dark"] .progress-overview-icon.status-reinforcement,
+    html[data-theme="dark"] .progress-overview-icon.status-practice,
+    html[data-theme="dark"] .progress-list-trend.reinforcement {
+      color: #ef9189;
+    }
+
+    @media (max-width: 620px) {
+      .progress-overview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .progress-overview-metric {
+        min-height: 52px;
+      }
+
+      .progress-list-header {
+        display: none;
+      }
+
+      .progress-list-row {
+        grid-template-columns: 76px 48px minmax(0, 1fr);
+        grid-template-areas:
+          "exercise accuracy accuracy"
+          "performance attempts trend";
+        row-gap: 4px;
+        padding: 7px 8px;
+      }
+
+      .progress-list-exercise {
+        grid-area: exercise;
+        align-self: center;
+      }
+
+      .progress-list-accuracy {
+        grid-area: accuracy;
+        display: grid;
+        grid-template-columns: 32px minmax(52px, 1fr);
+      }
+
+      .progress-list-performance {
+        grid-area: performance;
+      }
+
+      .progress-list-attempts {
+        grid-area: attempts;
+        text-align: left;
+      }
+
+      .progress-list-trend {
+        grid-area: trend;
+      }
+
+      .progress-list-accuracy::before,
+      .progress-list-performance::before,
+      .progress-list-attempts::before,
+      .progress-list-trend::before {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--muted);
+        font-size: 7px;
+        line-height: 1;
+        font-weight: 850;
+      }
+
+      .progress-list-accuracy::before {
+        content: "% de aciertos";
+        grid-column: 1 / -1;
+      }
+
+      .progress-list-performance::before {
+        content: "Rendimiento";
+      }
+
+      .progress-list-attempts::before {
+        content: "Intentos";
+      }
+
+      .progress-list-trend::before {
+        content: "Tendencia";
+      }
+
+      .progress-list-footer {
+        justify-content: stretch;
+      }
+
+      .progress-list-footer-toggle {
+        width: 100%;
+      }
+
+      .progress-detail-body {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-detail-bar-row {
+        grid-template-columns: 78px minmax(45px, 1fr) 32px;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -5930,6 +6724,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
 
+  <meta name="multi10-version" content="v0.9.9">
 </head>
 <body data-screen="setup">
   <main class="app" aria-live="polite">
@@ -6065,6 +6860,12 @@
           </svg>
           Instalar app
         </button>
+        <button id="installHelpButton" class="install-help-button" type="button">
+          ¿Problemas al instalar?
+        </button>
+        <div id="installHelpText" class="install-help-text" hidden>
+          Si la instalación falla, abre MULTI10 en Google Chrome e inténtalo de nuevo.
+        </div>
       </div>
 
       <span class="decor-pencil" aria-hidden="true">✎</span>
@@ -6164,7 +6965,7 @@
     </section>
   
   <div class="copyright-notice" aria-label="Derechos de autor">
-    © 2026 Manuel Alejandro Luces · Todos los derechos reservados · v0.9.1
+    © 2026 Manuel Alejandro Luces · Todos los derechos reservados · v0.9.9
   </div>
 </main>
 
@@ -6221,7 +7022,10 @@
       <div class="modal-header">
         <div class="modal-title-wrap">
           <span class="modal-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px;"><path d="M3 3v18h18"/><path d="m7 16 4-5 4 3 5-7"/></svg></span>
-          <span id="settingsTitle">Progreso</span>
+          <span class="modal-title-copy">
+            <span id="settingsTitle">Progreso</span>
+            <span class="progress-profile-context">Perfil: <strong id="progressProfileName">Perfil 1</strong></span>
+          </span>
         </div>
         <div class="modal-header-actions">
           <button id="openProgressInfo" class="info-button" aria-label="Cómo leer el progreso" title="Cómo leer el progreso">
@@ -6254,91 +7058,147 @@
       </div>
 
       <div id="progressPane" class="settings-pane">
-        <div class="progress-profile-context">Perfil: <strong id="progressProfileName">Perfil 1</strong></div>
         <div class="progress-section-card progress-table-section">
           <div class="progress-selector-heading"><span class="progress-step">1.</span> Selecciona la tabla</div>
           <div id="progressTabs" class="progress-tabs"></div>
         </div>
 
-        <div class="progress-section-card progress-facts-section">
-          <div class="progress-exercises-heading"><span class="progress-step">2.</span> <span id="progressExercisesTitle">Ejercicios de la tabla 1</span></div>
-          <div class="progress-exercises-subtitle">Elige la multiplicación concreta que quieres revisar.</div>
-          <div id="progressFactsGrid" class="progress-facts-grid"></div>
-        </div>
-
-        <div class="progress-summary">
-          <div class="progress-metric">
-            <div class="progress-metric-label">Intentos</div>
-            <div id="progressAttempts" class="progress-metric-value">0</div>
-          </div>
-          <div class="progress-metric">
-            <div class="progress-metric-label">Aciertos totales</div>
-            <div id="progressAccuracy" class="progress-metric-value">—</div>
-          </div>
-          <div class="progress-metric">
-            <div class="progress-metric-label">Fallos</div>
-            <div id="progressIncorrect" class="progress-metric-value">0</div>
-          </div>
-          <div class="progress-metric">
-            <div class="progress-metric-label">Peso</div>
-            <div id="progressWeight" class="progress-metric-value">—</div>
-          </div>
-        </div>
-
-        <div class="progress-chart-card">
-          <div class="progress-chart-header">
+        <section class="progress-overview-card" aria-labelledby="progressOverviewTitle">
+          <div class="progress-overview-header">
             <div>
-              <div id="progressChartTitle" class="progress-chart-title">Porcentaje de aciertos</div>
-              <div class="progress-chart-subtitle">
-                Compara el historial completo con el rendimiento reciente.
-              </div>
-            </div>
-            <div id="progressHistoryCount" class="progress-chart-badge">0 intentos</div>
-          </div>
-
-          <div class="progress-bars">
-            <div class="progress-bar-block">
-              <div class="progress-bar-label">Global</div>
-              <div class="progress-bar-track">
-                <div id="progressGlobalFill" class="progress-bar-fill"></div>
-              </div>
-              <div id="progressGlobalValue" class="progress-bar-value">—</div>
-            </div>
-
-            <div class="progress-bar-block">
-              <div id="progressRecentLabel" class="progress-bar-label">Últimos 10</div>
-              <div class="progress-bar-track">
-                <div id="progressRecentFill" class="progress-bar-fill recent"></div>
-              </div>
-              <div id="progressRecentValue" class="progress-bar-value">—</div>
+              <div id="progressOverviewTitle" class="progress-overview-title">Resumen de la tabla 1</div>
+              <div class="progress-overview-subtitle">Una vista rápida de cómo va esta tabla.</div>
             </div>
           </div>
 
-          <div id="progressStatusLine" class="progress-status-line"></div>
-          <div id="progressHistoryNote" class="progress-history-note" hidden></div>
-        </div>
+          <div class="progress-overview-grid">
+            <div class="progress-overview-metric">
+              <span class="progress-overview-icon status-good" aria-hidden="true">✓</span>
+              <span class="progress-overview-copy">
+                <span class="progress-overview-label">Van bien</span>
+                <strong id="progressGoodCount" class="progress-overview-value">0</strong>
+              </span>
+            </div>
 
-        <div id="progressTrendCard" class="progress-chart-card progress-trend-card">
-          <div class="progress-chart-header">
+            <div class="progress-overview-metric">
+              <span class="progress-overview-icon status-regular" aria-hidden="true">◷</span>
+              <span class="progress-overview-copy">
+                <span class="progress-overview-label">En progreso</span>
+                <strong id="progressRegularCount" class="progress-overview-value">0</strong>
+              </span>
+            </div>
+
+            <div class="progress-overview-metric">
+              <span class="progress-overview-icon status-reinforcement" aria-hidden="true">◎</span>
+              <span class="progress-overview-copy">
+                <span class="progress-overview-label">A reforzar</span>
+                <strong id="progressReinforcementCount" class="progress-overview-value">0</strong>
+              </span>
+            </div>
+
+            <div class="progress-overview-metric progress-overview-badge">
+              <span id="progressTableBadgeIcon" class="progress-overview-icon progress-overview-badge-icon" aria-hidden="true">○</span>
+              <span class="progress-overview-copy">
+                <span class="progress-overview-label">Insignia de la tabla</span>
+                <strong id="progressTableBadge" class="progress-overview-badge-value">Aún sin insignia</strong>
+              </span>
+            </div>
+          </div>
+
+          <div id="progressNoDataNote" class="progress-overview-note" hidden></div>
+        </section>
+
+        <section class="progress-list-card" aria-labelledby="progressListTitle">
+          <div class="progress-list-heading">
             <div>
-              <div class="progress-chart-title">Tendencia</div>
-              <div class="progress-chart-subtitle">
-                Comparamos los aciertos recientes con el historial para ver cómo está evolucionando.
+              <div id="progressListTitle" class="progress-list-title">Ejercicios de la tabla 1</div>
+              <div class="progress-list-subtitle">El % de aciertos se basa en los últimos 10 intentos para mostrar el progreso actual. Cuantos más intentos haya, más fiables serán el rendimiento y la tendencia.</div>
+            </div>
+          </div>
+
+          <div class="progress-list-header" aria-hidden="true">
+            <span>Ejercicio</span>
+            <span>% de aciertos</span>
+            <span>Rendimiento</span>
+            <span>Intentos</span>
+            <span>Tendencia</span>
+          </div>
+
+          <div id="progressRows" class="progress-list"></div>
+
+          <div class="progress-list-footer">
+            <button
+              id="progressListDetailToggle"
+              class="progress-list-footer-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="progressDetailCard"
+            >
+              Detalles de 1×1 ▾
+            </button>
+          </div>
+        </section>
+
+        <section id="progressDetailCard" class="progress-detail-card" hidden>
+          <div class="progress-detail-header">
+            <div>
+              <div id="progressDetailTitle" class="progress-detail-title">Detalle</div>
+              <div class="progress-detail-subtitle">Información adicional del ejercicio seleccionado.</div>
+            </div>
+          </div>
+
+          <div class="progress-detail-metrics">
+            <div class="progress-detail-metric">
+              <span>Intentos</span>
+              <strong id="progressDetailAttempts">0</strong>
+            </div>
+            <div class="progress-detail-metric">
+              <span>Aciertos</span>
+              <strong id="progressDetailCorrect">0</strong>
+            </div>
+            <div class="progress-detail-metric">
+              <span>Fallos</span>
+              <strong id="progressDetailIncorrect">0</strong>
+            </div>
+          </div>
+
+          <div class="progress-detail-body">
+            <div class="progress-detail-section">
+              <div class="progress-detail-section-title">Porcentaje de aciertos</div>
+
+              <div class="progress-detail-bar-row">
+                <span>Historial completo</span>
+                <div class="progress-detail-track">
+                  <div id="progressDetailGlobalFill" class="progress-detail-fill"></div>
+                </div>
+                <strong id="progressDetailGlobalValue">—</strong>
+              </div>
+
+              <div class="progress-detail-bar-row">
+                <span id="progressDetailRecentLabel">Últimos 10</span>
+                <div class="progress-detail-track">
+                  <div id="progressDetailRecentFill" class="progress-detail-fill recent"></div>
+                </div>
+                <strong id="progressDetailRecentValue">—</strong>
+              </div>
+            </div>
+
+            <div class="progress-detail-section">
+              <div class="progress-detail-section-title">Tendencia</div>
+              <div class="progress-detail-trend">
+                <span id="progressDetailTrendIcon" class="progress-detail-trend-icon" aria-hidden="true">⏳</span>
+                <span>
+                  <strong id="progressDetailTrendState">Aún sin tendencia</strong>
+                  <small id="progressDetailTrendNote">Faltan datos para calcularla.</small>
+                </span>
               </div>
             </div>
           </div>
-          <div class="progress-trend-card-body">
-            <div id="progressTrendIcon" class="progress-trend-card-icon" aria-hidden="true">⏳</div>
-            <div class="progress-trend-card-copy">
-              <div id="progressTrendState" class="progress-trend-card-state">Aún sin tendencia</div>
-              <div id="progressTrendNote" class="progress-trend-card-note">Faltan datos para calcularla.</div>
-            </div>
-          </div>
-        </div>
+        </section>
 
         <button id="showReset" class="reset-button"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> Reiniciar progreso guardado</button>
         <div id="resetConfirm" class="reset-confirm">
-          <p>¿Seguro? Los pesos, porcentajes y el historial del perfil actual volverán a cero. Esta acción no se puede deshacer.</p>
+          <p>¿Seguro? Los porcentajes y el historial del perfil actual volverán a cero. Esta acción no se puede deshacer.</p>
           <div class="reset-actions">
             <button id="cancelReset" class="cancel-reset">Cancelar</button>
             <button id="confirmReset" class="confirm-reset">Sí, borrar todo</button>
@@ -6435,46 +7295,51 @@
       <div class="info-guide">
         <section class="info-guide-card">
           <div class="info-guide-title">
-            <span class="info-guide-symbol">🎯</span>
-            <span>Peso y práctica adaptativa</span>
+            <span class="info-guide-symbol">%</span>
+            <span>% de aciertos</span>
           </div>
           <p>
-            El peso indica cuánto necesita aparecer un ejercicio. Cuanto más se acerca a 10, más refuerzo necesita y mayor probabilidad tiene de salir. Un peso cercano a 1 aparece menos, pero nunca queda excluido. La app combina automáticamente ejercicios nuevos, ejercicios que cuestan más y ejercicios ya conocidos.
+            Muestra cómo está resolviendo cada multiplicación ahora. Usa hasta los últimos 10 intentos; si todavía hay menos, utiliza los disponibles.
           </p>
         </section>
 
         <section class="info-guide-card">
           <div class="info-guide-title">
             <span class="info-guide-symbol">●</span>
-            <span>Colores de los ejercicios</span>
+            <span>Rendimiento</span>
           </div>
           <p>
-            El color resume el rendimiento reciente. Se empieza a mostrar después de al menos 6 intentos y usa hasta los últimos 10:
-          </p>
-          <div class="info-color-legend">
-            <span><i class="legend-dot legend-red"></i>Menos de 40%</span>
-            <span><i class="legend-dot legend-orange"></i>40–79%</span>
-            <span><i class="legend-dot legend-green"></i>80% o más</span>
-          </div>
-        </section>
-
-        <section class="info-guide-card">
-          <div class="info-guide-title">
-            <span class="info-guide-symbol">%</span>
-            <span>Global y Últimos 10</span>
-          </div>
-          <p>
-            <strong>Global</strong> muestra el porcentaje de aciertos de todo el historial. <strong>Últimos 10</strong> refleja mejor cómo está resolviendo ese ejercicio actualmente.
+            Se muestra desde el primer intento: <strong>Muy bien</strong> (80–100%), <strong>Regular</strong> (50–79%) o <strong>Refuerzo</strong> (menos de 50%). Cuantos más intentos haya, más fiable será la valoración.
           </p>
         </section>
 
         <section class="info-guide-card">
           <div class="info-guide-title">
-            <span class="info-guide-symbol">📊</span>
-            <span>Tendencia · 📈 Mejorando · ➖ Estable · 💪 Refuerzo</span>
+            <span class="info-guide-symbol">#</span>
+            <span>Intentos</span>
           </div>
           <p>
-            <strong>Tendencia</strong> compara los últimos intentos con el historial anterior para mostrar la evolución. A partir de 14 intentos indica si mejora, se mantiene estable o necesita refuerzo. La app ya refuerza automáticamente las multiplicaciones que más lo necesitan.
+            Indica cuántas veces ha aparecido esa multiplicación en la práctica.
+          </p>
+        </section>
+
+        <section class="info-guide-card">
+          <div class="info-guide-title">
+            <span class="info-guide-symbol">↗</span>
+            <span>Tendencia</span>
+          </div>
+          <p>
+            Compara los últimos 7 intentos con el historial anterior. A partir de 14 intentos indica si está <strong>Mejorando</strong>, <strong>Estable</strong> o si <strong>Necesita práctica</strong>.
+          </p>
+        </section>
+
+        <section class="info-guide-card">
+          <div class="info-guide-title">
+            <span class="info-guide-symbol">☝</span>
+            <span>Detalle de un ejercicio</span>
+          </div>
+          <p>
+            Selecciona un ejercicio de la lista y usa Detalles para ver intentos, aciertos, fallos y comparar el historial completo con el rendimiento reciente.
           </p>
         </section>
 
@@ -6484,7 +7349,7 @@
             <span>Progreso de las tablas</span>
           </div>
           <p>
-            Los distintivos del menú principal resumen el progreso de la tabla completa: 🌱 <strong>Aprendiendo</strong>, 🔥 <strong>Vas muy bien</strong> y ⭐ <strong>Dominio alto</strong>. No representan una multiplicación individual.
+            Los distintivos del menú principal resumen el progreso de la tabla completa: 🌱 <strong>Aprendiendo</strong>, 🔥 <strong>Vas muy bien</strong> y ⭐ <strong>Dominio alto</strong>.
           </p>
         </section>
 
@@ -6494,9 +7359,10 @@
             <span>Guardado del progreso</span>
           </div>
           <p>
-            El progreso se guarda únicamente en este navegador y puede reiniciarse desde la pantalla de Progreso.
+            El progreso se guarda en este navegador. Puedes crear copias desde la sección Importar / exportar.
           </p>
         </section>
+      </div>
       </div>
     </div>
   </div>
@@ -6575,7 +7441,8 @@
         settingsTable: 1,
         settingsView: "progress",
         progressTable: 1,
-        progressMultiplier: 1
+        progressMultiplier: 1,
+        progressDetailOpen: false
       };
 
       const els = {
@@ -6615,25 +7482,29 @@
         closeProgressInfo: document.getElementById("closeProgressInfo"),
         progressInfoBackdrop: document.getElementById("progressInfoBackdrop"),
         progressTabs: document.getElementById("progressTabs"),
-        progressExercisesTitle: document.getElementById("progressExercisesTitle"),
-        progressFactsGrid: document.getElementById("progressFactsGrid"),
-        progressAttempts: document.getElementById("progressAttempts"),
-        progressAccuracy: document.getElementById("progressAccuracy"),
-        progressIncorrect: document.getElementById("progressIncorrect"),
-        progressWeight: document.getElementById("progressWeight"),
-        progressTrendCard: document.getElementById("progressTrendCard"),
-        progressTrendIcon: document.getElementById("progressTrendIcon"),
-        progressTrendState: document.getElementById("progressTrendState"),
-        progressTrendNote: document.getElementById("progressTrendNote"),
-        progressChartTitle: document.getElementById("progressChartTitle"),
-        progressHistoryCount: document.getElementById("progressHistoryCount"),
-        progressGlobalFill: document.getElementById("progressGlobalFill"),
-        progressGlobalValue: document.getElementById("progressGlobalValue"),
-        progressRecentFill: document.getElementById("progressRecentFill"),
-        progressRecentValue: document.getElementById("progressRecentValue"),
-        progressRecentLabel: document.getElementById("progressRecentLabel"),
-        progressStatusLine: document.getElementById("progressStatusLine"),
-        progressHistoryNote: document.getElementById("progressHistoryNote"),
+        progressOverviewTitle: document.getElementById("progressOverviewTitle"),
+        progressGoodCount: document.getElementById("progressGoodCount"),
+        progressRegularCount: document.getElementById("progressRegularCount"),
+        progressReinforcementCount: document.getElementById("progressReinforcementCount"),
+        progressTableBadgeIcon: document.getElementById("progressTableBadgeIcon"),
+        progressTableBadge: document.getElementById("progressTableBadge"),
+        progressNoDataNote: document.getElementById("progressNoDataNote"),
+        progressListTitle: document.getElementById("progressListTitle"),
+        progressRows: document.getElementById("progressRows"),
+        progressListDetailToggle: document.getElementById("progressListDetailToggle"),
+        progressDetailCard: document.getElementById("progressDetailCard"),
+        progressDetailTitle: document.getElementById("progressDetailTitle"),
+        progressDetailAttempts: document.getElementById("progressDetailAttempts"),
+        progressDetailCorrect: document.getElementById("progressDetailCorrect"),
+        progressDetailIncorrect: document.getElementById("progressDetailIncorrect"),
+        progressDetailGlobalFill: document.getElementById("progressDetailGlobalFill"),
+        progressDetailGlobalValue: document.getElementById("progressDetailGlobalValue"),
+        progressDetailRecentLabel: document.getElementById("progressDetailRecentLabel"),
+        progressDetailRecentFill: document.getElementById("progressDetailRecentFill"),
+        progressDetailRecentValue: document.getElementById("progressDetailRecentValue"),
+        progressDetailTrendIcon: document.getElementById("progressDetailTrendIcon"),
+        progressDetailTrendState: document.getElementById("progressDetailTrendState"),
+        progressDetailTrendNote: document.getElementById("progressDetailTrendNote"),
         progressExportButton: document.getElementById("progressExportButton"),
         progressExportSummary: document.getElementById("progressExportSummary"),
         progressExportStatus: document.getElementById("progressExportStatus"),
@@ -8692,6 +9563,105 @@
         }
       }
 
+      function progressPerformanceInfo(a, b) {
+        const recent = recentFactInfo(a, b, 10);
+        const percent = recent.accuracy === null
+          ? null
+          : Math.round(recent.accuracy * 100);
+
+        if (recent.count === 0 || recent.accuracy === null) {
+          return {
+            status: "no-data",
+            label: "Aún sin datos",
+            recent,
+            percent: null
+          };
+        }
+
+        if (recent.accuracy >= 0.80) {
+          return { status: "good", label: "Muy bien", recent, percent };
+        }
+
+        if (recent.accuracy >= 0.50) {
+          return { status: "regular", label: "Regular", recent, percent };
+        }
+
+        return {
+          status: "reinforcement",
+          label: "Refuerzo",
+          recent,
+          percent
+        };
+      }
+
+      function tableProgressOverview(table) {
+        const result = {
+          good: 0,
+          regular: 0,
+          reinforcement: 0,
+          noData: 0
+        };
+
+        MULTIPLIERS.forEach(multiplier => {
+          const performance = progressPerformanceInfo(table, multiplier);
+
+          if (performance.status === "good") result.good += 1;
+          else if (performance.status === "regular") result.regular += 1;
+          else if (performance.status === "reinforcement") {
+            result.reinforcement += 1;
+          } else {
+            result.noData += 1;
+          }
+        });
+
+        const mastery = tableMasteryStatus(table);
+
+        return {
+          ...result,
+          badgeStatus: mastery.status,
+          badgeIcon: tableMasteryIcon(mastery.status) || "○",
+          badgeLabel: tableMasteryLabel(mastery.status) || "Aún sin insignia"
+        };
+      }
+
+      function progressTrendRowInfo(a, b) {
+        const trend = factTrendInfo(a, b);
+
+        if (!trend.evaluable) {
+          return {
+            status: "no-data",
+            label: "Aún sin tendencia",
+            icon: "⏳",
+            trend
+          };
+        }
+
+        if (trend.status === "improving") {
+          return {
+            status: "improving",
+            label: "Mejorando",
+            icon: "↗",
+            trend
+          };
+        }
+
+        if (trend.status === "reinforcement") {
+          return {
+            status: "reinforcement",
+            label: "Necesita práctica",
+            icon: "↘",
+            trend
+          };
+        }
+
+        return {
+          status: "stable",
+          label: "Estable",
+          icon: "—",
+          trend
+        };
+      }
+
       function renderProgressTabs() {
         els.progressTabs.innerHTML = "";
 
@@ -8704,6 +9674,8 @@
 
           button.addEventListener("click", () => {
             state.progressTable = table;
+            state.progressMultiplier = 1;
+            state.progressDetailOpen = false;
             renderProgressView();
           });
 
@@ -8711,53 +9683,144 @@
         });
       }
 
-      function renderProgressFacts() {
-        els.progressExercisesTitle.textContent =
-          `Ejercicios de la tabla ${state.progressTable}`;
-        els.progressFactsGrid.innerHTML = "";
+      function renderProgressOverview() {
+        const table = state.progressTable;
+        const overview = tableProgressOverview(table);
 
-        MULTIPLIERS.forEach(multiplier => {
-          const recent = recentFactInfo(state.progressTable, multiplier, 10);
+        els.progressOverviewTitle.textContent = `Resumen de la tabla ${table}`;
+        els.progressGoodCount.textContent = overview.good;
+        els.progressRegularCount.textContent = overview.regular;
+        els.progressReinforcementCount.textContent = overview.reinforcement;
+        els.progressTableBadge.textContent = overview.badgeLabel;
+        els.progressTableBadgeIcon.textContent = overview.badgeIcon;
 
-          const accuracyClass =
-            recent.count < 6 || recent.accuracy === null
-              ? "no-data"
-              : recent.accuracy < 0.40
-                ? "accuracy-low"
-                : recent.accuracy < 0.80
-                  ? "accuracy-mid"
-                  : "accuracy-high";
+        els.progressTableBadgeIcon.className =
+          `progress-overview-icon progress-overview-badge-icon ${
+            overview.badgeStatus ? `badge-${overview.badgeStatus}` : "badge-none"
+          }`;
 
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className =
-            `progress-fact-button ${accuracyClass}${
-              state.progressMultiplier === multiplier ? " active" : ""
+        if (overview.noData > 0) {
+          els.progressNoDataNote.hidden = false;
+          els.progressNoDataNote.textContent =
+            `${overview.noData} ${
+              overview.noData === 1
+                ? "ejercicio aún no tiene intentos."
+                : "ejercicios aún no tienen intentos."
             }`;
-
-          button.innerHTML = `
-            <span class="progress-fact-name">${state.progressTable}×${multiplier}</span>
-          `;
-
-          button.addEventListener("click", () => {
-            state.progressMultiplier = multiplier;
-            renderProgressView();
-          });
-
-          els.progressFactsGrid.appendChild(button);
-        });
+        } else {
+          els.progressNoDataNote.hidden = true;
+          els.progressNoDataNote.textContent = "";
+        }
       }
 
-      function renderProgressChart() {
+      function renderProgressFacts() {
+        const table = state.progressTable;
+
+        els.progressListTitle.textContent = `Ejercicios de la tabla ${table}`;
+        els.progressRows.innerHTML = "";
+
+        MULTIPLIERS.forEach(multiplier => {
+          const performance = progressPerformanceInfo(table, multiplier);
+          const trendInfo = progressTrendRowInfo(table, multiplier);
+          const attempts = factInfo(table, multiplier).attempts;
+
+          const row = document.createElement("div");
+          row.className =
+            `progress-list-row${
+              state.progressMultiplier === multiplier ? " active" : ""
+            }`;
+          row.setAttribute("role", "button");
+          row.setAttribute("tabindex", "0");
+          row.setAttribute(
+            "aria-label",
+            `Seleccionar ${table} por ${multiplier} para ver sus detalles`
+          );
+
+          const percentText =
+            performance.percent === null ? "—" : `${performance.percent}%`;
+          const fillWidth =
+            performance.percent === null ? 0 : performance.percent;
+          const fillClass =
+            performance.percent === null
+              ? ""
+              : performance.percent >= 80
+                ? "good"
+                : performance.percent >= 50
+                  ? "regular"
+                  : performance.percent >= 30
+                    ? "warning"
+                    : "danger";
+
+          row.innerHTML = `
+            <span class="progress-list-exercise">${table}×${multiplier}</span>
+
+            <span class="progress-list-accuracy">
+              <span class="progress-list-percent">${percentText}</span>
+              <span class="progress-list-track" aria-hidden="true">
+                <span class="progress-list-fill ${fillClass}" style="width:${fillWidth}%"></span>
+              </span>
+            </span>
+
+            <span class="progress-list-performance">
+              <span class="progress-performance-badge ${performance.status}">
+                ${performance.label}
+              </span>
+            </span>
+
+            <span class="progress-list-attempts">${attempts}</span>
+
+            <span class="progress-list-trend ${trendInfo.status}">
+              <span class="progress-list-trend-icon" aria-hidden="true">${trendInfo.icon}</span>
+              <span>${trendInfo.label}</span>
+            </span>
+          `;
+
+          const selectExercise = () => {
+            state.progressMultiplier = multiplier;
+            renderProgressView();
+          };
+
+          row.addEventListener("click", selectExercise);
+          row.addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              selectExercise();
+            }
+          });
+
+          els.progressRows.appendChild(row);
+        });
+
+        const selectedLabel = `${table}×${state.progressMultiplier}`;
+
+        els.progressListDetailToggle.textContent = state.progressDetailOpen
+          ? `Ocultar detalles de ${selectedLabel} ▴`
+          : `Detalles de ${selectedLabel} ▾`;
+
+        els.progressListDetailToggle.setAttribute(
+          "aria-expanded",
+          state.progressDetailOpen ? "true" : "false"
+        );
+
+        els.progressListDetailToggle.classList.toggle(
+          "active",
+          state.progressDetailOpen
+        );
+      }
+
+      function renderProgressDetail() {
+        if (!state.progressDetailOpen) {
+          els.progressDetailCard.hidden = true;
+          return;
+        }
+
         const a = state.progressTable;
         const b = state.progressMultiplier;
         const key = factKey(a, b);
         const record = state.stats[key] || { correct: 0, incorrect: 0 };
         const info = factInfo(a, b);
         const recent = recentFactInfo(a, b, 10);
-        const masteryStatus = factMasteryStatus(a, b);
-        const trend = factTrendInfo(a, b);
-        const trendCopy = trendPresentation(trend);
+        const trendInfo = progressTrendRowInfo(a, b);
 
         const globalPercent = info.accuracy === null
           ? null
@@ -8766,95 +9829,62 @@
           ? null
           : Math.round(recent.accuracy * 100);
 
-        els.progressAttempts.textContent = info.attempts;
-        els.progressAccuracy.textContent = record.correct || 0;
-        els.progressIncorrect.textContent = record.incorrect || 0;
-        els.progressWeight.textContent = info.attempts
-          ? info.weight.toFixed(1)
-          : "—";
+        els.progressDetailCard.hidden = false;
+        els.progressDetailTitle.textContent = `Detalle de ${a}×${b}`;
+        els.progressDetailAttempts.textContent = info.attempts;
+        els.progressDetailCorrect.textContent = record.correct || 0;
+        els.progressDetailIncorrect.textContent = record.incorrect || 0;
 
-        els.progressTrendCard.className = "progress-chart-card progress-trend-card";
-
-        if (!trend.evaluable || !trendCopy) {
-          els.progressTrendIcon.textContent = "⏳";
-          els.progressTrendState.textContent = "Aún sin tendencia";
-          els.progressTrendNote.textContent =
-            trend.count === 0
-              ? "Faltan datos para calcularla."
-              : `Faltan ${trend.needed} ${trend.needed === 1 ? "intento" : "intentos"} para calcularla.`;
-        } else {
-          els.progressTrendIcon.textContent = trendCopy.icon;
-          els.progressTrendState.textContent = trendCopy.label;
-
-          const trendExplanation =
-            trend.status === "improving"
-              ? "Está acertando más que antes."
-              : trend.status === "reinforcement"
-                ? "Está acertando menos que antes."
-                : "Su rendimiento se mantiene parecido.";
-
-          els.progressTrendNote.innerHTML =
-            `<strong>Reciente: ${trend.recentPercent}% · Antes: ${trend.previousPercent}%</strong>` +
-            `<br>${trendExplanation}`;
-        }
-
-        els.progressChartTitle.textContent = "Porcentaje de aciertos";
-        els.progressHistoryCount.textContent =
-          `${info.attempts} ${info.attempts === 1 ? "intento" : "intentos"}`;
-
-        els.progressGlobalValue.textContent =
+        els.progressDetailGlobalValue.textContent =
           globalPercent === null ? "—" : `${globalPercent}%`;
-        els.progressGlobalFill.style.width =
+        els.progressDetailGlobalFill.style.width =
           `${globalPercent === null ? 0 : globalPercent}%`;
 
         const recentLabelCount = recent.count >= 10 ? 10 : recent.count;
-        els.progressRecentLabel.textContent =
+        els.progressDetailRecentLabel.textContent =
           recent.count === 0
             ? "Últimos 10"
             : `Últimos ${recentLabelCount}`;
 
-        els.progressRecentValue.textContent =
+        els.progressDetailRecentValue.textContent =
           recentPercent === null ? "—" : `${recentPercent}%`;
-        els.progressRecentFill.style.width =
+        els.progressDetailRecentFill.style.width =
           `${recentPercent === null ? 0 : recentPercent}%`;
 
-        const icon = masteryIcon(masteryStatus);
-        const label = masteryLabel(masteryStatus);
+        els.progressDetailTrendIcon.textContent = trendInfo.icon;
+        els.progressDetailTrendState.textContent = trendInfo.label;
 
-        els.progressStatusLine.innerHTML = icon
-          ? `<span class="fact-status-icon" aria-hidden="true">${icon}</span><span>${label}</span>`
-          : `<span>Sin distintivo de dominio todavía</span>`;
-
-        const detailedHistory = Array.isArray(state.history[key])
-          ? state.history[key]
-          : [];
-        const legacyAttempts = Math.max(
-          0,
-          info.attempts - detailedHistory.length
-        );
-
-        if (legacyAttempts > 0) {
-          els.progressHistoryNote.hidden = false;
-          els.progressHistoryNote.textContent =
-            `El porcentaje global incluye ${legacyAttempts} ${legacyAttempts === 1 ? "intento anterior" : "intentos anteriores"}. ` +
-            `La barra reciente usa únicamente los intentos cuyo orden conocemos.`;
-        } else if (recent.count > 0 && recent.count < 10) {
-          els.progressHistoryNote.hidden = false;
-          els.progressHistoryNote.textContent =
-            `La barra reciente usa de momento los últimos ${recent.count} ${recent.count === 1 ? "intento" : "intentos"}; al llegar a 10 se mantendrá siempre en una ventana de 10.`;
-        } else {
-          els.progressHistoryNote.hidden = true;
-          els.progressHistoryNote.textContent = "";
+        if (!trendInfo.trend.evaluable) {
+          els.progressDetailTrendNote.textContent =
+            trendInfo.trend.count === 0
+              ? "Faltan datos para calcularla."
+              : `Faltan ${trendInfo.trend.needed} ${
+                  trendInfo.trend.needed === 1 ? "intento" : "intentos"
+                } para calcularla.`;
+          return;
         }
+
+        const trend = trendInfo.trend;
+        const explanation =
+          trend.status === "improving"
+            ? "Está acertando más que antes."
+            : trend.status === "reinforcement"
+              ? "Está acertando menos que antes."
+              : "Su rendimiento se mantiene parecido.";
+
+        els.progressDetailTrendNote.textContent =
+          `Reciente: ${trend.recentPercent}% · Antes: ${trend.previousPercent}%. ${explanation}`;
       }
 
       function renderProgressView() {
         renderProgressTabs();
+        renderProgressOverview();
         renderProgressFacts();
-        renderProgressChart();
+        renderProgressDetail();
       }
 
       function openSettings() {
+        state.progressDetailOpen = false;
         els.resetConfirm.classList.remove("open");
         els.showReset.style.display = "";
         setLegacyImportStatus("");
@@ -9288,6 +10318,20 @@
       els.themeToggle.addEventListener("click", toggleTheme);
       els.openSettings.addEventListener("click", openSettings);
       els.closeSettings.addEventListener("click", closeSettings);
+      els.progressListDetailToggle.addEventListener("click", () => {
+        state.progressDetailOpen = !state.progressDetailOpen;
+        renderProgressView();
+
+        if (state.progressDetailOpen) {
+          requestAnimationFrame(() => {
+            els.progressDetailCard.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest"
+            });
+          });
+        }
+      });
+
       els.profileButton.addEventListener("click", openProfileManager);
       els.closeProfiles.addEventListener("click", closeProfileManager);
       els.addProfileButton.addEventListener("click", addLocalProfile);
@@ -9541,54 +10585,147 @@
 
   <script>
     (() => {
+      const APP_VERSION = "v0.9.9";
       let deferredInstallPrompt = null;
+      let toastTimer = null;
 
       const installRow = document.getElementById("installAppRow");
       const installButton = document.getElementById("installAppButton");
+      const installHelpButton = document.getElementById("installHelpButton");
+      const installHelpText = document.getElementById("installHelpText");
 
-      if (!installRow || !installButton) return;
+      const toast = document.getElementById("pwaToast");
+      const toastTitle = document.getElementById("pwaToastTitle");
+      const toastText = document.getElementById("pwaToastText");
+      const toastAction = document.getElementById("pwaToastAction");
+      const toastClose = document.getElementById("pwaToastClose");
 
       const isInstalled = () =>
         window.matchMedia("(display-mode: standalone)").matches ||
         window.navigator.standalone === true;
 
       const hideInstallButton = () => {
-        installRow.hidden = true;
+        if (installRow) installRow.hidden = true;
       };
 
-      if (isInstalled()) {
-        hideInstallButton();
-        return;
-      }
+      const hideToast = () => {
+        if (!toast) return;
+        toast.classList.remove("show");
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = null;
+      };
 
-      window.addEventListener("beforeinstallprompt", event => {
-        event.preventDefault();
-        deferredInstallPrompt = event;
-        installRow.hidden = false;
-      });
+      const showToast = ({
+        title,
+        text = "",
+        actionLabel = "",
+        onAction = null,
+        autoHide = 0
+      }) => {
+        if (!toast || !toastTitle || !toastText || !toastAction) return;
 
-      installButton.addEventListener("click", async () => {
-        if (!deferredInstallPrompt) return;
+        if (toastTimer) clearTimeout(toastTimer);
 
-        const promptEvent = deferredInstallPrompt;
-        deferredInstallPrompt = null;
-        hideInstallButton();
+        toastTitle.textContent = title;
+        toastText.textContent = text;
+        toastAction.hidden = !actionLabel;
+        toastAction.textContent = actionLabel || "";
+        toastAction.onclick = typeof onAction === "function" ? onAction : null;
+
+        toast.classList.add("show");
+
+        if (autoHide > 0) {
+          toastTimer = setTimeout(hideToast, autoHide);
+        }
+      };
+
+      const checkForAppUpdate = async () => {
+        if (!navigator.onLine) return;
 
         try {
-          await promptEvent.prompt();
-          await promptEvent.userChoice;
-        } catch (error) {
-          console.warn("No se pudo mostrar la instalación de la app:", error);
+          const response = await fetch(
+            `./index.html?version_check=${Date.now()}`,
+            { cache: "no-store" }
+          );
+
+          if (!response.ok) return;
+
+          const html = await response.text();
+          const match = html.match(
+            /<meta\s+name=["']multi10-version["']\s+content=["']([^"']+)["']/i
+          );
+
+          const remoteVersion = match?.[1]?.trim();
+          if (!remoteVersion || remoteVersion === APP_VERSION) return;
+
+          showToast({
+            title: "Nueva versión disponible",
+            text: `${remoteVersion} está lista para usar.`,
+            actionLabel: "Actualizar",
+            onAction: () => window.location.reload()
+          });
+        } catch {
+          // Sin conexión o comprobación no disponible: no mostramos nada.
         }
-      });
+      };
+
+      if (installHelpButton && installHelpText) {
+        installHelpButton.addEventListener("click", () => {
+          installHelpText.hidden = !installHelpText.hidden;
+        });
+      }
+
+      if (installButton && installRow && !isInstalled()) {
+        window.addEventListener("beforeinstallprompt", event => {
+          event.preventDefault();
+          deferredInstallPrompt = event;
+          installRow.hidden = false;
+        });
+
+        installButton.addEventListener("click", async () => {
+          if (!deferredInstallPrompt) return;
+
+          const promptEvent = deferredInstallPrompt;
+          deferredInstallPrompt = null;
+          hideInstallButton();
+
+          try {
+            await promptEvent.prompt();
+            await promptEvent.userChoice;
+          } catch (error) {
+            console.warn("No se pudo mostrar la instalación de la app:", error);
+          }
+        });
+      } else {
+        hideInstallButton();
+      }
 
       window.addEventListener("appinstalled", () => {
         deferredInstallPrompt = null;
         hideInstallButton();
+
+        showToast({
+          title: "MULTI10 instalada",
+          text: "La encontrarás entre las aplicaciones de tu dispositivo.",
+          autoHide: 6500
+        });
       });
+
+      toastClose?.addEventListener("click", hideToast);
 
       window.matchMedia("(display-mode: standalone)").addEventListener?.("change", event => {
         if (event.matches) hideInstallButton();
+      });
+
+      window.addEventListener("focus", checkForAppUpdate);
+      window.addEventListener("online", checkForAppUpdate);
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") checkForAppUpdate();
+      });
+
+      window.addEventListener("load", () => {
+        setTimeout(checkForAppUpdate, 2500);
       });
     })();
   </script>
@@ -9603,6 +10740,21 @@
       });
     }
   </script>
+
+
+  <div id="pwaToast" class="pwa-toast" role="status" aria-live="polite">
+    <div class="pwa-toast-copy">
+      <span id="pwaToastTitle" class="pwa-toast-title"></span>
+      <span id="pwaToastText" class="pwa-toast-text"></span>
+    </div>
+    <button id="pwaToastAction" class="pwa-toast-action" type="button" hidden></button>
+    <button id="pwaToastClose" class="pwa-toast-close" type="button" aria-label="Cerrar aviso">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18"/>
+        <path d="m6 6 12 12"/>
+      </svg>
+    </button>
+  </div>
 
 </body>
 </html>
