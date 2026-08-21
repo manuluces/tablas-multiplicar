@@ -6058,7 +6058,6 @@
        PROGRESO v0.9.6 · resumen de tabla + lista compacta
        ========================================================= */
 
-    .progress-overview-card,
     .progress-list-card,
     .progress-detail-card {
       margin-bottom: 10px;
@@ -6069,7 +6068,6 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .progress-overview-header,
     .progress-list-heading,
     .progress-detail-header {
       display: flex;
@@ -6079,7 +6077,6 @@
       margin-bottom: 12px;
     }
 
-    .progress-overview-title,
     .progress-list-title,
     .progress-detail-title {
       color: var(--ink);
@@ -6089,7 +6086,6 @@
       font-weight: 800;
     }
 
-    .progress-overview-subtitle,
     .progress-list-subtitle,
     .progress-detail-subtitle {
       margin-top: 2px;
@@ -6097,135 +6093,6 @@
       font-size: 10px;
       line-height: 1.35;
       font-weight: 700;
-    }
-
-    .progress-overview-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    .progress-overview-metric {
-      min-width: 0;
-      min-height: 56px;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 8px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: var(--card);
-    }
-
-    .progress-overview-icon {
-      width: 32px;
-      height: 32px;
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      font-size: 15px;
-      font-weight: 900;
-    }
-
-    .progress-overview-icon.status-good {
-      background: rgba(73,164,92,.14);
-      color: #44955a;
-    }
-
-    .progress-overview-icon.status-regular {
-      background: rgba(225,171,48,.15);
-      color: #b98208;
-    }
-
-    .progress-overview-icon.status-reinforcement {
-      background: rgba(210,82,74,.12);
-      color: #c8524b;
-    }
-
-    .progress-overview-icon.status-neutral {
-      background: rgba(95,111,134,.11);
-      color: var(--muted);
-    }
-
-    .progress-overview-icon.status-improving {
-      background: rgba(73,164,92,.14);
-      color: #44955a;
-    }
-
-    .progress-overview-icon.status-stable {
-      background: rgba(225,171,48,.15);
-      color: #b98208;
-    }
-
-    .progress-overview-icon.status-practice {
-      background: rgba(210,82,74,.12);
-      color: #c8524b;
-    }
-
-    .progress-overview-copy {
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .progress-overview-label {
-      color: var(--muted);
-      font-size: 9px;
-      line-height: 1.15;
-      font-weight: 800;
-    }
-
-    .progress-overview-value {
-      color: var(--ink);
-      font-size: 19px;
-      line-height: 1;
-      font-weight: 900;
-    }
-
-    .progress-overview-trend-value {
-      color: var(--ink);
-      font-size: 11px;
-      line-height: 1.18;
-      font-weight: 900;
-    }
-
-    .progress-overview-badge-value {
-      color: var(--ink);
-      font-size: 11px;
-      line-height: 1.18;
-      font-weight: 900;
-    }
-
-    .progress-overview-badge-icon {
-      font-size: 19px;
-      background: rgba(95,111,134,.08);
-    }
-
-    .progress-overview-badge-icon.badge-sprout {
-      background: rgba(83,178,103,.13);
-    }
-
-    .progress-overview-badge-icon.badge-fire {
-      background: rgba(241,155,56,.14);
-    }
-
-    .progress-overview-badge-icon.badge-star {
-      background: rgba(225,171,48,.15);
-    }
-
-    .progress-overview-badge-icon.badge-none {
-      color: var(--muted);
-    }
-
-    .progress-overview-note {
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 9px;
-      line-height: 1.35;
-      font-weight: 750;
-      text-align: right;
     }
 
     .progress-list-header,
@@ -6408,32 +6275,6 @@
       color: #d27f19;
     }
 
-    .progress-list-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 8px;
-    }
-
-    .progress-list-footer-toggle {
-      min-height: 28px;
-      padding: 0 11px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: transparent;
-      color: var(--muted);
-      font-size: 9px;
-      line-height: 1;
-      font-weight: 900;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    .progress-list-footer-toggle.active {
-      border-color: rgba(225,171,48,.8);
-      color: var(--ink);
-      background: rgba(225,171,48,.09);
-    }
-
     .progress-detail-metrics {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -6497,21 +6338,35 @@
     }
 
     .progress-detail-track {
-      height: 7px;
+      height: 9px;
       overflow: hidden;
       border-radius: 999px;
       background: rgba(105,116,132,.14);
     }
 
     .progress-detail-fill {
+      display: block;
       width: 0;
       height: 100%;
       border-radius: inherit;
-      background: #e1ab30;
+      background: #9aa3af;
+      transition: width .22s ease;
     }
 
-    .progress-detail-fill.recent {
-      background: #62bf72;
+    .progress-detail-fill.good {
+      background: #69c96c;
+    }
+
+    .progress-detail-fill.regular {
+      background: #5aa2ff;
+    }
+
+    .progress-detail-fill.warning {
+      background: #f19b38;
+    }
+
+    .progress-detail-fill.danger {
+      background: #eb6758;
     }
 
     .progress-detail-bar-row strong {
@@ -6554,7 +6409,6 @@
       font-weight: 750;
     }
 
-    html[data-theme="dark"] .progress-overview-card,
     html[data-theme="dark"] .progress-list-card,
     html[data-theme="dark"] .progress-detail-card {
       background: #474747;
@@ -6562,7 +6416,6 @@
       box-shadow: 0 6px 14px rgba(0,0,0,.18);
     }
 
-    html[data-theme="dark"] .progress-overview-metric,
     html[data-theme="dark"] .progress-list-row,
     html[data-theme="dark"] .progress-detail-metric,
     html[data-theme="dark"] .progress-detail-section {
@@ -6580,18 +6433,6 @@
       background: #414141;
     }
 
-    html[data-theme="dark"] .progress-list-footer-toggle {
-      border-color: #696969;
-      color: #d4d4d4;
-      background: rgba(255,255,255,.02);
-    }
-
-    html[data-theme="dark"] .progress-list-footer-toggle.active {
-      border-color: rgba(225,171,48,.82);
-      color: #fff;
-      background: rgba(225,171,48,.10);
-    }
-
     html[data-theme="dark"] .progress-performance-badge.good {
       background: rgba(86,171,103,.19);
       color: #8bd596;
@@ -6607,32 +6448,7 @@
       color: #ffc170;
     }
 
-    html[data-theme="dark"] .progress-overview-icon.status-good,
-    html[data-theme="dark"] .progress-overview-icon.status-improving,
-    html[data-theme="dark"] .progress-list-trend.improving {
-      color: #8bd596;
-    }
-
-    html[data-theme="dark"] .progress-overview-icon.status-regular,
-    html[data-theme="dark"] .progress-overview-icon.status-stable {
-      color: #efc65d;
-    }
-
-    html[data-theme="dark"] .progress-overview-icon.status-reinforcement,
-    html[data-theme="dark"] .progress-overview-icon.status-practice,
-    html[data-theme="dark"] .progress-list-trend.reinforcement {
-      color: #ef9189;
-    }
-
     @media (max-width: 620px) {
-      .progress-overview-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .progress-overview-metric {
-        min-height: 52px;
-      }
-
       .progress-list-header {
         display: none;
       }
@@ -6699,14 +6515,6 @@
         content: "Tendencia";
       }
 
-      .progress-list-footer {
-        justify-content: stretch;
-      }
-
-      .progress-list-footer-toggle {
-        width: 100%;
-      }
-
       .progress-detail-body {
         grid-template-columns: 1fr;
       }
@@ -6724,7 +6532,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
 
-  <meta name="multi10-version" content="v0.9.9">
+  <meta name="multi10-version" content="v0.9.9.1">
 </head>
 <body data-screen="setup">
   <main class="app" aria-live="polite">
@@ -6965,7 +6773,7 @@
     </section>
   
   <div class="copyright-notice" aria-label="Derechos de autor">
-    © 2026 Manuel Alejandro Luces · Todos los derechos reservados · v0.9.9
+    © 2026 Manuel Alejandro Luces · Todos los derechos reservados · v0.9.9.1
   </div>
 </main>
 
@@ -7063,51 +6871,6 @@
           <div id="progressTabs" class="progress-tabs"></div>
         </div>
 
-        <section class="progress-overview-card" aria-labelledby="progressOverviewTitle">
-          <div class="progress-overview-header">
-            <div>
-              <div id="progressOverviewTitle" class="progress-overview-title">Resumen de la tabla 1</div>
-              <div class="progress-overview-subtitle">Una vista rápida de cómo va esta tabla.</div>
-            </div>
-          </div>
-
-          <div class="progress-overview-grid">
-            <div class="progress-overview-metric">
-              <span class="progress-overview-icon status-good" aria-hidden="true">✓</span>
-              <span class="progress-overview-copy">
-                <span class="progress-overview-label">Van bien</span>
-                <strong id="progressGoodCount" class="progress-overview-value">0</strong>
-              </span>
-            </div>
-
-            <div class="progress-overview-metric">
-              <span class="progress-overview-icon status-regular" aria-hidden="true">◷</span>
-              <span class="progress-overview-copy">
-                <span class="progress-overview-label">En progreso</span>
-                <strong id="progressRegularCount" class="progress-overview-value">0</strong>
-              </span>
-            </div>
-
-            <div class="progress-overview-metric">
-              <span class="progress-overview-icon status-reinforcement" aria-hidden="true">◎</span>
-              <span class="progress-overview-copy">
-                <span class="progress-overview-label">A reforzar</span>
-                <strong id="progressReinforcementCount" class="progress-overview-value">0</strong>
-              </span>
-            </div>
-
-            <div class="progress-overview-metric progress-overview-badge">
-              <span id="progressTableBadgeIcon" class="progress-overview-icon progress-overview-badge-icon" aria-hidden="true">○</span>
-              <span class="progress-overview-copy">
-                <span class="progress-overview-label">Insignia de la tabla</span>
-                <strong id="progressTableBadge" class="progress-overview-badge-value">Aún sin insignia</strong>
-              </span>
-            </div>
-          </div>
-
-          <div id="progressNoDataNote" class="progress-overview-note" hidden></div>
-        </section>
-
         <section class="progress-list-card" aria-labelledby="progressListTitle">
           <div class="progress-list-heading">
             <div>
@@ -7125,25 +6888,13 @@
           </div>
 
           <div id="progressRows" class="progress-list"></div>
-
-          <div class="progress-list-footer">
-            <button
-              id="progressListDetailToggle"
-              class="progress-list-footer-toggle"
-              type="button"
-              aria-expanded="false"
-              aria-controls="progressDetailCard"
-            >
-              Detalles de 1×1 ▾
-            </button>
-          </div>
         </section>
 
-        <section id="progressDetailCard" class="progress-detail-card" hidden>
+        <section id="progressDetailCard" class="progress-detail-card">
           <div class="progress-detail-header">
             <div>
-              <div id="progressDetailTitle" class="progress-detail-title">Detalle</div>
-              <div class="progress-detail-subtitle">Información adicional del ejercicio seleccionado.</div>
+              <div id="progressDetailTitle" class="progress-detail-title">Detalles de 1×1</div>
+              <div class="progress-detail-subtitle">Selecciona un ejercicio de la lista para ver su información completa.</div>
             </div>
           </div>
 
@@ -7208,7 +6959,7 @@
 
       <div id="dataPane" class="settings-pane" hidden>
         <p class="data-transfer-intro">
-          Herramientas temporales para mover una copia del progreso entre versiones o navegadores.
+          Guarda una copia de tu progreso o recupérala en otro navegador o dispositivo.
         </p>
 
         <div class="progress-section-card data-transfer-card">
@@ -7339,21 +7090,11 @@
             <span>Detalle de un ejercicio</span>
           </div>
           <p>
-            Selecciona un ejercicio de la lista y usa Detalles para ver intentos, aciertos, fallos y comparar el historial completo con el rendimiento reciente.
+            Selecciona un ejercicio de la lista para ver abajo sus intentos, aciertos, fallos y la comparación entre el historial completo y el rendimiento reciente.
           </p>
         </section>
 
-        <section class="info-guide-card">
-          <div class="info-guide-title">
-            <span class="info-guide-symbol">🌱</span>
-            <span>Progreso de las tablas</span>
-          </div>
-          <p>
-            Los distintivos del menú principal resumen el progreso de la tabla completa: 🌱 <strong>Aprendiendo</strong>, 🔥 <strong>Vas muy bien</strong> y ⭐ <strong>Dominio alto</strong>.
-          </p>
-        </section>
-
-        <section class="info-guide-card info-guide-card-compact">
+<section class="info-guide-card info-guide-card-compact">
           <div class="info-guide-title">
             <span class="info-guide-symbol">💾</span>
             <span>Guardado del progreso</span>
@@ -7441,8 +7182,7 @@
         settingsTable: 1,
         settingsView: "progress",
         progressTable: 1,
-        progressMultiplier: 1,
-        progressDetailOpen: false
+        progressMultiplier: 1
       };
 
       const els = {
@@ -7482,16 +7222,8 @@
         closeProgressInfo: document.getElementById("closeProgressInfo"),
         progressInfoBackdrop: document.getElementById("progressInfoBackdrop"),
         progressTabs: document.getElementById("progressTabs"),
-        progressOverviewTitle: document.getElementById("progressOverviewTitle"),
-        progressGoodCount: document.getElementById("progressGoodCount"),
-        progressRegularCount: document.getElementById("progressRegularCount"),
-        progressReinforcementCount: document.getElementById("progressReinforcementCount"),
-        progressTableBadgeIcon: document.getElementById("progressTableBadgeIcon"),
-        progressTableBadge: document.getElementById("progressTableBadge"),
-        progressNoDataNote: document.getElementById("progressNoDataNote"),
         progressListTitle: document.getElementById("progressListTitle"),
         progressRows: document.getElementById("progressRows"),
-        progressListDetailToggle: document.getElementById("progressListDetailToggle"),
         progressDetailCard: document.getElementById("progressDetailCard"),
         progressDetailTitle: document.getElementById("progressDetailTitle"),
         progressDetailAttempts: document.getElementById("progressDetailAttempts"),
@@ -9594,36 +9326,6 @@
         };
       }
 
-      function tableProgressOverview(table) {
-        const result = {
-          good: 0,
-          regular: 0,
-          reinforcement: 0,
-          noData: 0
-        };
-
-        MULTIPLIERS.forEach(multiplier => {
-          const performance = progressPerformanceInfo(table, multiplier);
-
-          if (performance.status === "good") result.good += 1;
-          else if (performance.status === "regular") result.regular += 1;
-          else if (performance.status === "reinforcement") {
-            result.reinforcement += 1;
-          } else {
-            result.noData += 1;
-          }
-        });
-
-        const mastery = tableMasteryStatus(table);
-
-        return {
-          ...result,
-          badgeStatus: mastery.status,
-          badgeIcon: tableMasteryIcon(mastery.status) || "○",
-          badgeLabel: tableMasteryLabel(mastery.status) || "Aún sin insignia"
-        };
-      }
-
       function progressTrendRowInfo(a, b) {
         const trend = factTrendInfo(a, b);
 
@@ -9675,42 +9377,11 @@
           button.addEventListener("click", () => {
             state.progressTable = table;
             state.progressMultiplier = 1;
-            state.progressDetailOpen = false;
             renderProgressView();
           });
 
           els.progressTabs.appendChild(button);
         });
-      }
-
-      function renderProgressOverview() {
-        const table = state.progressTable;
-        const overview = tableProgressOverview(table);
-
-        els.progressOverviewTitle.textContent = `Resumen de la tabla ${table}`;
-        els.progressGoodCount.textContent = overview.good;
-        els.progressRegularCount.textContent = overview.regular;
-        els.progressReinforcementCount.textContent = overview.reinforcement;
-        els.progressTableBadge.textContent = overview.badgeLabel;
-        els.progressTableBadgeIcon.textContent = overview.badgeIcon;
-
-        els.progressTableBadgeIcon.className =
-          `progress-overview-icon progress-overview-badge-icon ${
-            overview.badgeStatus ? `badge-${overview.badgeStatus}` : "badge-none"
-          }`;
-
-        if (overview.noData > 0) {
-          els.progressNoDataNote.hidden = false;
-          els.progressNoDataNote.textContent =
-            `${overview.noData} ${
-              overview.noData === 1
-                ? "ejercicio aún no tiene intentos."
-                : "ejercicios aún no tienen intentos."
-            }`;
-        } else {
-          els.progressNoDataNote.hidden = true;
-          els.progressNoDataNote.textContent = "";
-        }
       }
 
       function renderProgressFacts() {
@@ -9791,29 +9462,17 @@
           els.progressRows.appendChild(row);
         });
 
-        const selectedLabel = `${table}×${state.progressMultiplier}`;
+      }
 
-        els.progressListDetailToggle.textContent = state.progressDetailOpen
-          ? `Ocultar detalles de ${selectedLabel} ▴`
-          : `Detalles de ${selectedLabel} ▾`;
-
-        els.progressListDetailToggle.setAttribute(
-          "aria-expanded",
-          state.progressDetailOpen ? "true" : "false"
-        );
-
-        els.progressListDetailToggle.classList.toggle(
-          "active",
-          state.progressDetailOpen
-        );
+      function progressBarStatusFromPercent(percent) {
+        if (percent === null) return "";
+        if (percent >= 80) return "good";
+        if (percent >= 50) return "regular";
+        if (percent >= 30) return "warning";
+        return "danger";
       }
 
       function renderProgressDetail() {
-        if (!state.progressDetailOpen) {
-          els.progressDetailCard.hidden = true;
-          return;
-        }
-
         const a = state.progressTable;
         const b = state.progressMultiplier;
         const key = factKey(a, b);
@@ -9830,7 +9489,7 @@
           : Math.round(recent.accuracy * 100);
 
         els.progressDetailCard.hidden = false;
-        els.progressDetailTitle.textContent = `Detalle de ${a}×${b}`;
+        els.progressDetailTitle.textContent = `Detalles de ${a}×${b}`;
         els.progressDetailAttempts.textContent = info.attempts;
         els.progressDetailCorrect.textContent = record.correct || 0;
         els.progressDetailIncorrect.textContent = record.incorrect || 0;
@@ -9839,6 +9498,8 @@
           globalPercent === null ? "—" : `${globalPercent}%`;
         els.progressDetailGlobalFill.style.width =
           `${globalPercent === null ? 0 : globalPercent}%`;
+        els.progressDetailGlobalFill.className =
+          `progress-detail-fill ${progressBarStatusFromPercent(globalPercent)}`.trim();
 
         const recentLabelCount = recent.count >= 10 ? 10 : recent.count;
         els.progressDetailRecentLabel.textContent =
@@ -9850,6 +9511,8 @@
           recentPercent === null ? "—" : `${recentPercent}%`;
         els.progressDetailRecentFill.style.width =
           `${recentPercent === null ? 0 : recentPercent}%`;
+        els.progressDetailRecentFill.className =
+          `progress-detail-fill ${progressBarStatusFromPercent(recentPercent)}`.trim();
 
         els.progressDetailTrendIcon.textContent = trendInfo.icon;
         els.progressDetailTrendState.textContent = trendInfo.label;
@@ -9878,13 +9541,11 @@
 
       function renderProgressView() {
         renderProgressTabs();
-        renderProgressOverview();
         renderProgressFacts();
         renderProgressDetail();
       }
 
       function openSettings() {
-        state.progressDetailOpen = false;
         els.resetConfirm.classList.remove("open");
         els.showReset.style.display = "";
         setLegacyImportStatus("");
@@ -10318,20 +9979,6 @@
       els.themeToggle.addEventListener("click", toggleTheme);
       els.openSettings.addEventListener("click", openSettings);
       els.closeSettings.addEventListener("click", closeSettings);
-      els.progressListDetailToggle.addEventListener("click", () => {
-        state.progressDetailOpen = !state.progressDetailOpen;
-        renderProgressView();
-
-        if (state.progressDetailOpen) {
-          requestAnimationFrame(() => {
-            els.progressDetailCard.scrollIntoView({
-              behavior: "smooth",
-              block: "nearest"
-            });
-          });
-        }
-      });
-
       els.profileButton.addEventListener("click", openProfileManager);
       els.closeProfiles.addEventListener("click", closeProfileManager);
       els.addProfileButton.addEventListener("click", addLocalProfile);
@@ -10585,7 +10232,7 @@
 
   <script>
     (() => {
-      const APP_VERSION = "v0.9.9";
+      const APP_VERSION = "v0.9.9.1";
       let deferredInstallPrompt = null;
       let toastTimer = null;
 
