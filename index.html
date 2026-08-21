@@ -7829,6 +7829,112 @@
         radial-gradient(circle at 88% 82%, rgba(240,184,47,.045), transparent 22%);
     }
 
+
+    /* Restaurar experiencia móvil anterior + controles superiores */
+    .header-options-button {
+      position: absolute;
+      top: 6px;
+      right: 0;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(27,82,159,.1);
+      border-radius: 50%;
+      background: rgba(255,255,255,.94);
+      color: var(--primary);
+      padding: 0;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+      z-index: 8;
+    }
+
+    .header-options-button .ic {
+      width: 19px;
+      height: 19px;
+    }
+
+    .header-options-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    html[data-theme="dark"] .header-options-button {
+      border-color: #2d3b52;
+      background: rgba(22,33,52,.98);
+      color: #90b7ff;
+    }
+
+    @media (min-width: 621px) {
+      html.app-entry:not(.standalone-app) #headerOptionsButton {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 620px) {
+      /* Sin barra inferior en móvil: vuelve a sentirse como la app original */
+      html.app-entry .app-nav {
+        display: none !important;
+      }
+
+      html.app-entry body.app-mode {
+        padding: 0 !important;
+        place-items: start stretch;
+      }
+
+      html.app-entry body.app-mode .app {
+        width: 100%;
+        min-height: 100dvh;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      /* Elimina el borde/margen exterior que apareció con la nueva navegación */
+      html.app-entry body.app-mode::before {
+        display: none;
+      }
+
+      /* Perfil a la izquierda; tema, progreso y opciones a la derecha */
+      body[data-screen="setup"] #themeToggle {
+        display: grid !important;
+        top: 6px;
+        right: 100px;
+        width: 44px;
+        height: 44px;
+      }
+
+      body[data-screen="setup"] #openSettings {
+        display: flex !important;
+        top: 6px;
+        right: 50px;
+        width: 44px;
+        height: 44px;
+      }
+
+      body[data-screen="setup"] #headerOptionsButton {
+        display: grid !important;
+        top: 6px;
+        right: 0;
+        width: 44px;
+        height: 44px;
+      }
+
+      body[data-screen="setup"] #profileButton {
+        max-width: 124px;
+        height: 42px;
+      }
+
+      body[data-screen="setup"] #volumeControl {
+        display: none !important;
+      }
+
+      /* Ya no reservamos espacio para la barra inferior */
+      .copyright-notice {
+        bottom: 9px;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -8192,6 +8298,14 @@
         <button id="openSettings" class="icon-button" aria-label="Abrir progreso">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:22px;height:22px;"><path d="M3 3v18h18"/><path d="m7 16 4-5 4 3 5-7"/></svg>
         </button>
+
+        <button id="headerOptionsButton" class="header-options-button" type="button" aria-label="Abrir opciones">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21h-4v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1A1.7 1.7 0 0 0 4.6 15 1.7 1.7 0 0 0 3 14H3v-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-1.6V3h4v.1a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1H21v4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>
+          </svg>
+        </button>
+
         <h2 class="title">Tablas de multiplicar</h2>
         <p class="subtitle">Elige qué tablas quieres practicar hoy.</p>
       </div>
@@ -8720,19 +8834,6 @@
               <input id="optionsVibration" type="checkbox" />
               <span class="options-switch-track"></span>
             </label>
-          </div>
-        </section>
-
-        <section class="options-card">
-          <div class="options-theme-row">
-            <div>
-              <div class="options-card-title">Apariencia</div>
-              <p class="options-card-help" style="margin-bottom:0;">Elige entre modo claro y oscuro.</p>
-            </div>
-            <div class="options-theme-buttons">
-              <button id="optionsThemeLight" class="options-theme-button" type="button">Claro</button>
-              <button id="optionsThemeDark" class="options-theme-button" type="button">Oscuro</button>
-            </div>
           </div>
         </section>
 
@@ -11898,6 +11999,7 @@
       const appNavProfiles = document.getElementById("appNavProfiles");
       const appNavProgress = document.getElementById("appNavProgress");
       const appNavOptions = document.getElementById("appNavOptions");
+      const headerOptionsButton = document.getElementById("headerOptionsButton");
 
       const optionsBackdrop = document.getElementById("optionsBackdrop");
       const closeOptions = document.getElementById("closeOptions");
@@ -11998,6 +12100,7 @@
       }
 
       appNavOptions?.addEventListener("click", openOptions);
+      headerOptionsButton?.addEventListener("click", openOptions);
       closeOptions?.addEventListener("click", closeOptionsModal);
       optionsBackdrop?.addEventListener("click", event => {
         if (event.target === optionsBackdrop) closeOptionsModal();
