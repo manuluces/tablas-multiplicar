@@ -7935,6 +7935,80 @@
       }
     }
 
+
+    /* Correcciones móviles: landing, alto de práctica y engranaje dark */
+    .site-landing {
+      overflow-x: clip;
+    }
+
+    @media (max-width: 620px) {
+      /* Evita el desborde horizontal del hero en móviles estrechos */
+      .site-hero {
+        min-width: 0;
+      }
+
+      .site-hero > div {
+        min-width: 0;
+      }
+
+      .site-hero h1 {
+        width: 100%;
+        max-width: 100%;
+        font-size: clamp(30px, 8.8vw, 38px);
+        line-height: 1.03;
+        letter-spacing: -.45px;
+      }
+
+      .site-hero h1 em {
+        display: inline-block;
+        max-width: 100%;
+        white-space: nowrap;
+        font-size: .92em;
+      }
+
+      .site-hero-copy {
+        max-width: 100%;
+        font-size: 15px;
+      }
+
+      .site-preview,
+      .site-benefits,
+      .site-content-section,
+      .site-final-cta {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      /* En la pantalla principal de práctica no hay contenido que justifique
+         scroll vertical: ocupa exactamente la altura visible del dispositivo. */
+      body.app-mode[data-screen="setup"] {
+        height: 100dvh;
+        min-height: 100dvh;
+        overflow-y: hidden;
+      }
+
+      body.app-mode[data-screen="setup"] .app {
+        height: 100dvh;
+        min-height: 0;
+        max-height: 100dvh;
+        overflow: hidden;
+      }
+
+      /* El menú de opciones mantiene el lenguaje gris/dorado del modo oscuro. */
+      html[data-theme="dark"] body[data-screen="setup"] #headerOptionsButton {
+        color: #e1ab30;
+        border-color: rgba(225,171,48,.42);
+        background: rgba(72,68,58,.96);
+        box-shadow: 0 6px 14px rgba(0,0,0,.24);
+      }
+
+      html[data-theme="dark"] body[data-screen="setup"] #headerOptionsButton:hover {
+        color: #f0bf4e;
+        border-color: rgba(240,191,78,.62);
+        background: rgba(80,74,61,.98);
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
