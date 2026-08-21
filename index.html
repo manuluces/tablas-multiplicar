@@ -8105,6 +8105,220 @@
       transform: translateY(-2px);
     }
 
+
+    /* Navegación de práctica web con el mismo estilo de la landing */
+    @media (min-width: 621px) {
+      html.app-entry:not(.standalone-app) .app-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-bottom: 1px solid #dce3ee;
+        border-radius: 0;
+        background: rgba(246,248,252,.94);
+        box-shadow: 0 8px 22px rgba(19,39,76,.08);
+        backdrop-filter: blur(16px);
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav {
+        border-bottom-color: #55595d;
+        background: rgba(32,34,36,.94);
+        box-shadow: 0 8px 24px rgba(0,0,0,.24);
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-inner {
+        width: min(calc(100% - 42px), 1240px);
+        min-height: 68px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: #152644;
+        font-family: "Baloo 2", cursive;
+        font-size: 25px;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-brand {
+        color: #f1f1ed;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-brand strong {
+        color: #f5b81b;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-brand-mark {
+        color: #f5b81b;
+        font-style: normal;
+        transform: rotate(-12deg);
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 20px;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-link {
+        position: relative;
+        flex: 0 0 auto;
+        border: 0;
+        border-radius: 0;
+        padding: 22px 2px 20px;
+        color: #5f6b7c;
+        background: transparent;
+        font-size: 14px;
+        font-weight: 800;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-link {
+        color: #c3c5c7;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 3px;
+        border-radius: 999px;
+        background: #2874f0;
+        transform: scaleX(0);
+        transition: transform .18s ease;
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-link::after {
+        background: #f0b82f;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-link:hover,
+      html.app-entry:not(.standalone-app) .app-nav-link.active {
+        color: #2874f0;
+        background: transparent;
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-link:hover,
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-link.active {
+        color: #f0b82f;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-link:hover::after,
+      html.app-entry:not(.standalone-app) .app-nav-link.active::after {
+        transform: scaleX(1);
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-theme-toggle {
+        width: 39px;
+        height: 39px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #dce3ee;
+        border-radius: 11px;
+        color: #152644;
+        background: rgba(255,255,255,.92);
+        font-size: 18px;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-theme-toggle:hover {
+        border-color: rgba(40,116,240,.42);
+        color: #2874f0;
+        background: rgba(40,116,240,.08);
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-theme-toggle {
+        border-color: #55595d;
+        color: #f1f1ed;
+        background: rgba(47,49,50,.94);
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-theme-toggle:hover {
+        border-color: rgba(240,184,47,.55);
+        color: #f0b82f;
+        background: rgba(240,184,47,.10);
+      }
+
+      /* En escritorio la navegación superior ya contiene Progreso, Opciones y Tema. */
+      html.app-entry:not(.standalone-app) body[data-screen="setup"] #themeToggle,
+      html.app-entry:not(.standalone-app) body[data-screen="setup"] #openSettings,
+      html.app-entry:not(.standalone-app) body[data-screen="setup"] #headerOptionsButton {
+        display: none !important;
+      }
+    }
+
+
+    /* Navegación web: borde a borde, estado activo y modales coordinados */
+    @media (min-width: 621px) {
+      html.app-entry:not(.standalone-app) body.app-mode {
+        display: block;
+        padding: 0 !important;
+        min-height: 100vh;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        width: 100%;
+        margin: 0;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-inner {
+        width: min(calc(100% - 42px), 1240px);
+      }
+
+      html.app-entry:not(.standalone-app) body.app-mode > .app {
+        margin: 54px auto 28px;
+      }
+
+      /* Los popups ya no quedan escondidos detrás de la navegación.
+         La barra sigue visible para poder cambiar de sección. */
+      html.app-entry:not(.standalone-app) .modal-backdrop {
+        top: 68px;
+        z-index: 180;
+        height: calc(100vh - 68px);
+        padding-top: 18px;
+      }
+
+      html.app-entry:not(.standalone-app) .modal {
+        max-height: calc(100vh - 104px);
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-link.active {
+        color: #2874f0;
+      }
+
+      html.app-entry:not(.standalone-app) .app-nav-link.active::after {
+        transform: scaleX(1);
+      }
+
+      html[data-theme="dark"].app-entry:not(.standalone-app) .app-nav-link.active {
+        color: #f0b82f;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -8379,11 +8593,24 @@
   </div>
 
   <nav id="appNav" class="app-nav" aria-label="Navegación de MULTI10">
-    <button id="appNavHome" type="button">Inicio</button>
-    <button id="appNavPractice" class="active" type="button">Practicar</button>
-    <button id="appNavProfiles" type="button">Perfiles</button>
-    <button id="appNavProgress" type="button">Progreso</button>
-    <button id="appNavOptions" type="button">Opciones</button>
+    <div class="app-nav-inner">
+      <button id="appNavBrandHome" class="app-nav-brand" type="button" aria-label="Volver al inicio">
+        <span class="app-nav-brand-mark">〃</span>
+        <span>MULTI<strong>10</strong></span>
+      </button>
+
+      <div class="app-nav-links">
+        <button id="appNavHome" class="app-nav-link" type="button">Inicio</button>
+        <button id="appNavPractice" class="app-nav-link active" type="button">Practicar</button>
+        <button id="appNavProfiles" class="app-nav-link" type="button">Perfiles</button>
+        <button id="appNavProgress" class="app-nav-link" type="button">Progreso</button>
+        <button id="appNavOptions" class="app-nav-link" type="button">Opciones</button>
+
+        <button id="appNavThemeToggle" class="app-nav-theme-toggle" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+          <span id="appNavThemeIcon" aria-hidden="true">☾</span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <main class="app" aria-live="polite">
@@ -8471,15 +8698,8 @@
 
         <button id="headerOptionsButton" class="header-options-button" type="button" aria-label="Abrir opciones">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.09a2 2 0 0 1 1 1.74v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
             <circle cx="12" cy="12" r="3"/>
-            <path d="M12 2v3"/>
-            <path d="M12 19v3"/>
-            <path d="m4.93 4.93 2.12 2.12"/>
-            <path d="m16.95 16.95 2.12 2.12"/>
-            <path d="M2 12h3"/>
-            <path d="M19 12h3"/>
-            <path d="m4.93 19.07 2.12-2.12"/>
-            <path d="m16.95 7.05 2.12-2.12"/>
           </svg>
         </button>
 
@@ -12171,11 +12391,14 @@
       const landingThemeToggle = document.getElementById("landingThemeToggle");
       const landingThemeIcon = document.getElementById("landingThemeIcon");
 
+      const appNavBrandHome = document.getElementById("appNavBrandHome");
       const appNavHome = document.getElementById("appNavHome");
       const appNavPractice = document.getElementById("appNavPractice");
       const appNavProfiles = document.getElementById("appNavProfiles");
       const appNavProgress = document.getElementById("appNavProgress");
       const appNavOptions = document.getElementById("appNavOptions");
+      const appNavThemeToggle = document.getElementById("appNavThemeToggle");
+      const appNavThemeIcon = document.getElementById("appNavThemeIcon");
       const headerOptionsButton = document.getElementById("headerOptionsButton");
 
       const optionsBackdrop = document.getElementById("optionsBackdrop");
@@ -12230,6 +12453,7 @@
         }
 
         selectLandingTable(table);
+        setAppNavActive?.("practice");
         window.scrollTo(0, 0);
       }
 
@@ -12256,16 +12480,71 @@
         });
       });
 
-      appNavHome?.addEventListener("click", () => showLanding());
+      const navTopLevelBackdrops = [
+        document.getElementById("profileBackdrop"),
+        document.getElementById("settingsBackdrop"),
+        optionsBackdrop
+      ].filter(Boolean);
 
-      appNavPractice?.addEventListener("click", () => {
-        document.querySelectorAll(".modal-backdrop.open").forEach(modal => {
+      const navNestedBackdrops = [
+        document.getElementById("progressInfoBackdrop"),
+        document.getElementById("exportChoiceBackdrop")
+      ].filter(Boolean);
+
+      const navSectionButtons = {
+        practice: appNavPractice,
+        profiles: appNavProfiles,
+        progress: appNavProgress,
+        options: appNavOptions
+      };
+
+      function setAppNavActive(section = "practice") {
+        Object.entries(navSectionButtons).forEach(([name, button]) => {
+          const active = name === section;
+          button?.classList.toggle("active", active);
+          if (active) button?.setAttribute("aria-current", "page");
+          else button?.removeAttribute("aria-current");
+        });
+      }
+
+      function closeAppNavPanels() {
+        [...navTopLevelBackdrops, ...navNestedBackdrops].forEach(modal => {
           modal.classList.remove("open");
         });
-      });
+      }
 
-      appNavProfiles?.addEventListener("click", () => profileButton?.click());
-      appNavProgress?.addEventListener("click", () => openSettings?.click());
+      function openAppNavSection(section) {
+        closeAppNavPanels();
+
+        if (section === "practice") {
+          setAppNavActive("practice");
+          return;
+        }
+
+        if (section === "profiles") {
+          setAppNavActive("profiles");
+          profileButton?.click();
+          return;
+        }
+
+        if (section === "progress") {
+          setAppNavActive("progress");
+          openSettings?.click();
+          return;
+        }
+
+        if (section === "options") {
+          setAppNavActive("options");
+          openOptions();
+        }
+      }
+
+      appNavBrandHome?.addEventListener("click", () => showLanding());
+      appNavHome?.addEventListener("click", () => showLanding());
+      appNavPractice?.addEventListener("click", () => openAppNavSection("practice"));
+      appNavProfiles?.addEventListener("click", () => openAppNavSection("profiles"));
+      appNavProgress?.addEventListener("click", () => openAppNavSection("progress"));
+      appNavOptions?.addEventListener("click", () => openAppNavSection("options"));
 
       function openOptions() {
         syncOptionsUI();
@@ -12276,8 +12555,10 @@
         optionsBackdrop?.classList.remove("open");
       }
 
-      appNavOptions?.addEventListener("click", openOptions);
-      headerOptionsButton?.addEventListener("click", openOptions);
+      headerOptionsButton?.addEventListener("click", () => {
+        closeAppNavPanels();
+        openOptions();
+      });
       closeOptions?.addEventListener("click", closeOptionsModal);
       optionsBackdrop?.addEventListener("click", event => {
         if (event.target === optionsBackdrop) closeOptionsModal();
@@ -12337,6 +12618,15 @@
           landingThemeToggle.setAttribute("aria-label", label);
           landingThemeToggle.title = label;
         }
+
+        if (appNavThemeIcon) {
+          appNavThemeIcon.textContent = theme === "dark" ? "☀" : "☾";
+        }
+        if (appNavThemeToggle) {
+          const label = theme === "dark" ? "Cambiar a modo claro" : "Cambiar a modo oscuro";
+          appNavThemeToggle.setAttribute("aria-label", label);
+          appNavThemeToggle.title = label;
+        }
       }
 
       function syncOptionsUI() {
@@ -12356,9 +12646,36 @@
         setTheme(current === "dark" ? "light" : "dark");
       });
 
+      appNavThemeToggle?.addEventListener("click", () => {
+        const current = document.documentElement.dataset.theme || "light";
+        setTheme(current === "dark" ? "light" : "dark");
+      });
+
       new MutationObserver(syncThemeButtons).observe(document.documentElement, {
         attributes: true,
         attributeFilter: ["data-theme"]
+      });
+
+      const syncAppNavFromPanels = () => {
+        const profileBackdrop = document.getElementById("profileBackdrop");
+        const settingsBackdrop = document.getElementById("settingsBackdrop");
+
+        if (optionsBackdrop?.classList.contains("open")) {
+          setAppNavActive("options");
+        } else if (settingsBackdrop?.classList.contains("open")) {
+          setAppNavActive("progress");
+        } else if (profileBackdrop?.classList.contains("open")) {
+          setAppNavActive("profiles");
+        } else {
+          setAppNavActive("practice");
+        }
+      };
+
+      navTopLevelBackdrops.forEach(backdrop => {
+        new MutationObserver(syncAppNavFromPanels).observe(backdrop, {
+          attributes: true,
+          attributeFilter: ["class"]
+        });
       });
 
       window.addEventListener("popstate", () => {
