@@ -10234,8 +10234,8 @@
         </button>
       </div>
 
-      <p class="profile-description">
-        Cada niño tiene su propio progreso guardado en este navegador.
+      <p id="profileDescription" class="profile-description">
+        Cada niño tiene su propio perfil y progreso.
       </p>
 
       <div id="profileList" class="profile-list"></div>
@@ -10255,8 +10255,8 @@
           <button id="addProfileButton" class="profile-add-button" type="button">Añadir perfil</button>
         </div>
         <div class="profile-manager-footer">
-          <span>Los nombres y el progreso permanecen en este navegador.</span>
-          <span id="profileLimitText">1 / 5 perfiles</span>
+          <span id="profileStorageNote">Los perfiles se administran desde MULTI10.</span>
+          <span id="profileLimitText">1 / 10 perfiles</span>
         </div>
       </div>
     </div>
@@ -10743,6 +10743,8 @@
         profileBackdrop: document.getElementById("profileBackdrop"),
         closeProfiles: document.getElementById("closeProfiles"),
         profileList: document.getElementById("profileList"),
+        profileDescription: document.getElementById("profileDescription"),
+        profileStorageNote: document.getElementById("profileStorageNote"),
         profileNewName: document.getElementById("profileNewName"),
         addProfileButton: document.getElementById("addProfileButton"),
         profileLimitText: document.getElementById("profileLimitText"),
@@ -11635,6 +11637,18 @@
       }
 
       function renderDataTransferView() {
+        const cloudMode = Boolean(getCloudProfileApi());
+
+        if (cloudMode) {
+          els.progressExportSummary.textContent =
+            "Los perfiles de esta cuenta ya se guardan en Supabase. La importación y exportación local quedan desactivadas durante la migración a la nube.";
+          els.progressExportButton.disabled = true;
+          if (els.legacyImportButton) els.legacyImportButton.disabled = true;
+          return;
+        }
+
+        if (els.legacyImportButton) els.legacyImportButton.disabled = false;
+
         const profiles = getProfiles();
         const totalAttempts = profiles.reduce(
           (sum, profile) => sum + readStoredProfileProgress(profile.id).totalAttempts,
@@ -11835,11 +11849,37 @@
         return profiles;
       }
 
+      function getCloudProfileApi() {
+        const api = window.multi10CloudProfiles;
+        return api && typeof api.isReady === "function" && api.isReady()
+          ? api
+          : null;
+      }
+
       function getProfiles() {
+        const cloudApi = getCloudProfileApi();
+        if (cloudApi) {
+          return cloudApi.getProfiles().map(profile => ({
+            id: String(profile.id || ""),
+            name: sanitizeProfileName(profile.display_name || "Perfil"),
+            createdAt: Date.parse(profile.created_at || "") || 0,
+            cloud: true
+          }));
+        }
+
         return ensureProfileSystem();
       }
 
       function getActiveProfileId() {
+        const cloudApi = getCloudProfileApi();
+        if (cloudApi) {
+          const profiles = getProfiles();
+          const activeId = cloudApi.getActiveProfileId();
+          return profiles.some(profile => profile.id === activeId)
+            ? activeId
+            : profiles[0]?.id || "";
+        }
+
         const profiles = ensureProfileSystem();
         const activeId = localStorage.getItem(ACTIVE_PROFILE_KEY);
         return profiles.some(profile => profile.id === activeId)
@@ -11848,7 +11888,7 @@
       }
 
       function getActiveProfile() {
-        const profiles = ensureProfileSystem();
+        const profiles = getProfiles();
         const activeId = getActiveProfileId();
         return profiles.find(profile => profile.id === activeId) || profiles[0];
       }
@@ -11868,14 +11908,7 @@
         );
       }
 
-      function switchProfile(profileId, closeManager = false) {
-        const profiles = getProfiles();
-        if (!profiles.some(profile => profile.id === profileId)) return;
-
-        saveStats();
-        saveHistory();
-        localStorage.setItem(ACTIVE_PROFILE_KEY, profileId);
-
+      function refreshActiveProfileState() {
         state.stats = loadStats();
         state.history = loadHistory();
         state.progressTable = 1;
@@ -11886,11 +11919,32 @@
         renderProgressView();
         renderDataTransferView();
 
+        if (els.profileBackdrop.classList.contains("open")) {
+          renderProfileManager();
+        }
+      }
+
+      function switchProfile(profileId, closeManager = false) {
+        const profiles = getProfiles();
+        if (!profiles.some(profile => profile.id === profileId)) return;
+
+        saveStats();
+        saveHistory();
+
+        const cloudApi = getCloudProfileApi();
+        if (cloudApi) {
+          cloudApi.setActiveProfileId(profileId);
+        } else {
+          localStorage.setItem(ACTIVE_PROFILE_KEY, profileId);
+        }
+
+        refreshActiveProfileState();
+
         if (closeManager) closeProfileManager();
         else renderProfileManager();
       }
 
-      function addLocalProfile() {
+      async function addLocalProfile() {
         const profiles = getProfiles();
 
         if (profiles.length >= MAX_PROFILES) return;
@@ -11904,6 +11958,25 @@
         if (profileNameExists(name)) {
           window.alert("Ya existe un perfil con ese nombre.");
           els.profileNewName.focus();
+          return;
+        }
+
+        const cloudApi = getCloudProfileApi();
+        if (cloudApi) {
+          els.addProfileButton.disabled = true;
+          els.profileNewName.disabled = true;
+
+          try {
+            await cloudApi.createProfile(name);
+            els.profileNewName.value = "";
+            refreshActiveProfileState();
+            renderProfileManager();
+          } catch (error) {
+            console.error("No se pudo crear el perfil en Supabase:", error);
+            window.alert(`No se pudo crear el perfil en la nube.\n\n${error?.message || "Inténtalo de nuevo."}`);
+          } finally {
+            renderProfileManager();
+          }
           return;
         }
 
@@ -11922,7 +11995,7 @@
         switchProfile(profile.id, false);
       }
 
-      function renameLocalProfile(profileId) {
+      async function renameLocalProfile(profileId) {
         const profiles = getProfiles();
         const profile = profiles.find(item => item.id === profileId);
         if (!profile) return;
@@ -11938,6 +12011,20 @@
           return;
         }
 
+        const cloudApi = getCloudProfileApi();
+        if (cloudApi) {
+          try {
+            await cloudApi.renameProfile(profileId, name);
+            renderProfileUI();
+            renderProfileManager();
+            renderDataTransferView();
+          } catch (error) {
+            console.error("No se pudo renombrar el perfil en Supabase:", error);
+            window.alert(`No se pudo cambiar el nombre en la nube.\n\n${error?.message || "Inténtalo de nuevo."}`);
+          }
+          return;
+        }
+
         profile.name = name;
         writeProfiles(profiles);
         renderProfileUI();
@@ -11945,7 +12032,7 @@
         renderDataTransferView();
       }
 
-      function deleteLocalProfile(profileId) {
+      async function deleteLocalProfile(profileId) {
         const profiles = getProfiles();
         if (profiles.length <= 1) {
           window.alert("Debe quedar al menos un perfil.");
@@ -11955,10 +12042,27 @@
         const profile = profiles.find(item => item.id === profileId);
         if (!profile) return;
 
+        const cloudApi = getCloudProfileApi();
         const confirmed = window.confirm(
-          `¿Eliminar el perfil "${profile.name}"?\n\nSe borrará solo su progreso guardado en este navegador.`
+          cloudApi
+            ? `¿Eliminar el perfil "${profile.name}"?\n\nTambién se eliminarán de la cuenta sus intentos y progreso asociados.`
+            : `¿Eliminar el perfil "${profile.name}"?\n\nSe borrará solo su progreso guardado en este navegador.`
         );
         if (!confirmed) return;
+
+        if (cloudApi) {
+          try {
+            await cloudApi.deleteProfile(profileId);
+            localStorage.removeItem(profileStatsKey(profileId));
+            localStorage.removeItem(profileHistoryKey(profileId));
+            refreshActiveProfileState();
+            renderProfileManager();
+          } catch (error) {
+            console.error("No se pudo eliminar el perfil en Supabase:", error);
+            window.alert(`No se pudo eliminar el perfil de la nube.\n\n${error?.message || "Inténtalo de nuevo."}`);
+          }
+          return;
+        }
 
         const wasActive = getActiveProfileId() === profileId;
         const remaining = profiles.filter(item => item.id !== profileId);
@@ -11982,6 +12086,7 @@
         renderDataTransferView();
       }
 
+
       function renderProfileUI() {
         const profile = getActiveProfile();
         if (!profile) return;
@@ -11993,7 +12098,20 @@
 
       function renderProfileManager() {
         const profiles = getProfiles();
+        const cloudMode = Boolean(getCloudProfileApi());
         const activeId = getActiveProfileId();
+
+        if (els.profileDescription) {
+          els.profileDescription.textContent = cloudMode
+            ? "Cada niño tiene su propio perfil asociado a esta cuenta MULTI10."
+            : "Cada niño tiene su propio progreso guardado en este navegador.";
+        }
+
+        if (els.profileStorageNote) {
+          els.profileStorageNote.textContent = cloudMode
+            ? "Los perfiles se guardan en tu cuenta y estarán disponibles en otros dispositivos."
+            : "Los nombres y el progreso permanecen en este navegador.";
+        }
         const activeProfile = profiles.find(profile => profile.id === activeId);
         const otherProfiles = profiles.filter(profile => profile.id !== activeId);
 
@@ -12027,12 +12145,12 @@
           if (isActive) {
             const badge = document.createElement("span");
             badge.className = "profile-active-badge";
-            badge.textContent = "Perfil activo";
+            badge.textContent = cloudMode ? "Perfil activo · nube" : "Perfil activo";
             copy.appendChild(badge);
           } else {
             const stateLabel = document.createElement("span");
             stateLabel.className = "profile-row-state";
-            stateLabel.textContent = "Progreso independiente";
+            stateLabel.textContent = cloudMode ? "Guardado en la nube" : "Progreso independiente";
             copy.appendChild(stateLabel);
           }
 
@@ -12122,6 +12240,11 @@
         els.profileBackdrop.classList.remove("open");
         els.profileNewName.value = "";
       }
+
+      window.multi10RefreshProfilesFromCloud = () => {
+        refreshActiveProfileState();
+        renderProfileManager();
+      };
 
       function loadHistory() {
         try {
@@ -14367,7 +14490,7 @@
         accountStatus:$("authAccountStatus"),accountButton:$("authAccountButton"),cloudStatus:$("cloudStatus")
       };
 
-      let mode="login",session=null,profiles=[],attempts=[],pendingEnter=null,bypass=false,syncing=false;
+      let mode="login",session=null,profiles=[],attempts=[],activeProfileId=null,pendingEnter=null,bypass=false,syncing=false,cloudReady=false;
       const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
       const client=window.supabase?.createClient
         ? window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}})
@@ -14375,6 +14498,27 @@
       window.multi10Supabase=client;
 
       const message=(el,text="",type="")=>{if(el){el.className=`auth-message${type?` ${type}`:""}`;el.textContent=text;}};
+      const activeStorageKey=()=>session?.user?.id?`multi10_cloud_active_profile_v1__${session.user.id}`:"";
+      const activeProfile=()=>profiles.find(profile=>profile.id===activeProfileId)||profiles[0]||null;
+
+      function persistActiveProfile(){
+        const key=activeStorageKey();
+        if(!key||!activeProfileId)return;
+        try{localStorage.setItem(key,activeProfileId);}catch{}
+      }
+
+      function resolveActiveProfile(){
+        if(!profiles.length){activeProfileId=null;return;}
+        const key=activeStorageKey();
+        let stored=null;
+        try{stored=key?localStorage.getItem(key):null;}catch{}
+        activeProfileId=profiles.some(profile=>profile.id===stored)?stored:profiles[0].id;
+        persistActiveProfile();
+      }
+
+      function notifyMain(){
+        try{window.multi10RefreshProfilesFromCloud?.();}catch(error){console.error("Actualización de perfiles MULTI10:",error);}
+      }
 
       function setMode(next){
         mode=next==="register"?"register":"login";
@@ -14382,7 +14526,7 @@
         ui.login?.classList.toggle("active",!reg);ui.register?.classList.toggle("active",reg);
         if(ui.submit)ui.submit.textContent=reg?"Crear cuenta":"Iniciar sesión";
         if(ui.pass)ui.pass.autocomplete=reg?"new-password":"current-password";
-        if(ui.help)ui.help.textContent=reg?"Si la confirmación de email está activa, confirma el correo antes de entrar.":"Usa el usuario de prueba creado en Supabase.";
+        if(ui.help)ui.help.textContent=reg?"Si la confirmación de email está activa, confirma el correo antes de entrar.":"Usa tu cuenta MULTI10.";
         message(ui.msg);
       }
 
@@ -14393,13 +14537,13 @@
           profiles.forEach(p=>{
             const row=document.createElement("div");row.className="auth-cloud-item";
             const a=document.createElement("strong");a.textContent=p.display_name||"Perfil";
-            const b=document.createElement("span");b.textContent="perfil nube";
+            const b=document.createElement("span");b.textContent=p.id===activeProfileId?"perfil activo · nube":"perfil nube";
             row.append(a,b);ui.profiles.append(row);
           });
         }
         if(ui.attempts){
           ui.attempts.innerHTML="";
-          if(!attempts.length)ui.attempts.innerHTML='<div class="auth-empty">Todavía no hay intentos visibles.</div>';
+          if(!attempts.length)ui.attempts.innerHTML='<div class="auth-empty">Todavía no hay intentos visibles para el perfil activo.</div>';
           attempts.slice(0,5).forEach(x=>{
             const row=document.createElement("div");row.className="auth-cloud-item";
             const a=document.createElement("strong");a.textContent=`${x.table_number} × ${x.multiplier} → ${x.answer_given}`;
@@ -14412,7 +14556,7 @@
       }
 
       function render(){
-        const user=session?.user||null,p=profiles[0]||null,n=attempts.length;
+        const user=session?.user||null,p=activeProfile(),n=attempts.length;
         if(ui.out)ui.out.hidden=!!user;if(ui.in)ui.in.hidden=!user;
         if(user){
           if(ui.emailShown)ui.emailShown.textContent=user.email||"Cuenta conectada";
@@ -14437,36 +14581,129 @@
         ui.back?.classList.remove("open");pendingEnter=null;
       }
 
+      async function loadAttemptsForActive(){
+        attempts=[];
+        if(!activeProfileId)return;
+        const a=await client.from("attempts")
+          .select("id,profile_id,table_number,multiplier,answer_given,is_correct,is_first_try,response_time_ms,created_at")
+          .eq("profile_id",activeProfileId)
+          .order("created_at",{ascending:false})
+          .limit(50);
+        if(a.error)throw a.error;
+        attempts=a.data||[];
+      }
+
       async function loadCloud(user){
+        cloudReady=false;
         let q=await client.from("profiles").select("id,display_name,created_at").order("created_at",{ascending:true});
         if(q.error)throw q.error;
         profiles=q.data||[];
+
         if(!profiles.length){
-          const c=await client.from("profiles").insert({owner_id:user.id,display_name:"Perfil 1"}).select("id,display_name,created_at").single();
-          if(c.error)throw c.error;profiles=[c.data];
+          const c=await client.from("profiles")
+            .insert({owner_id:user.id,display_name:"Perfil 1"})
+            .select("id,display_name,created_at")
+            .single();
+          if(c.error)throw c.error;
+          profiles=[c.data];
         }
-        attempts=[];
-        if(profiles[0]){
-          const a=await client.from("attempts").select("id,profile_id,table_number,multiplier,answer_given,is_correct,is_first_try,response_time_ms,created_at").eq("profile_id",profiles[0].id).order("created_at",{ascending:false}).limit(50);
-          if(a.error)throw a.error;attempts=a.data||[];
-        }
+
+        resolveActiveProfile();
+        await loadAttemptsForActive();
+        cloudReady=true;
       }
 
       async function sync(next,{show=false}={}){
         if(syncing)return;syncing=true;
         try{
-          session=next||null;profiles=[];attempts=[];
+          session=next||null;profiles=[];attempts=[];activeProfileId=null;cloudReady=false;
           if(session?.user){
             message(ui.cloudMsg,"Cargando datos protegidos por RLS…");
             await loadCloud(session.user);
-            message(ui.cloudMsg,`RLS correcta: ${profiles.length} ${profiles.length===1?"perfil":"perfiles"} y ${attempts.length} ${attempts.length===1?"intento":"intentos"} visibles.`,"success");
+            message(ui.cloudMsg,`RLS correcta: ${profiles.length} ${profiles.length===1?"perfil":"perfiles"} y ${attempts.length} ${attempts.length===1?"intento":"intentos"} visibles para el perfil activo.`,"success");
             if(show)openAuth();
           }else message(ui.cloudMsg);
           render();
+          notifyMain();
         }catch(e){
-          console.error("Supabase:",e);message(ui.cloudMsg,`Sesión iniciada, pero no se pudieron leer los datos: ${e?.message||"error"}`,"error");render();openAuth();
+          console.error("Supabase:",e);message(ui.cloudMsg,`Sesión iniciada, pero no se pudieron leer los datos: ${e?.message||"error"}`,"error");render();notifyMain();openAuth();
         }finally{syncing=false;}
       }
+
+      window.multi10CloudProfiles={
+        isReady:()=>Boolean(client&&session?.user&&cloudReady),
+        isAuthenticated:()=>Boolean(session?.user),
+        getProfiles:()=>profiles.map(profile=>({...profile})),
+        getActiveProfileId:()=>activeProfileId,
+        getActiveProfile:()=>activeProfile()?{...activeProfile()}:null,
+        getAttempts:()=>attempts.map(attempt=>({...attempt})),
+        setActiveProfileId(profileId){
+          if(!profiles.some(profile=>profile.id===profileId))return false;
+          activeProfileId=profileId;
+          persistActiveProfile();
+          attempts=[];
+          render();
+          notifyMain();
+
+          loadAttemptsForActive()
+            .then(()=>{render();notifyMain();})
+            .catch(error=>{
+              console.error("No se pudieron cargar los intentos del perfil:",error);
+              message(ui.cloudMsg,error?.message||"No se pudieron cargar los intentos.","error");
+              render();
+            });
+          return true;
+        },
+        async createProfile(displayName){
+          if(!client||!session?.user)throw new Error("Necesitas iniciar sesión.");
+          const result=await client.from("profiles")
+            .insert({owner_id:session.user.id,display_name:String(displayName||"").trim()})
+            .select("id,display_name,created_at")
+            .single();
+          if(result.error)throw result.error;
+          profiles=[...profiles,result.data];
+          activeProfileId=result.data.id;
+          persistActiveProfile();
+          await loadAttemptsForActive();
+          render();
+          notifyMain();
+          return {...result.data};
+        },
+        async renameProfile(profileId,displayName){
+          if(!client||!session?.user)throw new Error("Necesitas iniciar sesión.");
+          const result=await client.from("profiles")
+            .update({display_name:String(displayName||"").trim()})
+            .eq("id",profileId)
+            .select("id,display_name,created_at")
+            .single();
+          if(result.error)throw result.error;
+          profiles=profiles.map(profile=>profile.id===profileId?result.data:profile);
+          render();
+          notifyMain();
+          return {...result.data};
+        },
+        async deleteProfile(profileId){
+          if(!client||!session?.user)throw new Error("Necesitas iniciar sesión.");
+          if(profiles.length<=1)throw new Error("Debe quedar al menos un perfil.");
+          const result=await client.from("profiles").delete().eq("id",profileId);
+          if(result.error)throw result.error;
+          profiles=profiles.filter(profile=>profile.id!==profileId);
+          if(activeProfileId===profileId){
+            activeProfileId=profiles[0]?.id||null;
+            persistActiveProfile();
+          }
+          await loadAttemptsForActive();
+          render();
+          notifyMain();
+          return true;
+        },
+        async refresh(){
+          if(!session?.user)return;
+          await loadCloud(session.user);
+          render();
+          notifyMain();
+        }
+      };
 
       ui.form?.addEventListener("submit",async e=>{
         e.preventDefault();if(!client){message(ui.msg,"No se pudo cargar Supabase. Comprueba la conexión.","error");return;}
@@ -14525,7 +14762,7 @@
           const r=await client.auth.getSession();if(r.error)throw r.error;
           await sync(r.data?.session||null);
           if(!r.data?.session&&document.documentElement.classList.contains("app-entry"))openAuth();
-        }catch(e){message(ui.msg,e?.message||"No se pudo comprobar la sesión.","error");render();if(document.documentElement.classList.contains("app-entry"))openAuth();}
+        }catch(e){message(ui.msg,e?.message||"No se pudo comprobar la sesión.","error");render();notifyMain();if(document.documentElement.classList.contains("app-entry"))openAuth();}
       })();
 
       setMode("login");render();
