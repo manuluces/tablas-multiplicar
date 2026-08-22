@@ -12246,7 +12246,57 @@
         renderProfileManager();
       };
 
+      function buildCloudProgressSnapshot() {
+        const cloudApi = getCloudProfileApi();
+        if (!cloudApi || typeof cloudApi.getAttempts !== "function") return null;
+
+        const activeProfileId = getActiveProfileId();
+        const orderedAttempts = cloudApi.getAttempts()
+          .filter(attempt =>
+            String(attempt.profile_id || "") === String(activeProfileId) &&
+            attempt.is_first_try === true
+          )
+          .slice()
+          .sort((left, right) => {
+            const leftTime = Date.parse(left.created_at || "") || 0;
+            const rightTime = Date.parse(right.created_at || "") || 0;
+            return leftTime - rightTime;
+          });
+
+        const stats = {};
+        const history = {};
+
+        orderedAttempts.forEach(attempt => {
+          const table = Number.parseInt(attempt.table_number, 10);
+          const multiplier = Number.parseInt(attempt.multiplier, 10);
+          if (
+            !Number.isFinite(table) ||
+            !Number.isFinite(multiplier) ||
+            table < 1 || table > 10 ||
+            multiplier < 1 || multiplier > 10
+          ) return;
+
+          const key = factKey(table, multiplier);
+          const isCorrect = attempt.is_correct === true;
+          const previous = stats[key] || { correct: 0, incorrect: 0 };
+
+          stats[key] = {
+            correct: previous.correct + (isCorrect ? 1 : 0),
+            incorrect: previous.incorrect + (isCorrect ? 0 : 1)
+          };
+
+          const timestamp = Date.parse(attempt.created_at || "") || 0;
+          if (!history[key]) history[key] = [];
+          history[key].push([timestamp, isCorrect ? 1 : 0]);
+        });
+
+        return { stats, history };
+      }
+
       function loadHistory() {
+        const cloudSnapshot = buildCloudProgressSnapshot();
+        if (cloudSnapshot) return cloudSnapshot.history;
+
         try {
           const key = profileHistoryKey(getActiveProfileId());
           const parsed = JSON.parse(localStorage.getItem(key)) || {};
@@ -12257,6 +12307,8 @@
       }
 
       function saveHistory() {
+        if (getCloudProfileApi()) return;
+
         try {
           const key = profileHistoryKey(getActiveProfileId());
           localStorage.setItem(key, JSON.stringify(state.history));
@@ -12284,6 +12336,9 @@
       }
 
       function loadStats() {
+        const cloudSnapshot = buildCloudProgressSnapshot();
+        if (cloudSnapshot) return cloudSnapshot.stats;
+
         try {
           const key = profileStatsKey(getActiveProfileId());
           return JSON.parse(localStorage.getItem(key)) || {};
@@ -12293,6 +12348,8 @@
       }
 
       function saveStats() {
+        if (getCloudProfileApi()) return;
+
         const key = profileStatsKey(getActiveProfileId());
         localStorage.setItem(key, JSON.stringify(state.stats));
       }
@@ -13539,6 +13596,7 @@
         const fact = state.currentFact;
         if (!fact) return;
 
+        state.answerAttemptStartedAt = Date.now();
         els.equation.textContent = `${fact.a} × ${fact.b} =`;
         els.answerInput.value = "";
         els.answerInput.className = "answer-input";
@@ -13677,10 +13735,47 @@
         }, 650);
       }
 
+      function currentAnswerResponseTimeMs() {
+        const startedAt = Number(state.answerAttemptStartedAt) || Date.now();
+        return Math.max(1, Math.round(Date.now() - startedAt));
+      }
+
+      function saveAttemptToCloud({
+        fact,
+        userAnswer,
+        isCorrect,
+        isFirstTry,
+        responseTimeMs
+      }) {
+        const cloudApi = getCloudProfileApi();
+        if (!cloudApi || typeof cloudApi.recordAttempt !== "function") return;
+
+        cloudApi.recordAttempt({
+          profileId: getActiveProfileId(),
+          tableNumber: fact.a,
+          multiplier: fact.b,
+          answerGiven: userAnswer,
+          isCorrect,
+          isFirstTry,
+          responseTimeMs
+        }).catch(error => {
+          console.error("No se pudo guardar el intento en Supabase:", error);
+        });
+      }
+
       function recordFirstAttempt(isCorrect, userAnswer) {
         const fact = state.currentFact;
         const key = factKey(fact.a, fact.b);
         const previous = state.stats[key] || { correct: 0, incorrect: 0 };
+        const responseTimeMs = currentAnswerResponseTimeMs();
+
+        saveAttemptToCloud({
+          fact,
+          userAnswer,
+          isCorrect,
+          isFirstTry: true,
+          responseTimeMs
+        });
 
         recordFactHistory(key, isCorrect);
 
@@ -13702,7 +13797,24 @@
           });
         }
 
+        // Si hubo error, el tiempo de la corrección empieza desde esta respuesta.
+        state.answerAttemptStartedAt = Date.now();
         updateStudyHeader();
+      }
+
+      function recordCorrectionAttempt(isCorrect, userAnswer) {
+        const fact = state.currentFact;
+        const responseTimeMs = currentAnswerResponseTimeMs();
+
+        saveAttemptToCloud({
+          fact,
+          userAnswer,
+          isCorrect,
+          isFirstTry: false,
+          responseTimeMs
+        });
+
+        state.answerAttemptStartedAt = Date.now();
       }
 
       function checkAnswer(rawValue) {
@@ -13745,6 +13857,7 @@
             }, 220);
           }
         } else if (numeric === correctAnswer) {
+          recordCorrectionAttempt(true, numeric);
           playCorrectSound();
           window.multi10Vibrate?.("correct");
           els.answerInput.classList.add("correct");
@@ -13756,6 +13869,7 @@
           animateResult("correct");
           scheduleQuestionCompletion();
         } else {
+          recordCorrectionAttempt(false, numeric);
           playIncorrectSound();
           window.multi10Vibrate?.("incorrect");
           els.answerInput.value = "";
@@ -14584,13 +14698,25 @@
       async function loadAttemptsForActive(){
         attempts=[];
         if(!activeProfileId)return;
-        const a=await client.from("attempts")
-          .select("id,profile_id,table_number,multiplier,answer_given,is_correct,is_first_try,response_time_ms,created_at")
-          .eq("profile_id",activeProfileId)
-          .order("created_at",{ascending:false})
-          .limit(50);
-        if(a.error)throw a.error;
-        attempts=a.data||[];
+
+        const pageSize=1000;
+        let from=0;
+
+        while(true){
+          const a=await client.from("attempts")
+            .select("id,profile_id,table_number,multiplier,answer_given,is_correct,is_first_try,response_time_ms,created_at")
+            .eq("profile_id",activeProfileId)
+            .order("created_at",{ascending:false})
+            .range(from,from+pageSize-1);
+
+          if(a.error)throw a.error;
+
+          const rows=a.data||[];
+          attempts.push(...rows);
+
+          if(rows.length<pageSize)break;
+          from+=pageSize;
+        }
       }
 
       async function loadCloud(user){
@@ -14696,6 +14822,43 @@
           render();
           notifyMain();
           return true;
+        },
+        async recordAttempt({
+          profileId,
+          tableNumber,
+          multiplier,
+          answerGiven,
+          isCorrect,
+          isFirstTry,
+          responseTimeMs
+        }){
+          if(!client||!session?.user)throw new Error("Necesitas iniciar sesión.");
+
+          const targetProfileId=String(profileId||activeProfileId||"");
+          if(!profiles.some(profile=>String(profile.id)===targetProfileId)){
+            throw new Error("El perfil activo no pertenece a esta cuenta.");
+          }
+
+          const payload={
+            profile_id:targetProfileId,
+            table_number:Number.parseInt(tableNumber,10),
+            multiplier:Number.parseInt(multiplier,10),
+            answer_given:Number.parseInt(answerGiven,10),
+            is_correct:Boolean(isCorrect),
+            is_first_try:Boolean(isFirstTry),
+            response_time_ms:Math.max(1,Math.round(Number(responseTimeMs)||1))
+          };
+
+          const result=await client.from("attempts")
+            .insert(payload)
+            .select("id,profile_id,table_number,multiplier,answer_given,is_correct,is_first_try,response_time_ms,created_at")
+            .single();
+
+          if(result.error)throw result.error;
+
+          attempts=[result.data,...attempts];
+          render();
+          return {...result.data};
         },
         async refresh(){
           if(!session?.user)return;
