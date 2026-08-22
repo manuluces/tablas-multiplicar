@@ -9398,6 +9398,67 @@
       }
     }
 
+
+    /* Corrección móvil v0.9.9.4:
+       - estrellas en zona segura superior derecha
+       - barra superior completa
+       - botón salir solo con icono */
+    @media (max-width: 620px) {
+      .study-topbar {
+        gap: 7px;
+      }
+
+      .stats-pills {
+        min-width: 0;
+        flex: 1 1 auto;
+        max-width: calc(100% - 45px);
+      }
+
+      .stat-pill {
+        min-width: 0;
+        flex: 1 1 0;
+        justify-content: center;
+        gap: 4px;
+        padding: 7px 5px;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+
+      .stat-pill .stat-icon {
+        width: 17px;
+        height: 17px;
+      }
+
+      .stat-pill > span:not(.streak-fire-wrap):not(.streak-particles) {
+        min-width: 0;
+      }
+
+      .end-button {
+        width: 38px;
+        height: 36px;
+        flex: 0 0 38px;
+        justify-content: center;
+        padding: 0;
+        gap: 0;
+      }
+
+      .end-button .ic {
+        width: 18px;
+        height: 18px;
+      }
+
+      .end-button-label {
+        display: none;
+      }
+
+      /* En móvil las estrellas se dibujan solo en la franja superior derecha.
+         El JS controla la posición; aquí evitamos que puedan crecer demasiado. */
+      .practice-card .session-sticker {
+        max-width: 24px;
+        max-height: 24px;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -9887,7 +9948,7 @@
             <span id="wrongCount">0</span>
           </span>
         </div>
-        <button id="endButton" class="end-button"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg> Terminar</button>
+        <button id="endButton" class="end-button" aria-label="Terminar sesión"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg><span class="end-button-label">Terminar</span></button>
       </div>
 
       <div class="study-reward-band">
@@ -13047,12 +13108,25 @@
 
         // Zona segura: a la derecha del ejercicio.
         // Permitimos posiciones próximas y solapamiento intencional.
-        // Zona segura definida visualmente:
-        // franja derecha de la hoja, desde la parte superior hasta aprox. 70%.
-        // No invade la ecuación ni el campo de respuesta.
-        const right = 14 + Math.random() * 46;
-        const top = 6 + Math.random() * 62;
-        const size = 19 + Math.random() * 8;
+        // Zona segura distinta según el tamaño de pantalla.
+        // Escritorio: franja derecha amplia.
+        // Móvil: franja estrecha en la esquina superior derecha de la hoja,
+        // antes de la caja de respuesta y del teclado.
+        const isMobileStickerLayout =
+          window.matchMedia("(max-width: 620px)").matches;
+
+        const right = isMobileStickerLayout
+          ? 8 + Math.random() * 14
+          : 14 + Math.random() * 46;
+
+        const top = isMobileStickerLayout
+          ? 7 + Math.random() * 20
+          : 6 + Math.random() * 62;
+
+        const size = isMobileStickerLayout
+          ? 18 + Math.random() * 6
+          : 19 + Math.random() * 8;
+
         const rotation = -18 + Math.random() * 36;
 
         sticker.style.right = `${right.toFixed(1)}px`;
