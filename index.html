@@ -8319,6 +8319,1085 @@
       }
     }
 
+
+    /* Iconos a color para las estadísticas de la sesión */
+    .stat-pill .stat-icon {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+      overflow: visible;
+      filter: drop-shadow(0 1px 1px rgba(25,42,68,.10));
+    }
+
+    html[data-theme="dark"] .stat-pill .stat-icon {
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.24));
+    }
+
+    @media (max-width: 620px) {
+      .stat-pill .stat-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+
+    /* =========================================================
+       TARJETA DE EJERCICIO · ESTILO CUADERNO REFINADO
+       Sin doodles. Más perforaciones y puntos de dígitos sutiles.
+       ========================================================= */
+
+    .practice-card {
+      position: relative;
+      min-height: 390px;
+      padding: 48px 48px 34px 70px;
+      overflow: hidden;
+      border: 1px solid #d2d4d7;
+      border-radius: 26px;
+      background-color: rgba(255,255,255,.95);
+      background-image:
+        radial-gradient(
+          circle at 21px 27px,
+          rgba(96,101,109,.42) 0 4.2px,
+          transparent 4.8px
+        ),
+        linear-gradient(
+          to right,
+          transparent 46px,
+          rgba(218,92,102,.46) 46px,
+          rgba(218,92,102,.46) 48px,
+          transparent 48px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 31px,
+          rgba(72,82,94,.075) 31px,
+          rgba(72,82,94,.075) 32px
+        );
+      background-size:
+        100% 56px,
+        100% 100%,
+        100% 32px;
+      background-position:
+        0 10px,
+        0 0,
+        0 0;
+      background-repeat:
+        repeat-y,
+        no-repeat,
+        repeat;
+      box-shadow:
+        0 16px 34px rgba(36,42,51,.14),
+        inset 0 1px 0 rgba(255,255,255,.78);
+    }
+
+    .practice-card::before,
+    .practice-card::after {
+      content: none !important;
+    }
+
+    .practice-prompt {
+      position: relative;
+      width: fit-content;
+      margin: 0 auto 30px;
+      color: #c58a18;
+      font-family: "Baloo 2", cursive;
+      font-size: 23px;
+      line-height: 1;
+      font-weight: 700;
+      font-style: italic;
+      letter-spacing: .2px;
+      transform: rotate(-1.4deg);
+    }
+
+    .practice-prompt::after {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: -10%;
+      bottom: -7px;
+      height: 5px;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      transform: rotate(-2deg);
+      opacity: .88;
+    }
+
+    .equation {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 34px;
+      font-size: clamp(52px, 9vw, 68px);
+      letter-spacing: 5px;
+      text-shadow: 0 2px 0 rgba(255,255,255,.48);
+    }
+
+    .answer-wrap {
+      position: relative;
+      z-index: 1;
+      gap: 12px;
+    }
+
+    .answer-input {
+      width: 260px;
+      height: 82px;
+      border: 2px solid #c8921e;
+      border-radius: 15px;
+      background: rgba(245,246,247,.96);
+      box-shadow:
+        0 0 0 3px rgba(215,161,31,.10),
+        0 8px 18px rgba(35,35,35,.10),
+        inset 0 1px 0 rgba(255,255,255,.72);
+    }
+
+    .answer-input:focus {
+      border-color: #d7a11f;
+      background: #f6f6f6;
+      box-shadow:
+        0 0 0 4px rgba(215,161,31,.14),
+        0 9px 20px rgba(35,35,35,.12),
+        inset 0 1px 0 rgba(255,255,255,.75);
+    }
+
+    /* Los puntos informan, pero no compiten visualmente con la respuesta. */
+    .digit-dots {
+      gap: 7px;
+      min-height: 8px;
+      opacity: .62;
+    }
+
+    .digit-dot {
+      width: 7px;
+      height: 7px;
+      background: #aeb2b8;
+      box-shadow: none;
+    }
+
+    .digit-dot.filled {
+      background: #8f949b;
+    }
+
+    .digit-dot.correct {
+      background: #55ad69;
+    }
+
+    .digit-dot.incorrect {
+      background: #d86862;
+    }
+
+    html[data-theme="dark"] .practice-card {
+      border-color: #686868;
+      background-color: #484848;
+      background-image:
+        radial-gradient(
+          circle at 21px 27px,
+          rgba(15,15,15,.48) 0 4.2px,
+          transparent 4.8px
+        ),
+        linear-gradient(
+          to right,
+          transparent 46px,
+          rgba(218,104,112,.50) 46px,
+          rgba(218,104,112,.50) 48px,
+          transparent 48px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 31px,
+          rgba(255,255,255,.065) 31px,
+          rgba(255,255,255,.065) 32px
+        );
+      background-size:
+        100% 56px,
+        100% 100%,
+        100% 32px;
+      background-position:
+        0 10px,
+        0 0,
+        0 0;
+      background-repeat:
+        repeat-y,
+        no-repeat,
+        repeat;
+      box-shadow:
+        0 17px 34px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    html[data-theme="dark"] .practice-prompt {
+      color: #e0aa33;
+    }
+
+    html[data-theme="dark"] .equation {
+      text-shadow: 0 2px 0 rgba(0,0,0,.24);
+    }
+
+    html[data-theme="dark"] .answer-input {
+      border-color: #b88a28;
+      background: #353535;
+      color: #fff;
+      box-shadow:
+        0 0 0 3px rgba(225,171,48,.08),
+        0 9px 20px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    html[data-theme="dark"] .answer-input:focus {
+      border-color: #e1ab30;
+      background: #373737;
+      box-shadow:
+        0 0 0 4px rgba(225,171,48,.14),
+        0 10px 22px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.05);
+    }
+
+    html[data-theme="dark"] .digit-dot {
+      background: #7b7b7b;
+    }
+
+    html[data-theme="dark"] .digit-dot.filled {
+      background: #969696;
+    }
+
+    @media (max-width: 620px) {
+      .practice-card {
+        min-height: 0;
+        padding: 36px 24px 14px 54px;
+        border-radius: 22px;
+        background-size:
+          100% 50px,
+          100% 100%,
+          100% 29px;
+        background-position:
+          0 8px,
+          0 0,
+          0 0;
+      }
+
+      .practice-prompt {
+        margin-bottom: 24px;
+        font-size: 19px;
+      }
+
+      body.mobile-keypad-enabled .equation {
+        margin-bottom: 24px;
+      }
+
+      .answer-input {
+        width: min(225px, 88%);
+        height: 72px;
+      }
+
+      .digit-dots {
+        gap: 6px;
+        opacity: .56;
+      }
+
+      .digit-dot {
+        width: 6px;
+        height: 6px;
+      }
+    }
+
+
+    /* Ajuste final de la tarjeta de ejercicio por tema */
+    html:not([data-theme="dark"]) .practice-card {
+      border-color: #d4d7dc;
+      background-color: rgba(255,255,255,.96);
+      background-image:
+        radial-gradient(
+          circle at 21px 27px,
+          rgba(102,110,120,.34) 0 4.2px,
+          transparent 4.8px
+        ),
+        linear-gradient(
+          to right,
+          transparent 46px,
+          rgba(207,94,105,.34) 46px,
+          rgba(207,94,105,.34) 48px,
+          transparent 48px
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 31px,
+          rgba(82,96,116,.085) 31px,
+          rgba(82,96,116,.085) 32px
+        );
+      background-size:
+        100% 56px,
+        100% 100%,
+        100% 32px;
+      background-position:
+        0 10px,
+        0 0,
+        0 0;
+      background-repeat:
+        repeat-y,
+        no-repeat,
+        repeat;
+    }
+
+    html:not([data-theme="dark"]) .practice-prompt {
+      color: #2c79f4;
+    }
+
+    html:not([data-theme="dark"]) .answer-input {
+      border-color: #2c79f4;
+      box-shadow:
+        0 0 0 3px rgba(44,121,244,.08),
+        0 8px 18px rgba(35,35,35,.09),
+        inset 0 1px 0 rgba(255,255,255,.72);
+    }
+
+    html:not([data-theme="dark"]) .answer-input:focus {
+      border-color: #2c79f4;
+      background: #f4f6f9;
+      box-shadow:
+        0 0 0 4px rgba(44,121,244,.14),
+        0 9px 20px rgba(35,35,35,.10),
+        inset 0 1px 0 rgba(255,255,255,.75);
+    }
+
+    html[data-theme="dark"] .practice-prompt {
+      color: #e0aa33;
+    }
+
+
+    /* =========================================================
+       v0.9.9.4 · RECOMPENSAS DE SESIÓN
+       Rachas + stickers + afirmaciones ocasionales
+       ========================================================= */
+
+    .streak-pill {
+      position: relative;
+      overflow: visible;
+      gap: 4px;
+      color: #e77718 !important;
+      background: rgba(255,139,37,.08);
+    }
+
+    .streak-fire-wrap {
+      position: relative;
+      width: 23px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+    }
+
+    .streak-fire {
+      width: 23px;
+      height: 26px;
+      overflow: visible;
+      filter: drop-shadow(0 2px 4px rgba(244,103,32,.28));
+      transform-origin: 50% 80%;
+      animation: streakFireBreath 1.35s ease-in-out infinite;
+    }
+
+    .streak-fire-outer { fill: #f25c2b; }
+    .streak-fire-inner { fill: #ffc43c; }
+
+    .streak-pill strong {
+      min-width: 26px;
+      color: inherit;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .streak-pill.streak-tier-2 .streak-fire {
+      filter:
+        drop-shadow(0 0 4px rgba(255,124,30,.55))
+        drop-shadow(0 2px 6px rgba(244,83,32,.30));
+    }
+
+    .streak-pill.streak-tier-3 .streak-fire {
+      filter:
+        drop-shadow(0 0 6px rgba(255,196,60,.82))
+        drop-shadow(0 0 10px rgba(255,91,38,.45));
+    }
+
+    .streak-pill.streak-tier-3 {
+      color: #d95c12 !important;
+      background: rgba(255,132,28,.13);
+    }
+
+    @keyframes streakFireBreath {
+      0%, 100% { transform: scale(.96) rotate(-1deg); }
+      50% { transform: scale(1.07) rotate(1deg); }
+    }
+
+    @keyframes streakBadgeBump {
+      0% { transform: scale(.88); }
+      45% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
+    .streak-pill.streak-bump {
+      animation: streakBadgeBump .34s ease-out;
+    }
+
+    .streak-particles {
+      position: absolute;
+      left: 50%;
+      top: 48%;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .streak-particle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #ffc43c;
+      box-shadow: 0 0 5px rgba(255,142,35,.72);
+      opacity: 0;
+      animation: streakParticleFly .55s ease-out forwards;
+      animation-delay: var(--delay, 0ms);
+    }
+
+    .streak-particle:nth-child(even) {
+      width: 4px;
+      height: 4px;
+      background: #f25c2b;
+    }
+
+    @keyframes streakParticleFly {
+      0% {
+        opacity: 0;
+        transform: translate(0,0) scale(.35);
+      }
+      20% { opacity: 1; }
+      100% {
+        opacity: 0;
+        transform: translate(var(--px), var(--py)) scale(var(--scale,1));
+      }
+    }
+
+    /* Mensajes breves, fuera del foco principal del ejercicio */
+    .affirmation-bubble {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      z-index: 5;
+      max-width: 145px;
+      color: #2c79f4;
+      font-family: "Baloo 2", cursive;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 800;
+      font-style: italic;
+      text-align: right;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(5px) rotate(-2deg) scale(.94);
+      text-shadow: 0 1px 0 rgba(255,255,255,.55);
+    }
+
+    html[data-theme="dark"] .affirmation-bubble {
+      color: #e1ab30;
+      text-shadow: 0 1px 0 rgba(0,0,0,.22);
+    }
+
+    .affirmation-bubble.show {
+      animation: affirmationFloat .52s ease-out both;
+    }
+
+    @keyframes affirmationFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(7px) rotate(-2deg) scale(.9);
+      }
+      24% {
+        opacity: 1;
+        transform: translateY(0) rotate(-2deg) scale(1.04);
+      }
+      72% { opacity: 1; }
+      100% {
+        opacity: 0;
+        transform: translateY(-6px) rotate(-2deg) scale(1);
+      }
+    }
+
+    /* Stickers de profesor. Se colocan solo en slots seguros del borde/fondo. */
+    .session-sticker-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: none;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    body[data-screen="study"] .session-sticker-layer {
+      display: block;
+    }
+
+    .session-sticker {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border: 3px solid rgba(255,255,255,.92);
+      border-radius: 50%;
+      color: #fff;
+      box-shadow:
+        0 6px 12px rgba(34,42,55,.16),
+        inset 0 1px 0 rgba(255,255,255,.28);
+      transform: rotate(var(--sticker-rotation, 0deg));
+      transform-origin: center;
+      animation: stickerPlaced .42s cubic-bezier(.2,.9,.28,1.35) both;
+    }
+
+    html[data-theme="dark"] .session-sticker {
+      border-color: rgba(240,240,240,.82);
+      box-shadow:
+        0 7px 14px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.18);
+    }
+
+    @keyframes stickerPlaced {
+      0% {
+        opacity: 0;
+        transform: rotate(var(--sticker-rotation,0deg)) scale(.35);
+      }
+      72% {
+        opacity: 1;
+        transform: rotate(var(--sticker-rotation,0deg)) scale(1.08);
+      }
+      100% {
+        opacity: 1;
+        transform: rotate(var(--sticker-rotation,0deg)) scale(1);
+      }
+    }
+
+    .session-sticker-symbol {
+      position: relative;
+      z-index: 1;
+      margin-top: -4px;
+      font-family: "Baloo 2", cursive;
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .session-sticker-label {
+      position: absolute;
+      left: 50%;
+      bottom: 4px;
+      z-index: 2;
+      width: max-content;
+      max-width: 58px;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.96);
+      font-family: "Baloo 2", cursive;
+      font-size: 7px;
+      line-height: 1;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .sticker-star { background: linear-gradient(145deg,#f7c33d,#e29516); }
+    .sticker-check { background: linear-gradient(145deg,#70cf7a,#36a957); }
+    .sticker-smile { background: linear-gradient(145deg,#62a8fa,#347ee2); }
+    .sticker-spark { background: linear-gradient(145deg,#9b82f4,#7153d1); }
+    .sticker-medal { background: linear-gradient(145deg,#f08a4b,#d95c2d); }
+    .sticker-heart { background: linear-gradient(145deg,#ef7d91,#d84f70); }
+
+    /* 14 posiciones; solo 10 stickers pueden estar visibles.
+       Al haber más slots que stickers, los nuevos pueden cambiar de lugar. */
+    .sticker-slot-0  { left: 7px;  top: 145px; }
+    .sticker-slot-1  { right: 7px; top: 150px; }
+    .sticker-slot-2  { left: 5px;  top: 230px; }
+    .sticker-slot-3  { right: 5px; top: 240px; }
+    .sticker-slot-4  { left: 8px;  top: 320px; }
+    .sticker-slot-5  { right: 8px; top: 335px; }
+    .sticker-slot-6  { left: 12px; top: 410px; }
+    .sticker-slot-7  { right: 12px; top: 425px; }
+    .sticker-slot-8  { left: 70px;  bottom: 108px; }
+    .sticker-slot-9  { right: 70px; bottom: 108px; }
+    .sticker-slot-10 { left: 150px; bottom: 57px; }
+    .sticker-slot-11 { right: 150px; bottom: 57px; }
+    .sticker-slot-12 { left: 260px; bottom: 104px; }
+    .sticker-slot-13 { right: 260px; bottom: 48px; }
+
+    @media (max-width: 620px) {
+      .streak-pill {
+        gap: 2px;
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+
+      .streak-fire-wrap,
+      .streak-fire {
+        width: 19px;
+        height: 22px;
+      }
+
+      .streak-pill strong {
+        min-width: 22px;
+        font-size: 11px;
+      }
+
+      .affirmation-bubble {
+        top: 12px;
+        right: 13px;
+        max-width: 110px;
+        font-size: 15px;
+      }
+
+      .session-sticker {
+        width: 34px;
+        height: 34px;
+        border-width: 2px;
+      }
+
+      .session-sticker-symbol {
+        margin-top: -2px;
+        font-size: 18px;
+      }
+
+      .session-sticker-label {
+        bottom: 2px;
+        max-width: 42px;
+        font-size: 5px;
+      }
+
+      /* En móvil se concentran en los bordes para no tapar ejercicio ni teclado. */
+      .sticker-slot-0  { left: 3px;  top: 135px; }
+      .sticker-slot-1  { right: 3px; top: 140px; }
+      .sticker-slot-2  { left: 3px;  top: 195px; }
+      .sticker-slot-3  { right: 3px; top: 200px; }
+      .sticker-slot-4  { left: 3px;  top: 255px; }
+      .sticker-slot-5  { right: 3px; top: 260px; }
+      .sticker-slot-6  { left: 3px;  top: 315px; }
+      .sticker-slot-7  { right: 3px; top: 320px; }
+      .sticker-slot-8  { left: 3px;  top: 375px; }
+      .sticker-slot-9  { right: 3px; top: 380px; }
+      .sticker-slot-10 { left: 3px;  top: 435px; }
+      .sticker-slot-11 { right: 3px; top: 440px; }
+      .sticker-slot-12 { left: 3px;  top: 495px; }
+      .sticker-slot-13 { right: 3px; top: 500px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .streak-fire,
+      .streak-pill.streak-bump,
+      .streak-particle,
+      .affirmation-bubble.show,
+      .session-sticker {
+        animation: none !important;
+      }
+    }
+
+
+    /* Ajuste de recompensas v0.9.9.4 */
+    .study-topbar {
+      margin-bottom: 7px;
+    }
+
+    .study-reward-band {
+      position: relative;
+      z-index: 12;
+      width: 100%;
+      height: 40px;
+      margin: 0 0 11px;
+      pointer-events: none;
+    }
+
+    /* Racha debajo de Terminar, fuera de la barra de estadísticas */
+    .study-reward-band .streak-pill {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 70px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 4px 9px;
+      border: 1px solid rgba(224,145,45,.26);
+      border-radius: 12px;
+      background: rgba(255,255,255,.90);
+      box-shadow: 0 4px 10px rgba(32,38,48,.07);
+      color: #df7118 !important;
+    }
+
+    html[data-theme="dark"] .study-reward-band .streak-pill {
+      border-color: rgba(225,171,48,.34);
+      background: rgba(75,75,75,.92);
+      box-shadow: 0 5px 11px rgba(0,0,0,.18);
+    }
+
+    /* x0: fuego estático y discreto */
+    .streak-pill.streak-zero .streak-fire {
+      animation: none !important;
+      filter: none;
+      opacity: .52;
+      transform: scale(.88);
+    }
+
+    .streak-pill.streak-zero .streak-fire-outer {
+      fill: #a6a6a6;
+    }
+
+    .streak-pill.streak-zero .streak-fire-inner {
+      fill: #c5c5c5;
+    }
+
+    .streak-pill.streak-zero strong {
+      color: var(--muted);
+    }
+
+    /* Desde x1 vuelve a tener fuego y animación normal. */
+    .streak-pill:not(.streak-zero) .streak-fire {
+      opacity: 1;
+    }
+
+    /* Afirmación centrada justo encima de la hoja. */
+    .study-reward-band .affirmation-bubble {
+      top: 7px;
+      left: 50%;
+      right: auto;
+      width: max-content;
+      max-width: 220px;
+      text-align: center;
+      transform: translate(-50%, 5px) rotate(-1deg) scale(.94);
+    }
+
+    .study-reward-band .affirmation-bubble.show {
+      animation: affirmationCenteredFloat .52s ease-out both;
+    }
+
+    @keyframes affirmationCenteredFloat {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 7px) rotate(-1deg) scale(.9);
+      }
+      24% {
+        opacity: 1;
+        transform: translate(-50%, 0) rotate(-1deg) scale(1.04);
+      }
+      72% {
+        opacity: 1;
+        transform: translate(-50%, -1px) rotate(-1deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -7px) rotate(-1deg) scale(1);
+      }
+    }
+
+    /* La hoja baja ligeramente para crear un espacio de recompensas. */
+    .practice-card {
+      margin-top: 0;
+    }
+
+    @media (max-width: 620px) {
+      .study-topbar {
+        margin-bottom: 5px;
+      }
+
+      .study-reward-band {
+        height: 34px;
+        margin-bottom: 8px;
+      }
+
+      .study-reward-band .streak-pill {
+        top: 0;
+        right: 0;
+        min-width: 58px;
+        height: 31px;
+        padding: 3px 7px;
+        border-radius: 10px;
+      }
+
+      .study-reward-band .affirmation-bubble {
+        top: 6px;
+        max-width: 150px;
+        font-size: 15px;
+      }
+    }
+
+
+    /* Ajuste visual: afirmaciones grandes + lluvia de estrellas del profesor */
+
+    .study-reward-band {
+      /* La banda queda reservada principalmente para la racha. */
+      height: 40px;
+    }
+
+    .practice-card {
+      /* Un poco más de espacio arriba para mensaje + "Resuelve". */
+      padding-top: 58px;
+    }
+
+    .practice-card .affirmation-bubble {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      right: auto;
+      z-index: 8;
+      width: max-content;
+      max-width: 78%;
+      color: #2c79f4;
+      font-family: "Baloo 2", cursive;
+      font-size: 27px;
+      line-height: 1;
+      font-weight: 800;
+      font-style: italic;
+      text-align: center;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, 6px) rotate(-1deg) scale(.94);
+      text-shadow: 0 1px 0 rgba(255,255,255,.55);
+    }
+
+    html[data-theme="dark"] .practice-card .affirmation-bubble {
+      color: #e1ab30;
+      text-shadow: 0 1px 0 rgba(0,0,0,.25);
+    }
+
+    .practice-card .affirmation-bubble.show {
+      animation: affirmationOverPrompt .78s ease-out both;
+    }
+
+    @keyframes affirmationOverPrompt {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 7px) rotate(-1deg) scale(.88);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, 0) rotate(-1deg) scale(1.08);
+      }
+      68% {
+        opacity: 1;
+        transform: translate(-50%, -1px) rotate(-1deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -7px) rotate(-1deg) scale(.98);
+      }
+    }
+
+    .practice-prompt {
+      margin-top: 4px;
+    }
+
+    .practice-card .session-sticker-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      display: block;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .practice-card .session-sticker {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 0;
+      color: #f4b82f;
+      background: transparent;
+      box-shadow: none;
+      transform: rotate(var(--sticker-rotation, 0deg));
+      transform-origin: center;
+      animation: stickerStarPlaced .34s cubic-bezier(.2,.9,.28,1.25) both;
+    }
+
+    html[data-theme="dark"] .practice-card .session-sticker {
+      color: #f0bd39;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,.22));
+    }
+
+    html:not([data-theme="dark"]) .practice-card .session-sticker {
+      color: #2c79f4;
+      filter: drop-shadow(0 1px 2px rgba(44,121,244,.18));
+    }
+
+    @keyframes stickerStarPlaced {
+      0% {
+        opacity: 0;
+        transform: rotate(var(--sticker-rotation,0deg)) scale(.2);
+      }
+      75% {
+        opacity: 1;
+        transform: rotate(var(--sticker-rotation,0deg)) scale(1.18);
+      }
+      100% {
+        opacity: 1;
+        transform: rotate(var(--sticker-rotation,0deg)) scale(1);
+      }
+    }
+
+    .practice-card .session-sticker-symbol {
+      margin: 0;
+      font-family: "Baloo 2", cursive;
+      font-size: 1em;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .practice-card .session-sticker-label {
+      display: none;
+    }
+
+    /* Anular las posiciones antiguas por slots */
+    .practice-card .sticker-slot-0,
+    .practice-card .sticker-slot-1,
+    .practice-card .sticker-slot-2,
+    .practice-card .sticker-slot-3,
+    .practice-card .sticker-slot-4,
+    .practice-card .sticker-slot-5,
+    .practice-card .sticker-slot-6,
+    .practice-card .sticker-slot-7,
+    .practice-card .sticker-slot-8,
+    .practice-card .sticker-slot-9,
+    .practice-card .sticker-slot-10,
+    .practice-card .sticker-slot-11,
+    .practice-card .sticker-slot-12,
+    .practice-card .sticker-slot-13 {
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+    }
+
+    @media (max-width: 620px) {
+      .practice-card {
+        padding-top: 48px;
+      }
+
+      .practice-card .affirmation-bubble {
+        top: 10px;
+        max-width: 82%;
+        font-size: 21px;
+      }
+
+      .practice-prompt {
+        margin-top: 2px;
+      }
+    }
+
+
+    /* Estrellas limpias: solo icono sólido, sin caja, sombra ni transparencia */
+    .practice-card .session-sticker {
+      display: grid;
+      place-items: center;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      filter: none !important;
+      opacity: 1 !important;
+      color: #2c79f4;
+      transform: rotate(var(--sticker-rotation, 0deg));
+      pointer-events: none;
+    }
+
+    html[data-theme="dark"] .practice-card .session-sticker {
+      color: #e1ab30;
+      filter: none !important;
+      opacity: 1 !important;
+    }
+
+    .practice-card .session-sticker-star {
+      width: 100%;
+      height: 100%;
+      display: block;
+      fill: currentColor;
+      stroke: none;
+      opacity: 1;
+    }
+
+    .practice-card .session-sticker-symbol,
+    .practice-card .session-sticker-label {
+      display: none !important;
+    }
+
+    @media (max-width: 620px) {
+      /* En móvil mantenemos aún más margen respecto al contenido central. */
+      .practice-card .session-sticker {
+        max-width: 19px;
+        max-height: 19px;
+      }
+    }
+
+
+    /* Ajuste v0.9.9.4 · estrellas + afirmaciones */
+    .practice-card .affirmation-bubble {
+      color: #2aa85d !important;
+      text-shadow:
+        0 0 5px rgba(42,168,93,.28),
+        0 0 11px rgba(42,168,93,.20) !important;
+    }
+
+    html[data-theme="dark"] .practice-card .affirmation-bubble {
+      color: #66d98c !important;
+      text-shadow:
+        0 0 6px rgba(102,217,140,.36),
+        0 0 13px rgba(102,217,140,.24) !important;
+    }
+
+    .practice-card .affirmation-bubble.show {
+      animation: affirmationReadable 1.65s ease-out both !important;
+    }
+
+    @keyframes affirmationReadable {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 7px) rotate(-1deg) scale(.9);
+      }
+      14% {
+        opacity: 1;
+        transform: translate(-50%, 0) rotate(-1deg) scale(1.06);
+      }
+      78% {
+        opacity: 1;
+        transform: translate(-50%, -1px) rotate(-1deg) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -6px) rotate(-1deg) scale(.98);
+      }
+    }
+
+    .practice-card .session-sticker-star {
+      fill: currentColor;
+      stroke: currentColor;
+      stroke-width: 1.15px;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      paint-order: stroke fill;
+    }
+
+    @media (max-width: 620px) {
+      .practice-card .session-sticker {
+        max-width: 23px;
+        max-height: 23px;
+      }
+    }
+
+
+    /* Zona segura de estrellas: franja derecha de la hoja */
+    @media (max-width: 620px) {
+      .practice-card .session-sticker {
+        /* El posicionamiento JS usa right/top; aquí solo preservamos el tamaño. */
+        max-width: 23px;
+        max-height: 23px;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -8327,7 +9406,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
 
-  <meta name="multi10-version" content="v0.9.9.3">
+  <meta name="multi10-version" content="v0.9.9.4">
 </head>
 <body data-screen="landing">
 
@@ -8376,7 +9455,7 @@
             </div>
           </div>
 
-          <div class="site-preview" aria-label="Vista previa de MULTI10">
+          <div class="site-preview" role="img" aria-label="Vista previa de la pantalla de selección de tablas de MULTI10">
             <div class="site-preview-top">
               <div class="site-preview-dots"><span></span><span></span><span></span></div>
               <div class="site-preview-logo">MULTI<strong>10</strong></div>
@@ -8417,7 +9496,7 @@
           <article class="site-benefit">
             <div class="site-benefit-icon">🎯</div>
             <div>
-              <h2>Práctica adaptativa</h2>
+              <h3>Práctica adaptativa</h3>
               <p>La selección de preguntas da más oportunidades a lo que necesita refuerzo.</p>
             </div>
           </article>
@@ -8425,7 +9504,7 @@
           <article class="site-benefit">
             <div class="site-benefit-icon">📈</div>
             <div>
-              <h2>Progreso claro</h2>
+              <h3>Progreso claro</h3>
               <p>Porcentajes, rendimiento y tendencias para entender cómo evoluciona cada multiplicación.</p>
             </div>
           </article>
@@ -8433,7 +9512,7 @@
           <article class="site-benefit">
             <div class="site-benefit-icon">📴</div>
             <div>
-              <h2>También sin conexión</h2>
+              <h3>También sin conexión</h3>
               <p>Instálala como app y continúa practicando incluso cuando no tengas internet.</p>
             </div>
           </article>
@@ -8471,8 +9550,8 @@
           <div class="site-section-kicker">Tablas del 1 al 10</div>
           <h2>Practica la tabla que necesitas hoy</h2>
           <p class="site-section-lead">
-            Puedes trabajar una sola tabla o mezclarlas. Estas entradas dejan preparada la
-            estructura para crear más adelante páginas específicas y útiles para cada tabla.
+            Puedes trabajar una sola tabla o combinar varias en una misma sesión.
+            Elige la que quieras reforzar y empieza a practicar sus multiplicaciones.
           </p>
 
           <div class="site-table-links">
@@ -8769,17 +9848,67 @@
     <section id="studyScreen" class="screen">
       <div class="study-topbar">
         <div class="stats-pills">
-          <span class="stat-pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 12"/></svg> <span id="elapsed">0:00</span></span>
-          <span class="stat-pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> <span id="questionProgress">0/10</span></span>
-          <span class="stat-pill correct"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> <span id="correctCount">0</span></span>
-          <span class="stat-pill wrong"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg> <span id="wrongCount">0</span></span>
+          <span class="stat-pill">
+            <svg class="stat-icon stat-icon-time" viewBox="0 0 32 32" aria-hidden="true">
+              <circle cx="16" cy="18" r="10.2" fill="#eaf3ff" stroke="#2f7de9" stroke-width="2.2"/>
+              <path d="M12.5 4.5h7" fill="none" stroke="#2f7de9" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M16 4.5v3.1" fill="none" stroke="#2f7de9" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="m23.4 8.4 2.3-2.1" fill="none" stroke="#f1b72a" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M16 18V12.2M16 18l4.2 2.4" fill="none" stroke="#f1b72a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="16" cy="18" r="1.6" fill="#f1b72a"/>
+            </svg>
+            <span id="elapsed">0:00</span>
+          </span>
+
+          <span class="stat-pill">
+            <svg class="stat-icon stat-icon-target" viewBox="0 0 32 32" aria-hidden="true">
+              <circle cx="16" cy="16" r="12" fill="#fff7f5" stroke="#e5534b" stroke-width="2.2"/>
+              <circle cx="16" cy="16" r="8.2" fill="#edf5ff" stroke="#4e8ee8" stroke-width="2"/>
+              <circle cx="16" cy="16" r="4.3" fill="#fff2df" stroke="#f0a52f" stroke-width="2"/>
+              <circle cx="16" cy="16" r="1.8" fill="#e5534b"/>
+              <path d="M21.7 10.3 27 5m-2.3.1H27v2.3" fill="none" stroke="#2f7de9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="questionProgress">0/10</span>
+          </span>
+
+          <span class="stat-pill correct">
+            <svg class="stat-icon stat-icon-correct" viewBox="0 0 32 32" aria-hidden="true">
+              <circle cx="16" cy="16" r="11.5" fill="#eaf8ed" stroke="#4eb568" stroke-width="2.2"/>
+              <path d="m10.3 16.2 3.7 3.8 7.8-8.1" fill="none" stroke="#35a853" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span id="correctCount">0</span>
+          </span>
+
+          <span class="stat-pill wrong">
+            <svg class="stat-icon stat-icon-wrong" viewBox="0 0 32 32" aria-hidden="true">
+              <circle cx="16" cy="16" r="11.5" fill="#fff0ef" stroke="#e45b52" stroke-width="2.2"/>
+              <path d="m11.7 11.7 8.6 8.6m0-8.6-8.6 8.6" fill="none" stroke="#d9453d" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            <span id="wrongCount">0</span>
+          </span>
         </div>
         <button id="endButton" class="end-button"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg> Terminar</button>
+      </div>
+
+      <div class="study-reward-band">
+        <span id="streakBadge" class="streak-pill streak-zero" aria-label="Racha de aciertos: x0">
+          <span class="streak-fire-wrap" aria-hidden="true">
+            <svg class="streak-fire" viewBox="0 0 34 38">
+              <path class="streak-fire-outer" d="M18.7 2.2c1.4 6.1-2.8 8.8-4.8 12.1-1.5-2.5-1.6-5.1-.6-7.9C7.2 10.8 4.1 16 4.6 22.1c.6 8 6.5 13.5 13.2 13.5 7.2 0 12.3-5.3 12.3-12.4 0-6.3-3.5-11.4-11.4-21Z"/>
+              <path class="streak-fire-inner" d="M18 17.1c.8 3.4-2 5-2.2 7.3-1.4-1.3-2.1-2.7-2-4.7-2.4 2.2-3.5 4.3-3.1 7 .5 3.3 3.1 5.7 6.6 5.7 3.8 0 6.4-2.8 6.4-6.4 0-3.1-1.8-5.8-5.7-8.9Z"/>
+            </svg>
+            <span id="streakParticles" class="streak-particles"></span>
+          </span>
+          <strong id="streakValue">x0</strong>
+        </span>
       </div>
 
       <div id="practiceCard" class="practice-card">
         <div id="celebrationLayer" class="celebration-layer" aria-hidden="true"></div>
         <div id="resultBurst" class="result-burst" aria-hidden="true"></div>
+        <div id="sessionStickerLayer" class="session-sticker-layer" aria-hidden="true"></div>
+        <div id="affirmationBubble" class="affirmation-bubble" aria-live="polite" aria-atomic="true"></div>
+        <div class="practice-prompt" aria-hidden="true">Resuelve</div>
         <div id="equation" class="equation">1 × 4 =</div>
         <div class="answer-wrap">
           <input
@@ -8820,7 +9949,7 @@
     </section>
 
     <section id="summaryScreen" class="screen">
-      <h1 class="summary-title">Resumen</h1>
+      <h2 class="summary-title">Resumen</h2>
       <p class="summary-subtitle">Así te fue en esta sesión.</p>
 
       <div class="summary-grid">
@@ -8859,7 +9988,7 @@
     </section>
   
   <div class="copyright-notice" aria-label="Derechos de autor">
-    © 2026 Manuel Alejandro Luces · Todos los derechos reservados · v0.9.9.3
+    © 2026 Manuel Alejandro Luces · Todos los derechos reservados · v0.9.9.4
   </div>
 </main>
 
@@ -9394,10 +10523,15 @@
         questionProgress: document.getElementById("questionProgress"),
         correctCount: document.getElementById("correctCount"),
         wrongCount: document.getElementById("wrongCount"),
+        streakBadge: document.getElementById("streakBadge"),
+        streakValue: document.getElementById("streakValue"),
+        streakParticles: document.getElementById("streakParticles"),
+        sessionStickerLayer: document.getElementById("sessionStickerLayer"),
         endButton: document.getElementById("endButton"),
         practiceCard: document.getElementById("practiceCard"),
         celebrationLayer: document.getElementById("celebrationLayer"),
         resultBurst: document.getElementById("resultBurst"),
+        affirmationBubble: document.getElementById("affirmationBubble"),
         equation: document.getElementById("equation"),
         answerInput: document.getElementById("answerInput"),
         digitDots: document.getElementById("digitDots"),
@@ -11729,6 +12863,14 @@
           correct: 0,
           incorrect: 0,
           wrongList: [],
+
+          // Recompensas visuales de esta sesión.
+          streak: 0,
+          bestStreak: 0,
+          stickers: [],
+          lastAffirmationCorrect: 0,
+          lastAffirmationIndex: -1,
+
           startTime: now,
           endTime: null,
 
@@ -11755,6 +12897,7 @@
         state.feedback = "none";
         state.currentFact = pickSessionFact();
 
+        resetSessionRewards();
         updateStudyHeader();
         renderFact();
         showScreen("study");
@@ -11768,6 +12911,218 @@
 
         setTimeout(() => els.answerInput.focus(), 50);
       }
+
+      const AFFIRMATION_PHRASES = [
+        "¡Muy bien!",
+        "¡Genial!",
+        "¡Lo tienes!",
+        "¡Vas muy bien!",
+        "¡Sigue así!",
+        "¡Excelente!",
+        "¡Buen trabajo!"
+      ];
+
+      const STICKER_TYPES = [
+        { cls: "star", symbol: "★", label: "" }
+      ];
+
+      // Estrellas de recompensa de la sesión.
+      // Se acumulan y pueden solaparse, pero se limita a 35 visibles.
+      const STICKER_SLOT_COUNT = 1;
+      const MAX_SESSION_STARS = 35;
+      let affirmationTimer = null;
+
+      function clearStreakParticles() {
+        if (els.streakParticles) els.streakParticles.innerHTML = "";
+      }
+
+      function renderStreakBadge(animate = false) {
+        const streak = state.session?.streak || 0;
+
+        if (!els.streakBadge) return;
+
+        els.streakBadge.hidden = false;
+        els.streakValue.textContent = `x${streak}`;
+        els.streakBadge.setAttribute(
+          "aria-label",
+          `Racha de aciertos: x${streak}`
+        );
+
+        els.streakBadge.classList.remove(
+          "streak-zero",
+          "streak-bump",
+          "streak-tier-1",
+          "streak-tier-2",
+          "streak-tier-3"
+        );
+
+        if (streak === 0) {
+          els.streakBadge.classList.add("streak-zero");
+          clearStreakParticles();
+          return;
+        }
+
+        if (streak >= 10) els.streakBadge.classList.add("streak-tier-3");
+        else if (streak >= 5) els.streakBadge.classList.add("streak-tier-2");
+        else els.streakBadge.classList.add("streak-tier-1");
+
+        if (animate) {
+          void els.streakBadge.offsetWidth;
+          els.streakBadge.classList.add("streak-bump");
+          launchStreakParticles();
+        }
+      }
+
+      function launchStreakParticles() {
+        if (!els.streakParticles) return;
+
+        els.streakParticles.innerHTML = "";
+
+        const particleCount = 7;
+        for (let i = 0; i < particleCount; i += 1) {
+          const particle = document.createElement("span");
+          particle.className = "streak-particle";
+
+          const angle = (-145 + Math.random() * 110) * Math.PI / 180;
+          const distance = 14 + Math.random() * 20;
+          const dx = Math.cos(angle) * distance;
+          const dy = Math.sin(angle) * distance;
+
+          particle.style.setProperty("--px", `${dx.toFixed(1)}px`);
+          particle.style.setProperty("--py", `${dy.toFixed(1)}px`);
+          particle.style.setProperty("--delay", `${Math.round(Math.random() * 80)}ms`);
+          particle.style.setProperty("--scale", (0.65 + Math.random() * 0.55).toFixed(2));
+
+          els.streakParticles.appendChild(particle);
+        }
+
+        setTimeout(clearStreakParticles, 650);
+      }
+
+      function resetStreak() {
+        if (!state.session) return;
+        state.session.streak = 0;
+        renderStreakBadge(false);
+      }
+
+      function showAffirmation() {
+        if (!state.session || !els.affirmationBubble) return;
+
+        // De vez en cuando, nunca en todas las respuestas y con descanso
+        // mínimo de dos aciertos entre mensajes.
+        const correctCount = state.session.correct;
+        const sinceLast = correctCount - state.session.lastAffirmationCorrect;
+
+        if (correctCount < 2 || sinceLast < 2) return;
+        if (Math.random() > 0.34) return;
+
+        let index = Math.floor(Math.random() * AFFIRMATION_PHRASES.length);
+        if (
+          AFFIRMATION_PHRASES.length > 1 &&
+          index === state.session.lastAffirmationIndex
+        ) {
+          index = (index + 1) % AFFIRMATION_PHRASES.length;
+        }
+
+        state.session.lastAffirmationCorrect = correctCount;
+        state.session.lastAffirmationIndex = index;
+
+        clearTimeout(affirmationTimer);
+        els.affirmationBubble.textContent = AFFIRMATION_PHRASES[index];
+        els.affirmationBubble.classList.remove("show");
+        void els.affirmationBubble.offsetWidth;
+        els.affirmationBubble.classList.add("show");
+
+        affirmationTimer = setTimeout(() => {
+          els.affirmationBubble.classList.remove("show");
+        }, 1650);
+      }
+
+      function addSessionSticker() {
+        if (!state.session || !els.sessionStickerLayer) return;
+        if (state.session.stickers.length >= MAX_SESSION_STARS) return;
+
+        const sticker = document.createElement("span");
+        sticker.className = "session-sticker sticker-star";
+
+        // Zona segura: a la derecha del ejercicio.
+        // Permitimos posiciones próximas y solapamiento intencional.
+        // Zona segura definida visualmente:
+        // franja derecha de la hoja, desde la parte superior hasta aprox. 70%.
+        // No invade la ecuación ni el campo de respuesta.
+        const right = 14 + Math.random() * 46;
+        const top = 6 + Math.random() * 62;
+        const size = 19 + Math.random() * 8;
+        const rotation = -18 + Math.random() * 36;
+
+        sticker.style.right = `${right.toFixed(1)}px`;
+        sticker.style.top = `${top.toFixed(1)}%`;
+        sticker.style.width = `${size.toFixed(1)}px`;
+        sticker.style.height = `${size.toFixed(1)}px`;
+        sticker.style.setProperty(
+          "--sticker-rotation",
+          `${rotation.toFixed(1)}deg`
+        );
+
+        sticker.innerHTML = `
+          <svg class="session-sticker-star" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m12 3.2 2.62 5.3 5.86.85-4.24 4.13 1 5.84L12 16.56l-5.24 2.76 1-5.84-4.24-4.13 5.86-.85L12 3.2Z"/>
+          </svg>
+        `;
+
+        els.sessionStickerLayer.appendChild(sticker);
+        state.session.stickers.push({ element: sticker });
+      }
+
+      function resetSessionRewards() {
+        clearTimeout(affirmationTimer);
+        affirmationTimer = null;
+
+        if (els.affirmationBubble) {
+          els.affirmationBubble.textContent = "";
+          els.affirmationBubble.classList.remove("show");
+        }
+
+        if (els.sessionStickerLayer) {
+          els.sessionStickerLayer.innerHTML = "";
+        }
+
+        if (state.session) {
+          state.session.streak = 0;
+          state.session.bestStreak = 0;
+          state.session.stickers = [];
+          state.session.lastAffirmationCorrect = 0;
+          state.session.lastAffirmationIndex = -1;
+        }
+
+        renderStreakBadge(false);
+      }
+
+      function handleCorrectRewards() {
+        if (!state.session) return;
+
+        state.session.streak += 1;
+        state.session.bestStreak = Math.max(
+          state.session.bestStreak,
+          state.session.streak
+        );
+
+        renderStreakBadge(true);
+
+        // Una estrella cada 3 respuestas correctas.
+        // Máximo 35 por sesión.
+        if (state.session.correct > 0 && state.session.correct % 3 === 0) {
+          addSessionSticker();
+        }
+
+        // Las palabras siguen apareciendo solo ocasionalmente.
+        showAffirmation();
+      }
+
+      function handleIncorrectRewards() {
+        resetStreak();
+      }
+
 
       function updateStudyHeader() {
         els.elapsed.textContent = formatTime(state.elapsed);
@@ -11794,6 +13149,13 @@
         els.celebrationLayer.innerHTML = "";
         els.resultBurst.className = "result-burst";
         els.resultBurst.textContent = "";
+
+        clearTimeout(affirmationTimer);
+        affirmationTimer = null;
+        if (els.affirmationBubble) {
+          els.affirmationBubble.classList.remove("show");
+          els.affirmationBubble.textContent = "";
+        }
 
         const digits = String(fact.a * fact.b).length;
         els.answerInput.maxLength = digits;
@@ -11960,6 +13322,7 @@
             els.feedback.className = "feedback correct";
             renderDigitDots(String(correctAnswer).length, String(correctAnswer).length, "correct");
             animateResult("correct");
+            handleCorrectRewards();
             scheduleQuestionCompletion();
           } else {
             playIncorrectSound();
@@ -11973,6 +13336,7 @@
             els.hint.textContent = "Escribe la respuesta correcta para continuar";
             renderDigitDots(String(correctAnswer).length, 0, "incorrect");
             animateResult("incorrect");
+            handleIncorrectRewards();
             setTimeout(() => {
               els.answerInput.classList.remove("incorrect");
               els.answerInput.focus();
@@ -12036,6 +13400,10 @@
           completed_plan: completedPlan ? 1 : 0,
           ...trendAnalytics
         });
+
+        // La racha, stickers y mensajes pertenecen solo a esta sesión.
+        // Al terminar, todo vuelve a cero para la próxima.
+        resetSessionRewards();
 
         renderSummary();
         showScreen("summary");
@@ -12707,7 +14075,7 @@
 
   <script>
     (() => {
-      const APP_VERSION = "v0.9.9.3";
+      const APP_VERSION = "v0.9.9.4";
       let deferredInstallPrompt = null;
       let toastTimer = null;
 
