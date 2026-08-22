@@ -9459,6 +9459,72 @@
       }
     }
 
+
+    /* Ajuste móvil: zona de estrellas + proporciones de la barra superior */
+    @media (max-width: 620px) {
+      .study-topbar {
+        gap: 7px;
+      }
+
+      .stats-pills {
+        height: 38px;
+        min-width: 0;
+        flex: 1 1 auto;
+        max-width: calc(100% - 45px);
+      }
+
+      .stat-pill {
+        height: 100%;
+        min-width: 0;
+        padding: 0 5px;
+        font-size: 11px;
+        line-height: 1;
+      }
+
+      /* Tiempo y progreso usan el espacio sobrante. */
+      .stat-pill:nth-child(1),
+      .stat-pill:nth-child(2) {
+        flex: 1 1 0;
+      }
+
+      /* Aciertos y errores: compactos pero aptos para icono + 3 dígitos. */
+      .stat-pill.correct,
+      .stat-pill.wrong {
+        flex: 0 0 50px;
+        width: 50px;
+        gap: 4px;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
+      .stat-pill .stat-icon {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 16px;
+      }
+
+      .stat-pill.correct > span,
+      .stat-pill.wrong > span {
+        min-width: 20px;
+        text-align: left;
+      }
+
+      .end-button {
+        width: 38px;
+        height: 38px;
+        min-height: 38px;
+        flex: 0 0 38px;
+        padding: 0;
+        justify-content: center;
+        align-self: center;
+      }
+
+      .end-button .ic {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -13116,11 +13182,11 @@
           window.matchMedia("(max-width: 620px)").matches;
 
         const right = isMobileStickerLayout
-          ? 8 + Math.random() * 14
+          ? 6 + Math.random() * 42
           : 14 + Math.random() * 46;
 
         const top = isMobileStickerLayout
-          ? 7 + Math.random() * 20
+          ? 1 + Math.random() * 23
           : 6 + Math.random() * 62;
 
         const size = isMobileStickerLayout
