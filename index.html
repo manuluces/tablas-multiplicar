@@ -9584,6 +9584,40 @@
       }
     }
 
+
+    /* Cuenta MULTI10 · Supabase */
+    .cloud-status{width:fit-content;max-width:360px;margin:10px auto -10px;padding:6px 10px;border:1px solid rgba(40,116,240,.18);border-radius:999px;background:rgba(238,244,255,.92);color:var(--primary);font-size:10px;font-weight:900;text-align:center}
+    html[data-theme="dark"] .cloud-status{border-color:rgba(225,171,48,.34);background:rgba(78,71,53,.92);color:#f0bf4e}
+    .auth-options-card{border-color:rgba(40,116,240,.18)!important}
+    .auth-account-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .auth-account-status{margin:3px 0 0;color:var(--muted);font-size:11px;line-height:1.35;font-weight:700;overflow-wrap:anywhere}
+    .auth-account-button,.auth-primary,.auth-secondary,.auth-danger{min-height:40px;border-radius:11px;padding:9px 14px;font:inherit;font-size:12px;font-weight:900;cursor:pointer}
+    .auth-account-button,.auth-primary{border:0;color:#fff;background:linear-gradient(180deg,#2c79f4,#1762dc)}
+    html[data-theme="dark"] .auth-account-button,html[data-theme="dark"] .auth-primary{color:#2f2818;background:linear-gradient(180deg,#f0bf4e,#d99f21)}
+    .auth-secondary{border:1px solid #dce5f3;color:var(--ink);background:var(--card)}
+    .auth-danger{border:1px solid rgba(239,78,87,.38);color:var(--red);background:var(--red-soft)}
+    .auth-modal{width:min(100%,470px)}
+    .auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:4px 0 18px;padding:4px;border:1px solid #dfe6f1;border-radius:12px;background:#f3f6fb}
+    .auth-tab{min-height:38px;border:0;border-radius:9px;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:900;cursor:pointer}
+    .auth-tab.active{background:#fff;color:var(--primary);box-shadow:0 3px 9px rgba(17,42,87,.08)}
+    html[data-theme="dark"] .auth-tabs{border-color:#555;background:#353535}
+    html[data-theme="dark"] .auth-tab.active{background:#505050;color:#f0bf4e;box-shadow:none}
+    .auth-form{display:grid;gap:12px}
+    .auth-field{display:grid;gap:6px;text-align:left}.auth-field span{font-size:11px;font-weight:900}
+    .auth-field input{width:100%;height:46px;border:1.5px solid #d8e1ef;border-radius:11px;padding:0 13px;background:#fff;color:var(--ink);outline:none;font-size:14px;font-weight:700}
+    html[data-theme="dark"] .auth-field input{border-color:#5b5b5b;background:#3c3c3c;color:#fff}
+    .auth-help,.auth-message{margin:0;color:var(--muted);font-size:10px;line-height:1.4;font-weight:700}.auth-message{min-height:18px;font-size:11px;font-weight:800}
+    .auth-message.error{color:var(--red)}.auth-message.success{color:var(--green)}
+    .auth-connected{margin-bottom:16px;padding:13px 14px;border:1px solid rgba(22,170,104,.22);border-radius:13px;background:var(--green-soft)}
+    html[data-theme="dark"] .auth-connected{background:#3e4a41;border-color:rgba(102,217,140,.28)}
+    .auth-connected small{display:block;color:var(--green);font-size:10px;font-weight:900;text-transform:uppercase}.auth-connected strong{display:block;margin-top:3px;overflow-wrap:anywhere}
+    .auth-cloud-title{margin:12px 0 7px;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase}
+    .auth-cloud-list{display:grid;gap:7px}.auth-cloud-item,.auth-empty{padding:10px 11px;border:1px solid #e1e7ef;border-radius:11px;background:var(--card);font-size:11px;font-weight:800}
+    .auth-cloud-item{display:flex;justify-content:space-between;gap:10px}.auth-cloud-item span{color:var(--muted);font-size:10px;text-align:right}
+    html[data-theme="dark"] .auth-cloud-item,html[data-theme="dark"] .auth-empty{border-color:#575757;background:#464646;color:#fff}
+    .auth-actions{display:flex;gap:8px;margin-top:16px}.auth-actions button{flex:1}
+    @media(max-width:620px){.cloud-status{max-width:240px;font-size:9px;margin-bottom:-5px}.auth-account-row,.auth-cloud-item{align-items:flex-start;flex-direction:column}.auth-account-button{width:100%}.auth-cloud-item span{text-align:left}}
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
@@ -9592,6 +9626,7 @@
   <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <meta name="multi10-version" content="v0.9.9.4">
 </head>
 <body data-screen="landing">
@@ -9970,6 +10005,7 @@
 
         <h2 class="title">Tablas de multiplicar</h2>
         <p class="subtitle">Elige qué tablas quieres practicar hoy.</p>
+        <div id="cloudStatus" class="cloud-status" hidden></div>
       </div>
 
       <div id="tablesGrid" class="tables-grid"></div>
@@ -10527,6 +10563,16 @@
       </div>
 
       <div class="options-grid">
+        <section class="options-card auth-options-card">
+          <div class="auth-account-row">
+            <div>
+              <div class="options-card-title">Cuenta MULTI10</div>
+              <p id="authAccountStatus" class="auth-account-status">Comprobando sesión…</p>
+            </div>
+            <button id="authAccountButton" class="auth-account-button" type="button">Cuenta</button>
+          </div>
+        </section>
+
         <section class="options-card">
           <div class="options-card-title">Sonido</div>
           <p class="options-card-help">Ajusta el volumen de los sonidos de respuesta y de los botones.</p>
@@ -10560,6 +10606,40 @@
             </select>
           </div>
         </section>
+      </div>
+    </div>
+  </div>
+
+  <div id="authBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="modal auth-modal">
+      <div class="modal-header">
+        <div class="modal-title-wrap"><span class="modal-icon" aria-hidden="true">☁</span><span id="authTitle">Cuenta MULTI10</span></div>
+        <button id="authClose" class="close-button" type="button" aria-label="Cerrar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+
+      <div id="authSignedOut">
+        <p class="modal-description" style="margin-left:0">Inicia sesión para conectar MULTI10 con tu progreso guardado en la nube.</p>
+        <div class="auth-tabs">
+          <button id="authLoginTab" class="auth-tab active" type="button">Iniciar sesión</button>
+          <button id="authRegisterTab" class="auth-tab" type="button">Crear cuenta</button>
+        </div>
+        <form id="authForm" class="auth-form">
+          <label class="auth-field"><span>Email</span><input id="authEmail" type="email" autocomplete="email" required placeholder="tu@email.com"></label>
+          <label class="auth-field"><span>Contraseña</span><input id="authPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="••••••••"></label>
+          <p id="authHelp" class="auth-help">Usa el usuario de prueba creado en Supabase.</p>
+          <button id="authSubmit" class="auth-primary" type="submit">Iniciar sesión</button>
+          <p id="authMessage" class="auth-message" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <div id="authSignedIn" hidden>
+        <div class="auth-connected"><small>Conexión con Supabase correcta</small><strong id="authEmailShown"></strong></div>
+        <div class="auth-cloud-title">Perfiles visibles por esta cuenta</div>
+        <div id="authProfiles" class="auth-cloud-list"></div>
+        <div class="auth-cloud-title">Intentos visibles por RLS</div>
+        <div id="authAttempts" class="auth-cloud-list"></div>
+        <p id="authCloudMessage" class="auth-message" aria-live="polite"></p>
+        <div class="auth-actions"><button id="authSignOut" class="auth-danger" type="button">Cerrar sesión</button><button id="authContinue" class="auth-primary" type="button">Continuar</button></div>
       </div>
     </div>
   </div>
@@ -14268,6 +14348,187 @@
       }
 
       syncOptionsUI();
+    })();
+  </script>
+
+
+  <script>
+    (() => {
+      const SUPABASE_URL="https://migupltvdvumpoqpzolj.supabase.co";
+      const SUPABASE_PUBLISHABLE_KEY="sb_publishable_tF3VfBPnaxyQ7oW01-QCLA_PxMTTBUl";
+
+      const $=id=>document.getElementById(id);
+      const ui={
+        back:$("authBackdrop"),close:$("authClose"),out:$("authSignedOut"),in:$("authSignedIn"),
+        login:$("authLoginTab"),register:$("authRegisterTab"),form:$("authForm"),email:$("authEmail"),
+        pass:$("authPassword"),help:$("authHelp"),submit:$("authSubmit"),msg:$("authMessage"),
+        emailShown:$("authEmailShown"),profiles:$("authProfiles"),attempts:$("authAttempts"),
+        cloudMsg:$("authCloudMessage"),signOut:$("authSignOut"),cont:$("authContinue"),
+        accountStatus:$("authAccountStatus"),accountButton:$("authAccountButton"),cloudStatus:$("cloudStatus")
+      };
+
+      let mode="login",session=null,profiles=[],attempts=[],pendingEnter=null,bypass=false,syncing=false;
+      const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+      const client=window.supabase?.createClient
+        ? window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}})
+        : null;
+      window.multi10Supabase=client;
+
+      const message=(el,text="",type="")=>{if(el){el.className=`auth-message${type?` ${type}`:""}`;el.textContent=text;}};
+
+      function setMode(next){
+        mode=next==="register"?"register":"login";
+        const reg=mode==="register";
+        ui.login?.classList.toggle("active",!reg);ui.register?.classList.toggle("active",reg);
+        if(ui.submit)ui.submit.textContent=reg?"Crear cuenta":"Iniciar sesión";
+        if(ui.pass)ui.pass.autocomplete=reg?"new-password":"current-password";
+        if(ui.help)ui.help.textContent=reg?"Si la confirmación de email está activa, confirma el correo antes de entrar.":"Usa el usuario de prueba creado en Supabase.";
+        message(ui.msg);
+      }
+
+      function renderLists(){
+        if(ui.profiles){
+          ui.profiles.innerHTML="";
+          if(!profiles.length)ui.profiles.innerHTML='<div class="auth-empty">No hay perfiles visibles.</div>';
+          profiles.forEach(p=>{
+            const row=document.createElement("div");row.className="auth-cloud-item";
+            const a=document.createElement("strong");a.textContent=p.display_name||"Perfil";
+            const b=document.createElement("span");b.textContent="perfil nube";
+            row.append(a,b);ui.profiles.append(row);
+          });
+        }
+        if(ui.attempts){
+          ui.attempts.innerHTML="";
+          if(!attempts.length)ui.attempts.innerHTML='<div class="auth-empty">Todavía no hay intentos visibles.</div>';
+          attempts.slice(0,5).forEach(x=>{
+            const row=document.createElement("div");row.className="auth-cloud-item";
+            const a=document.createElement("strong");a.textContent=`${x.table_number} × ${x.multiplier} → ${x.answer_given}`;
+            const b=document.createElement("span");
+            const t=Number(x.response_time_ms)>0?` · ${(Number(x.response_time_ms)/1000).toFixed(1)} s`:"";
+            b.textContent=`${x.is_correct?"correcto":"error"}${x.is_first_try?" · 1er intento":""}${t}`;
+            row.append(a,b);ui.attempts.append(row);
+          });
+        }
+      }
+
+      function render(){
+        const user=session?.user||null,p=profiles[0]||null,n=attempts.length;
+        if(ui.out)ui.out.hidden=!!user;if(ui.in)ui.in.hidden=!user;
+        if(user){
+          if(ui.emailShown)ui.emailShown.textContent=user.email||"Cuenta conectada";
+          if(ui.accountStatus)ui.accountStatus.textContent=p?`${user.email} · Perfil nube: ${p.display_name}`:(user.email||"Cuenta conectada");
+          if(ui.accountButton)ui.accountButton.textContent="Ver cuenta";
+          if(ui.cloudStatus){ui.cloudStatus.hidden=false;ui.cloudStatus.textContent=`☁ Nube conectada · ${p?.display_name||"sin perfil"} · ${n} ${n===1?"intento":"intentos"}`;}
+        }else{
+          if(ui.accountStatus)ui.accountStatus.textContent="Inicia sesión para usar el progreso guardado en Supabase.";
+          if(ui.accountButton)ui.accountButton.textContent="Iniciar sesión";
+          if(ui.cloudStatus){ui.cloudStatus.hidden=true;ui.cloudStatus.textContent="";}
+        }
+        renderLists();
+      }
+
+      function openAuth(){document.getElementById("optionsBackdrop")?.classList.remove("open");ui.back?.classList.add("open");render();setTimeout(()=>session?.user?ui.cont?.focus():ui.email?.focus(),50);}
+      function backToLanding(){
+        if(!document.documentElement.classList.contains("app-entry")||standalone())return;
+        const u=new URL(location.href);u.searchParams.delete("app");u.searchParams.delete("table");u.hash="";location.href=`${u.pathname}${u.search}`;
+      }
+      function closeAuth(){
+        if(!session?.user&&document.documentElement.classList.contains("app-entry")){if(!standalone())backToLanding();return;}
+        ui.back?.classList.remove("open");pendingEnter=null;
+      }
+
+      async function loadCloud(user){
+        let q=await client.from("profiles").select("id,display_name,created_at").order("created_at",{ascending:true});
+        if(q.error)throw q.error;
+        profiles=q.data||[];
+        if(!profiles.length){
+          const c=await client.from("profiles").insert({owner_id:user.id,display_name:"Perfil 1"}).select("id,display_name,created_at").single();
+          if(c.error)throw c.error;profiles=[c.data];
+        }
+        attempts=[];
+        if(profiles[0]){
+          const a=await client.from("attempts").select("id,profile_id,table_number,multiplier,answer_given,is_correct,is_first_try,response_time_ms,created_at").eq("profile_id",profiles[0].id).order("created_at",{ascending:false}).limit(50);
+          if(a.error)throw a.error;attempts=a.data||[];
+        }
+      }
+
+      async function sync(next,{show=false}={}){
+        if(syncing)return;syncing=true;
+        try{
+          session=next||null;profiles=[];attempts=[];
+          if(session?.user){
+            message(ui.cloudMsg,"Cargando datos protegidos por RLS…");
+            await loadCloud(session.user);
+            message(ui.cloudMsg,`RLS correcta: ${profiles.length} ${profiles.length===1?"perfil":"perfiles"} y ${attempts.length} ${attempts.length===1?"intento":"intentos"} visibles.`,"success");
+            if(show)openAuth();
+          }else message(ui.cloudMsg);
+          render();
+        }catch(e){
+          console.error("Supabase:",e);message(ui.cloudMsg,`Sesión iniciada, pero no se pudieron leer los datos: ${e?.message||"error"}`,"error");render();openAuth();
+        }finally{syncing=false;}
+      }
+
+      ui.form?.addEventListener("submit",async e=>{
+        e.preventDefault();if(!client){message(ui.msg,"No se pudo cargar Supabase. Comprueba la conexión.","error");return;}
+        const email=ui.email.value.trim(),password=ui.pass.value;if(!email||!password)return;
+        ui.submit.disabled=true;message(ui.msg,mode==="register"?"Creando cuenta…":"Iniciando sesión…");
+        try{
+          if(mode==="register"){
+            const r=await client.auth.signUp({email,password});if(r.error)throw r.error;
+            if(r.data?.session){await sync(r.data.session,{show:true});message(ui.msg);}
+            else{setMode("login");message(ui.msg,"Cuenta creada. Revisa tu correo para confirmar la dirección y después inicia sesión.","success");}
+          }else{
+            const r=await client.auth.signInWithPassword({email,password});if(r.error)throw r.error;
+            await sync(r.data.session,{show:true});message(ui.msg);
+          }
+        }catch(err){message(ui.msg,err?.message||"No se pudo completar el acceso.","error");}
+        finally{ui.submit.disabled=false;}
+      });
+
+      ui.signOut?.addEventListener("click",async()=>{
+        if(!client)return;ui.signOut.disabled=true;
+        try{const r=await client.auth.signOut();if(r.error)throw r.error;await sync(null);setMode("login");message(ui.msg,"Sesión cerrada.","success");openAuth();}
+        catch(e){message(ui.cloudMsg,e?.message||"No se pudo cerrar la sesión.","error");}
+        finally{ui.signOut.disabled=false;}
+      });
+
+      ui.cont?.addEventListener("click",()=>{
+        ui.back?.classList.remove("open");
+        if(pendingEnter){const b=pendingEnter;pendingEnter=null;bypass=true;b.click();bypass=false;}
+      });
+      ui.login?.addEventListener("click",()=>setMode("login"));
+      ui.register?.addEventListener("click",()=>setMode("register"));
+      ui.close?.addEventListener("click",closeAuth);
+      ui.accountButton?.addEventListener("click",openAuth);
+      ui.back?.addEventListener("click",e=>{if(e.target===ui.back&&session?.user)closeAuth();});
+
+      document.addEventListener("click",e=>{
+        const b=e.target.closest?.("[data-enter-app]");
+        if(!b||bypass||session?.user)return;
+        e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();pendingEnter=b;openAuth();
+      },true);
+
+      document.getElementById("startButton")?.addEventListener("click",e=>{
+        if(session?.user)return;e.preventDefault();e.stopImmediatePropagation();openAuth();
+      },true);
+
+      if(!client){
+        if(ui.accountStatus)ui.accountStatus.textContent="Supabase no se pudo cargar. Comprueba la conexión.";
+        message(ui.msg,"No se pudo cargar Supabase. Necesitas conexión para iniciar sesión.","error");
+        if(document.documentElement.classList.contains("app-entry"))openAuth();
+        return;
+      }
+
+      client.auth.onAuthStateChange((_event,s)=>setTimeout(()=>sync(s),0));
+      (async()=>{
+        try{
+          const r=await client.auth.getSession();if(r.error)throw r.error;
+          await sync(r.data?.session||null);
+          if(!r.data?.session&&document.documentElement.classList.contains("app-entry"))openAuth();
+        }catch(e){message(ui.msg,e?.message||"No se pudo comprobar la sesión.","error");render();if(document.documentElement.classList.contains("app-entry"))openAuth();}
+      })();
+
+      setMode("login");render();
     })();
   </script>
 
