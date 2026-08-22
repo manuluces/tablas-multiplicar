@@ -9525,6 +9525,65 @@
       }
     }
 
+
+    /* Barra móvil compacta: vuelve a ocupar solo lo necesario horizontalmente */
+    @media (max-width: 620px) {
+      .study-topbar {
+        justify-content: space-between;
+        gap: 7px;
+      }
+
+      .stats-pills {
+        width: auto;
+        max-width: none;
+        flex: 0 1 auto;
+      }
+
+      .stat-pill {
+        flex: 0 0 auto;
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
+      /* Tiempo */
+      .stat-pill:nth-child(1) {
+        width: 56px;
+        flex: 0 0 56px;
+      }
+
+      /* Progreso */
+      .stat-pill:nth-child(2) {
+        width: 62px;
+        flex: 0 0 62px;
+      }
+
+      /* Aciertos y errores: icono + hasta 3 dígitos */
+      .stat-pill.correct,
+      .stat-pill.wrong {
+        width: 49px;
+        flex: 0 0 49px;
+        gap: 4px;
+      }
+
+      .stat-pill.correct > span,
+      .stat-pill.wrong > span {
+        min-width: 19px;
+        text-align: left;
+      }
+
+      /* Se conservan exactamente los iconos actuales. */
+      .stat-pill .stat-icon {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 16px;
+      }
+
+      .end-button {
+        width: 38px;
+        flex: 0 0 38px;
+      }
+    }
+
 </style>
 
   <link rel="manifest" href="./manifest.webmanifest">
